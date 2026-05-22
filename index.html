@@ -17,6 +17,12 @@
     --rule: #d9cdb5;
     --accent: #7a3b2e;
 
+    /* History era colors */
+    --era-tc: #8b6a47;
+    --era-ww1: #6b6a3a;
+    --era-rt: #b8902a;
+    --era-gd: #6a5e54;
+    --era-ww2: #3e4a5a;
     --era-50s: #c14a3d;
     --era-60e: #2f5a8f;
     --era-60l: #d97a2c;
@@ -31,6 +37,38 @@
     --era-10e: #c97a5a;
     --era-10l: #3aa8a4;
     --era-20e: #4a5d76;
+
+    /* Economics palette */
+    --econ-1: #a85a3a;
+    --econ-2: #6b8e4e;
+    --econ-3: #c8932a;
+    --econ-4: #4a6b8a;
+    --econ-5: #8b5a8e;
+    --econ-6: #4a7a6a;
+
+    /* Math palette */
+    --math-1: #3a6b8e;
+    --math-2: #5e4a8a;
+    --math-3: #2a7a8a;
+    --math-4: #8b4a6a;
+    --math-5: #6a5a3a;
+    --math-6: #4a5a6a;
+
+    /* Science palette */
+    --sci-1: #2a6b5e;
+    --sci-2: #6a4a8e;
+    --sci-3: #b85a3a;
+    --sci-4: #3a5a8e;
+    --sci-5: #7a8a3a;
+    --sci-6: #8e3a5a;
+
+    /* Geography palette */
+    --geo-1: #8b6a3a;
+    --geo-2: #3a7a5a;
+    --geo-3: #c87a3a;
+    --geo-4: #5a7a8e;
+    --geo-5: #6a4a3a;
+    --geo-6: #8a3a3a;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -245,6 +283,35 @@
     line-height: 1.45;
   }
 
+  .subsection {
+    margin-top: 48px;
+    margin-bottom: 18px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--rule);
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+  }
+  .subsection:first-of-type { margin-top: 0; }
+
+  .subsection h2 {
+    font-family: 'Fraunces', Georgia, serif;
+    font-variation-settings: "opsz" 60, "SOFT" 50;
+    font-weight: 500;
+    font-style: italic;
+    font-size: 28px;
+    letter-spacing: -0.015em;
+    color: var(--ink);
+  }
+
+  .subsection .count {
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-fade);
+    font-weight: 500;
+  }
+
   .empty-state {
     text-align: center;
     padding: 88px 24px;
@@ -293,6 +360,7 @@
     .tagline { font-size: 12.5px; }
     .tab { padding: 18px 18px; font-size: 12px; }
     .tab.active::after { left: 18px; right: 18px; }
+    .subsection h2 { font-size: 22px; }
   }
 
   @media (max-width: 420px) {
@@ -307,21 +375,107 @@
   <header class="masthead">
     <div class="kicker">An Interactive Archive</div>
     <h1>Learning <em>Library</em></h1>
-    <p class="lede">A growing collection of interactive explorations across history, science, and the topics that shape how we understand our world.</p>
+    <p class="lede">A growing collection of interactive explorations across history, geography, science, and the topics that shape how we understand our world.</p>
   </header>
 
   <nav class="tabs" role="tablist">
     <button class="tab active" data-tab="history" role="tab">History</button>
+    <button class="tab" data-tab="geography" role="tab">Geography</button>
     <button class="tab" data-tab="economics" role="tab">Economics</button>
     <button class="tab" data-tab="science" role="tab">Science</button>
     <button class="tab" data-tab="math" role="tab">Math</button>
     <button class="tab" data-tab="other" role="tab">Other Topics</button>
   </nav>
 
+  <!-- ============================================================
+       HISTORY
+       ============================================================ -->
   <section id="history" class="panel active" role="tabpanel">
-    <p class="section-intro">Fourteen interactive eras tracing the American century and beyond, from postwar optimism to the algorithmic present.</p>
+    <p class="section-intro">Nineteen interactive eras tracing the American century, from the dawn of the modern age through the algorithmic present.</p>
 
     <div class="grid">
+
+      <a href="turn-of-the-century-america.html" class="card" style="--card-color: var(--era-tc);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="14" y="28" width="10" height="28"/>
+            <rect x="28" y="20" width="10" height="36"/>
+            <rect x="42" y="14" width="10" height="42"/>
+            <path d="M14 28 L14 24 L18 22 L22 24 L22 28"/>
+            <path d="M28 20 L28 16 L32 14 L36 16 L36 20"/>
+            <path d="M42 14 L42 10 L46 8 L50 10 L50 14"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Turn of the Century</h3>
+          <div class="years">1900 to 1913</div>
+          <div class="tagline">Industry, immigration, and a nation transformed</div>
+        </div>
+      </a>
+
+      <a href="world-war-i.html" class="card" style="--card-color: var(--era-ww1);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M16 28 Q32 14 48 28"/>
+            <path d="M16 28 L16 38 Q32 44 48 38 L48 28"/>
+            <line x1="32" y1="14" x2="32" y2="44"/>
+            <path d="M22 50 L42 50"/>
+            <path d="M22 50 L20 56 M42 50 L44 56"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>World War I</h3>
+          <div class="years">1914 to 1918</div>
+          <div class="tagline">The war that broke the old world apart</div>
+        </div>
+      </a>
+
+      <a href="roaring-twenties.html" class="card" style="--card-color: var(--era-rt);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M32 54 L18 30 L32 10 L46 30 Z"/>
+            <line x1="32" y1="10" x2="32" y2="54"/>
+            <line x1="22" y1="24" x2="42" y2="24"/>
+            <line x1="20" y1="34" x2="44" y2="34"/>
+            <line x1="24" y1="44" x2="40" y2="44"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>The Roaring Twenties</h3>
+          <div class="years">1920 to 1929</div>
+          <div class="tagline">Jazz, gin, and the gilded boom</div>
+        </div>
+      </a>
+
+      <a href="great-depression.html" class="card" style="--card-color: var(--era-gd);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M8 14 L20 26 L30 20 L42 38 L56 52"/>
+            <path d="M56 52 L56 42 M56 52 L46 52"/>
+            <line x1="8" y1="56" x2="56" y2="56"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>The Great Depression</h3>
+          <div class="years">1929 to 1939</div>
+          <div class="tagline">When the bottom fell out and the New Deal began</div>
+        </div>
+      </a>
+
+      <a href="world-war-ii.html" class="card" style="--card-color: var(--era-ww2);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 50 L32 14 L46 50 Z"/>
+            <line x1="22" y1="40" x2="42" y2="40"/>
+            <circle cx="32" cy="30" r="4"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>World War II</h3>
+          <div class="years">1939 to 1945</div>
+          <div class="tagline">A global conflict that remade everything</div>
+        </div>
+      </a>
 
       <a href="fabulous-fifties.html" class="card" style="--card-color: var(--era-50s);">
         <div class="card-icon">
@@ -559,43 +713,1177 @@
     </div>
   </section>
 
+  <!-- ============================================================
+       GEOGRAPHY
+       ============================================================ -->
+  <section id="geography" class="panel" role="tabpanel">
+    <p class="section-intro">From the global view down to the state line, geography explorations across the world, the United States, and beyond.</p>
+
+    <div class="subsection"><h2>World &amp; Regions</h2><span class="count">Four modules</span></div>
+    <div class="grid">
+
+      <a href="world-geography.html" class="card" style="--card-color: var(--geo-1);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <circle cx="32" cy="32" r="26"/>
+            <ellipse cx="32" cy="32" rx="26" ry="10"/>
+            <line x1="32" y1="6" x2="32" y2="58"/>
+            <path d="M6 32 Q19 24 32 32 Q45 40 58 32"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>World Geography</h3>
+          <div class="years">The Globe</div>
+          <div class="tagline">Continents, oceans, and the human map</div>
+        </div>
+      </a>
+
+      <a href="us-geography.html" class="card" style="--card-color: var(--geo-6);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M32 8 L36 22 L50 22 L39 30 L43 44 L32 36 L21 44 L25 30 L14 22 L28 22 Z"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>U.S. Geography</h3>
+          <div class="years">Fifty States</div>
+          <div class="tagline">Coast to coast across a continent</div>
+        </div>
+      </a>
+
+      <a href="european-geography.html" class="card" style="--card-color: var(--geo-4);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 18 L22 14 L32 18 L42 14 L50 20 L48 32 L52 42 L44 50 L36 46 L28 50 L20 46 L14 38 L18 28 Z"/>
+            <circle cx="34" cy="30" r="2" fill="currentColor"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>European Geography</h3>
+          <div class="years">The Continent</div>
+          <div class="tagline">Nations, capitals, and ancient borders</div>
+        </div>
+      </a>
+
+      <a href="canada.html" class="card" style="--card-color: var(--geo-6);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M32 8 L34 18 L42 14 L40 24 L50 24 L44 32 L52 38 L42 40 L44 50 L36 46 L32 56 L28 46 L20 50 L22 40 L12 38 L20 32 L14 24 L24 24 L22 14 L30 18 Z"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Canada</h3>
+          <div class="years">Our Northern Neighbor</div>
+          <div class="tagline">Provinces, prairies, and a vast frontier</div>
+        </div>
+      </a>
+
+    </div>
+
+    <div class="subsection"><h2>U.S. Regions</h2><span class="count">Three modules</span></div>
+    <div class="grid">
+
+      <a href="the-northeast.html" class="card" style="--card-color: var(--geo-4);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="28" y="14" width="8" height="38"/>
+            <path d="M22 26 L42 26"/>
+            <path d="M28 14 L24 10 L40 10 L36 14"/>
+            <circle cx="32" cy="20" r="2" fill="currentColor"/>
+            <path d="M14 52 L50 52"/>
+            <path d="M14 52 Q22 56 32 54 Q42 56 50 52"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>The Northeast</h3>
+          <div class="years">Atlantic Region</div>
+          <div class="tagline">Lighthouses, brownstones, and revolution</div>
+        </div>
+      </a>
+
+      <a href="the-southwest.html" class="card" style="--card-color: var(--geo-3);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="50" cy="16" r="6"/>
+            <path d="M50 8 L50 4 M50 28 L50 24 M42 16 L38 16 M62 16 L58 16"/>
+            <path d="M28 56 L28 28 Q28 22 32 22 Q36 22 36 28 L36 36 Q36 32 40 32 Q44 32 44 36 L44 44"/>
+            <path d="M28 38 Q28 32 24 32 Q20 32 20 36 L20 48"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>The Southwest</h3>
+          <div class="years">Desert Region</div>
+          <div class="tagline">Mesas, missions, and wide horizons</div>
+        </div>
+      </a>
+
+      <a href="the-northwest.html" class="card" style="--card-color: var(--geo-2);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M32 8 L40 22 L36 22 L44 36 L38 36 L48 52 L16 52 L26 36 L20 36 L28 22 L24 22 Z"/>
+            <path d="M8 56 L56 56"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>The Northwest</h3>
+          <div class="years">Pacific Region</div>
+          <div class="tagline">Evergreens, mountains, and the open coast</div>
+        </div>
+      </a>
+
+    </div>
+
+    <div class="subsection"><h2>States</h2><span class="count">Eight modules</span></div>
+    <div class="grid">
+
+      <a href="the-carolinas.html" class="card" style="--card-color: var(--geo-6);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M10 22 L30 18 L34 26 L30 32 L12 32 Z"/>
+            <path d="M30 32 L52 30 L54 42 L34 46 L30 40 Z"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>The Carolinas</h3>
+          <div class="years">North &amp; South</div>
+          <div class="tagline">Tobacco roads and tidewater coasts</div>
+        </div>
+      </a>
+
+      <a href="virginia.html" class="card" style="--card-color: var(--geo-4);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="22" y="16" width="20" height="36"/>
+            <line x1="18" y1="20" x2="46" y2="20"/>
+            <line x1="18" y1="48" x2="46" y2="48"/>
+            <circle cx="28" cy="34" r="2" fill="currentColor"/>
+            <circle cx="36" cy="34" r="2" fill="currentColor"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Virginia</h3>
+          <div class="years">The Old Dominion</div>
+          <div class="tagline">Colonial cradle of the American story</div>
+        </div>
+      </a>
+
+      <a href="tennessee.html" class="card" style="--card-color: var(--geo-5);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <ellipse cx="38" cy="42" rx="14" ry="11"/>
+            <path d="M28 36 L18 12 L26 14 L24 8 L32 16"/>
+            <line x1="32" y1="36" x2="40" y2="34"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Tennessee</h3>
+          <div class="years">The Volunteer State</div>
+          <div class="tagline">Country roads and three Grand Divisions</div>
+        </div>
+      </a>
+
+      <a href="kentucky.html" class="card" style="--card-color: var(--geo-1);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 50 L18 28 Q18 22 24 22 L26 16 L32 14 L38 18 L42 14 L44 22 Q50 22 50 32 L50 50"/>
+            <line x1="22" y1="50" x2="22" y2="58"/>
+            <line x1="46" y1="50" x2="46" y2="58"/>
+            <line x1="32" y1="50" x2="32" y2="58"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Kentucky</h3>
+          <div class="years">The Bluegrass State</div>
+          <div class="tagline">Thoroughbreds, bourbon, and bluegrass</div>
+        </div>
+      </a>
+
+      <a href="ohio.html" class="card" style="--card-color: var(--geo-2);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="26" cy="32" r="10"/>
+            <ellipse cx="40" cy="32" rx="6" ry="10"/>
+            <path d="M40 22 Q44 18 48 22"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Ohio</h3>
+          <div class="years">The Buckeye State</div>
+          <div class="tagline">Where the Midwest meets the Great Lakes</div>
+        </div>
+      </a>
+
+      <a href="alabama.html" class="card" style="--card-color: var(--geo-6);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="32" cy="28" r="14"/>
+            <path d="M22 22 Q26 18 32 22 Q38 18 42 22"/>
+            <path d="M20 30 Q24 32 28 30 M36 30 Q40 32 44 30"/>
+            <circle cx="28" cy="30" r="1.5" fill="currentColor"/>
+            <circle cx="36" cy="30" r="1.5" fill="currentColor"/>
+            <path d="M32 42 L32 52"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Alabama</h3>
+          <div class="years">The Heart of Dixie</div>
+          <div class="tagline">Civil rights ground and gulf-side land</div>
+        </div>
+      </a>
+
+      <a href="georgia.html" class="card" style="--card-color: var(--geo-3);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M32 14 Q22 16 18 28 Q16 42 32 50 Q48 42 46 28 Q42 16 32 14 Z"/>
+            <path d="M32 14 Q32 10 36 8"/>
+            <path d="M28 28 Q32 26 36 28" opacity="0.5"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Georgia</h3>
+          <div class="years">The Peach State</div>
+          <div class="tagline">From Atlanta to the Okefenokee</div>
+        </div>
+      </a>
+
+      <a href="florida.html" class="card" style="--card-color: var(--geo-3);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="32" y1="34" x2="32" y2="56"/>
+            <path d="M32 34 Q22 22 12 20 Q22 26 24 32"/>
+            <path d="M32 34 Q42 22 52 20 Q42 26 40 32"/>
+            <path d="M32 34 Q24 16 18 10 Q28 18 30 30"/>
+            <path d="M32 34 Q40 16 46 10 Q36 18 34 30"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Florida</h3>
+          <div class="years">The Sunshine State</div>
+          <div class="tagline">Swamps, beaches, and a peninsula apart</div>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       ECONOMICS
+       ============================================================ -->
   <section id="economics" class="panel" role="tabpanel">
-    <div class="empty-state">
-      <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M8 48 L22 32 L34 40 L56 16"/>
-        <path d="M44 16 L56 16 L56 28"/>
-      </svg>
-      <h2>Economics is <em>coming</em></h2>
-      <p>Markets, money, and the systems that shape them. Modules will appear here as they are added to the library.</p>
+    <p class="section-intro">Eighteen modules exploring how people produce, trade, and live within the systems that shape modern economies.</p>
+
+    <div class="subsection"><h2>Foundations</h2><span class="count">Two modules</span></div>
+    <div class="grid">
+
+      <a href="intro-to-economics.html" class="card" style="--card-color: var(--econ-1);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M8 54 L24 30 L36 38 L56 14"/>
+            <path d="M8 14 L24 38 L36 30 L56 54"/>
+            <circle cx="30" cy="34" r="3" fill="currentColor"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Intro to Economics</h3>
+          <div class="years">Foundations</div>
+          <div class="tagline">Scarcity, choice, and the basics of the field</div>
+        </div>
+      </a>
+
+      <a href="producers-and-consumers.html" class="card" style="--card-color: var(--econ-2);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="20" cy="22" r="6"/>
+            <path d="M12 42 Q12 30 20 30 Q28 30 28 42 L28 50 L12 50 Z"/>
+            <circle cx="44" cy="22" r="6"/>
+            <path d="M36 42 Q36 30 44 30 Q52 30 52 42 L52 50 L36 50 Z"/>
+            <path d="M30 36 L34 36" stroke-width="2"/>
+            <path d="M32 32 L36 36 L32 40" stroke-width="1.5"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Producers &amp; Consumers</h3>
+          <div class="years">Foundations</div>
+          <div class="tagline">The two sides of every market exchange</div>
+        </div>
+      </a>
+
+    </div>
+
+    <div class="subsection"><h2>Factors of Production</h2><span class="count">Four modules</span></div>
+    <div class="grid">
+
+      <a href="human-capital.html" class="card" style="--card-color: var(--econ-4);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="32" cy="20" r="7"/>
+            <path d="M20 50 Q20 32 32 32 Q44 32 44 50"/>
+            <path d="M48 26 L54 20 L54 14 M54 20 L48 20"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Human Capital</h3>
+          <div class="years">Factors of Production</div>
+          <div class="tagline">Skills, knowledge, and the worth of work</div>
+        </div>
+      </a>
+
+      <a href="capital-goods.html" class="card" style="--card-color: var(--econ-6);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M10 52 L10 28 L20 28 L20 22 L30 22 L30 28 L40 28 L40 18 L54 18 L54 52 Z"/>
+            <path d="M16 52 L16 44 L22 44 L22 52"/>
+            <path d="M34 52 L34 44 L40 44 L40 52"/>
+            <path d="M46 28 L48 22 M46 32 L48 26"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Capital Goods</h3>
+          <div class="years">Factors of Production</div>
+          <div class="tagline">The tools and machines that make more</div>
+        </div>
+      </a>
+
+      <a href="natural-resources.html" class="card" style="--card-color: var(--econ-2);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M32 8 Q22 14 22 26 Q22 36 32 38 Q42 36 42 26 Q42 14 32 8 Z"/>
+            <line x1="32" y1="38" x2="32" y2="56"/>
+            <path d="M26 50 L20 54 M38 50 L44 54"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Natural Resources</h3>
+          <div class="years">Factors of Production</div>
+          <div class="tagline">The land, water, and minerals we draw on</div>
+        </div>
+      </a>
+
+      <a href="entrepreneurship.html" class="card" style="--card-color: var(--econ-3);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M32 8 Q22 12 22 24 Q22 30 26 34 L26 42 L38 42 L38 34 Q42 30 42 24 Q42 12 32 8 Z"/>
+            <line x1="26" y1="46" x2="38" y2="46"/>
+            <line x1="28" y1="50" x2="36" y2="50"/>
+            <path d="M16 14 L20 18 M48 14 L44 18 M10 28 L16 28 M48 28 L54 28"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Entrepreneurship</h3>
+          <div class="years">Factors of Production</div>
+          <div class="tagline">Risk, vision, and the spark of a new venture</div>
+        </div>
+      </a>
+
+    </div>
+
+    <div class="subsection"><h2>Economic Systems</h2><span class="count">Five modules</span></div>
+    <div class="grid">
+
+      <a href="market-systems.html" class="card" style="--card-color: var(--econ-4);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="32" y1="10" x2="32" y2="50"/>
+            <line x1="16" y1="50" x2="48" y2="50"/>
+            <line x1="12" y1="22" x2="32" y2="22"/>
+            <line x1="32" y1="22" x2="52" y2="22"/>
+            <path d="M8 30 L16 22 L24 30 L20 30 L20 36 L12 36 L12 30 Z"/>
+            <path d="M40 30 L48 22 L56 30 L52 30 L52 36 L44 36 L44 30 Z"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Market Systems</h3>
+          <div class="years">Economic Systems</div>
+          <div class="tagline">How societies organize production and trade</div>
+        </div>
+      </a>
+
+      <a href="specialization.html" class="card" style="--card-color: var(--econ-5);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="24" cy="24" r="10"/>
+            <circle cx="24" cy="24" r="4"/>
+            <path d="M24 14 L24 10 M24 38 L24 34 M14 24 L10 24 M38 24 L34 24"/>
+            <circle cx="46" cy="44" r="7"/>
+            <circle cx="46" cy="44" r="3"/>
+            <path d="M46 37 L46 33 M46 51 L46 55 M39 44 L35 44 M53 44 L57 44"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Specialization</h3>
+          <div class="years">Economic Systems</div>
+          <div class="tagline">Why nations make what they make best</div>
+        </div>
+      </a>
+
+      <a href="latin-america-economic-systems.html" class="card" style="--card-color: var(--econ-1);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="32" cy="32" r="10"/>
+            <path d="M32 14 L32 6 M32 58 L32 50 M14 32 L6 32 M58 32 L50 32"/>
+            <path d="M19 19 L13 13 M51 19 L57 13 M19 45 L13 51 M51 45 L57 51"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Latin America</h3>
+          <div class="years">Economic Systems</div>
+          <div class="tagline">From resource booms to modern reforms</div>
+        </div>
+      </a>
+
+      <a href="canada-economic-system.html" class="card" style="--card-color: var(--econ-3);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 50 L20 18 L44 18 L44 50"/>
+            <path d="M20 30 L44 30"/>
+            <rect x="26" y="36" width="6" height="14"/>
+            <rect x="36" y="36" width="6" height="14"/>
+            <rect x="26" y="22" width="4" height="4"/>
+            <rect x="34" y="22" width="4" height="4"/>
+            <path d="M16 18 L48 18 L44 12 L20 12 Z"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Canada's Economy</h3>
+          <div class="years">Economic Systems</div>
+          <div class="tagline">A mixed economy of trade and natural wealth</div>
+        </div>
+      </a>
+
+      <a href="europe-economic-system.html" class="card" style="--card-color: var(--econ-4);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="32" cy="32" r="20"/>
+            <circle cx="32" cy="14" r="1.5" fill="currentColor"/>
+            <circle cx="44" cy="18" r="1.5" fill="currentColor"/>
+            <circle cx="50" cy="28" r="1.5" fill="currentColor"/>
+            <circle cx="50" cy="38" r="1.5" fill="currentColor"/>
+            <circle cx="44" cy="48" r="1.5" fill="currentColor"/>
+            <circle cx="32" cy="52" r="1.5" fill="currentColor"/>
+            <circle cx="20" cy="48" r="1.5" fill="currentColor"/>
+            <circle cx="14" cy="38" r="1.5" fill="currentColor"/>
+            <circle cx="14" cy="28" r="1.5" fill="currentColor"/>
+            <circle cx="20" cy="18" r="1.5" fill="currentColor"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Europe's Economy</h3>
+          <div class="years">Economic Systems</div>
+          <div class="tagline">Industrial pasts and integrated futures</div>
+        </div>
+      </a>
+
+    </div>
+
+    <div class="subsection"><h2>Trade &amp; Global Markets</h2><span class="count">Five modules</span></div>
+    <div class="grid">
+
+      <a href="trade-barriers.html" class="card" style="--card-color: var(--econ-1);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="14" y="14" width="36" height="36"/>
+            <line x1="14" y1="24" x2="50" y2="24"/>
+            <line x1="14" y1="34" x2="50" y2="34"/>
+            <line x1="14" y1="44" x2="50" y2="44"/>
+            <line x1="22" y1="14" x2="22" y2="50"/>
+            <line x1="32" y1="14" x2="32" y2="50"/>
+            <line x1="42" y1="14" x2="42" y2="50"/>
+            <path d="M6 32 L12 28 L12 36 Z" fill="currentColor"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Trade Barriers</h3>
+          <div class="years">Trade &amp; Markets</div>
+          <div class="tagline">Tariffs, quotas, and what they cost</div>
+        </div>
+      </a>
+
+      <a href="currency-exchange.html" class="card" style="--card-color: var(--econ-3);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 22 L50 22"/>
+            <path d="M44 16 L50 22 L44 28"/>
+            <path d="M50 42 L14 42"/>
+            <path d="M20 36 L14 42 L20 48"/>
+            <text x="32" y="20" text-anchor="middle" font-size="10" font-family="serif" fill="currentColor" stroke="none">$</text>
+            <text x="32" y="56" text-anchor="middle" font-size="10" font-family="serif" fill="currentColor" stroke="none">€</text>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Currency Exchange</h3>
+          <div class="years">Trade &amp; Markets</div>
+          <div class="tagline">How money crosses borders and shifts value</div>
+        </div>
+      </a>
+
+      <a href="trade-agreements.html" class="card" style="--card-color: var(--econ-2);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M10 32 L24 28 L32 34 L40 28 L54 32"/>
+            <path d="M24 28 L24 22 L40 22 L40 28"/>
+            <path d="M14 36 L20 40 L20 46 L26 50"/>
+            <path d="M50 36 L44 40 L44 46 L38 50"/>
+            <path d="M26 50 L38 50"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Trade Agreements</h3>
+          <div class="years">Trade &amp; Markets</div>
+          <div class="tagline">Pacts and unions that shape global commerce</div>
+        </div>
+      </a>
+
+      <a href="european-union.html" class="card" style="--card-color: var(--econ-4);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="32" cy="32" r="22"/>
+            <path d="M32 18 L33 22 L37 22 L34 25 L35 29 L32 27 L29 29 L30 25 L27 22 L31 22 Z" fill="currentColor"/>
+            <path d="M44 24 L45 28 L49 28 L46 31 L47 35 L44 33 L41 35 L42 31 L39 28 L43 28 Z" fill="currentColor"/>
+            <path d="M44 40 L45 44 L49 44 L46 47 L47 51" stroke-linejoin="round"/>
+            <path d="M32 46 L33 50" stroke-linejoin="round"/>
+            <path d="M20 40 L19 44" stroke-linejoin="round"/>
+            <path d="M20 24 L21 28 L17 28 L18 31" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>The European Union</h3>
+          <div class="years">Trade &amp; Markets</div>
+          <div class="tagline">Twenty-seven nations, one shared market</div>
+        </div>
+      </a>
+
+      <a href="nafta.html" class="card" style="--card-color: var(--econ-5);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="32" cy="14" r="6"/>
+            <circle cx="16" cy="44" r="6"/>
+            <circle cx="48" cy="44" r="6"/>
+            <path d="M28 18 L20 40"/>
+            <path d="M36 18 L44 40"/>
+            <path d="M22 44 L42 44"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>NAFTA</h3>
+          <div class="years">Trade &amp; Markets</div>
+          <div class="tagline">North America's three-nation trade pact</div>
+        </div>
+      </a>
+
+    </div>
+
+    <div class="subsection"><h2>Personal Finance</h2><span class="count">Two modules</span></div>
+    <div class="grid">
+
+      <a href="credit-loans-interest.html" class="card" style="--card-color: var(--econ-3);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="32" cy="32" r="22"/>
+            <circle cx="24" cy="24" r="3" fill="currentColor"/>
+            <circle cx="40" cy="40" r="3" fill="currentColor"/>
+            <line x1="42" y1="22" x2="22" y2="42"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Credit, Loans, &amp; Interest</h3>
+          <div class="years">Personal Finance</div>
+          <div class="tagline">Borrowing money and the cost of using it</div>
+        </div>
+      </a>
+
+      <a href="living-within-an-income.html" class="card" style="--card-color: var(--econ-2);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 30 Q14 20 28 20 L36 20 Q50 20 50 30 L50 44 Q50 50 44 50 L20 50 Q14 50 14 44 Z"/>
+            <circle cx="42" cy="36" r="2" fill="currentColor"/>
+            <path d="M28 14 Q28 18 30 20 M36 14 Q36 18 34 20"/>
+            <path d="M14 36 L10 36 Q8 38 10 40 L14 40"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Living Within an Income</h3>
+          <div class="years">Personal Finance</div>
+          <div class="tagline">Budgeting, saving, and making it last</div>
+        </div>
+      </a>
+
     </div>
   </section>
 
+  <!-- ============================================================
+       SCIENCE
+       ============================================================ -->
   <section id="science" class="panel" role="tabpanel">
-    <div class="empty-state">
-      <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="32" cy="32" r="6"/>
-        <ellipse cx="32" cy="32" rx="26" ry="10"/>
-        <ellipse cx="32" cy="32" rx="26" ry="10" transform="rotate(60 32 32)"/>
-        <ellipse cx="32" cy="32" rx="26" ry="10" transform="rotate(120 32 32)"/>
-      </svg>
-      <h2>Science is <em>coming</em></h2>
-      <p>From the very small to the vastness of space. Modules will appear here as they are added to the library.</p>
+    <p class="section-intro">Fourteen modules across earth, physical, life, and space science, from the planet's core to the edge of the cosmos.</p>
+
+    <div class="subsection"><h2>Earth Science</h2><span class="count">Five modules</span></div>
+    <div class="grid">
+
+      <a href="earths-layers.html" class="card" style="--card-color: var(--sci-3);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <circle cx="32" cy="32" r="26"/>
+            <circle cx="32" cy="32" r="19"/>
+            <circle cx="32" cy="32" r="12"/>
+            <circle cx="32" cy="32" r="5" fill="currentColor"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Earth's Layers</h3>
+          <div class="years">Earth Science</div>
+          <div class="tagline">Crust, mantle, and the molten core below</div>
+        </div>
+      </a>
+
+      <a href="plate-tectonics.html" class="card" style="--card-color: var(--sci-4);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 36 L26 36 L30 30 L34 36 L58 36"/>
+            <path d="M22 44 L18 44 L20 40"/>
+            <path d="M42 44 L46 44 L44 40"/>
+            <path d="M8 36 L8 50 L56 50 L56 36"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Plate Tectonics</h3>
+          <div class="years">Earth Science</div>
+          <div class="tagline">Drifting continents and shifting crust</div>
+        </div>
+      </a>
+
+      <a href="constructive-destructive-processes.html" class="card" style="--card-color: var(--sci-5);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M8 50 L20 30 L28 40 L40 18 L56 50 Z"/>
+            <path d="M18 50 L20 56 M30 50 L28 56 M42 50 L44 56"/>
+            <circle cx="48" cy="14" r="3"/>
+            <path d="M48 8 L48 6 M48 22 L48 20 M42 14 L40 14 M56 14 L54 14"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Earth Processes</h3>
+          <div class="years">Earth Science</div>
+          <div class="tagline">How mountains rise and weather wears them down</div>
+        </div>
+      </a>
+
+      <a href="rocks-and-minerals.html" class="card" style="--card-color: var(--sci-6);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M32 6 L46 22 L40 50 L24 50 L18 22 Z"/>
+            <path d="M32 6 L24 22 L40 22 Z"/>
+            <line x1="24" y1="22" x2="28" y2="50"/>
+            <line x1="40" y1="22" x2="36" y2="50"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Rocks &amp; Minerals</h3>
+          <div class="years">Earth Science</div>
+          <div class="tagline">Crystals, sediments, and the rock cycle</div>
+        </div>
+      </a>
+
+      <a href="earths-history.html" class="card" style="--card-color: var(--sci-1);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M32 56 Q14 56 14 38 Q14 22 30 22 Q44 22 44 34 Q44 44 34 44 Q26 44 26 36 Q26 30 32 30"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Earth's History</h3>
+          <div class="years">Earth Science</div>
+          <div class="tagline">Four and a half billion years of change</div>
+        </div>
+      </a>
+
+    </div>
+
+    <div class="subsection"><h2>Physical Science</h2><span class="count">Four modules</span></div>
+    <div class="grid">
+
+      <a href="physical-chemical-changes.html" class="card" style="--card-color: var(--sci-2);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="10" y="36" width="14" height="14"/>
+            <path d="M28 43 L36 43 M32 39 L36 43 L32 47"/>
+            <circle cx="48" cy="43" r="7"/>
+            <circle cx="45" cy="40" r="1" fill="currentColor"/>
+            <circle cx="51" cy="44" r="1" fill="currentColor"/>
+            <circle cx="48" cy="46" r="1" fill="currentColor"/>
+            <path d="M14 28 L14 22 M20 28 L20 24"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Physical &amp; Chemical Changes</h3>
+          <div class="years">Physical Science</div>
+          <div class="tagline">When matter shifts form versus identity</div>
+        </div>
+      </a>
+
+      <a href="chemistry.html" class="card" style="--card-color: var(--sci-3);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M24 8 L24 24 L14 50 Q14 56 20 56 L44 56 Q50 56 50 50 L40 24 L40 8 Z"/>
+            <line x1="22" y1="8" x2="42" y2="8"/>
+            <circle cx="28" cy="42" r="2" fill="currentColor"/>
+            <circle cx="36" cy="46" r="1.5" fill="currentColor"/>
+            <circle cx="32" cy="50" r="1" fill="currentColor"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Chemistry &amp; Reactions</h3>
+          <div class="years">Physical Science</div>
+          <div class="tagline">Atoms, bonds, and the language of change</div>
+        </div>
+      </a>
+
+      <a href="electricity.html" class="card" style="--card-color: var(--sci-5);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M36 6 L18 36 L30 36 L24 58 L46 28 L34 28 Z" fill="currentColor" fill-opacity="0.15"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Electricity</h3>
+          <div class="years">Physical Science</div>
+          <div class="tagline">Current, voltage, and the flow of charge</div>
+        </div>
+      </a>
+
+      <a href="magnetism.html" class="card" style="--card-color: var(--sci-4);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M16 10 L16 36 Q16 50 32 50 Q48 50 48 36 L48 10 L38 10 L38 36 Q38 40 32 40 Q26 40 26 36 L26 10 Z"/>
+            <line x1="16" y1="18" x2="26" y2="18"/>
+            <line x1="38" y1="18" x2="48" y2="18"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Magnetism</h3>
+          <div class="years">Physical Science</div>
+          <div class="tagline">Poles, fields, and electromagnetic force</div>
+        </div>
+      </a>
+
+    </div>
+
+    <div class="subsection"><h2>Life Science</h2><span class="count">Two modules</span></div>
+    <div class="grid">
+
+      <a href="classification-of-organisms.html" class="card" style="--card-color: var(--sci-1);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="32" cy="10" r="3"/>
+            <line x1="32" y1="13" x2="32" y2="22"/>
+            <line x1="32" y1="22" x2="18" y2="34"/>
+            <line x1="32" y1="22" x2="46" y2="34"/>
+            <circle cx="18" cy="36" r="3"/>
+            <circle cx="46" cy="36" r="3"/>
+            <line x1="18" y1="39" x2="10" y2="52"/>
+            <line x1="18" y1="39" x2="26" y2="52"/>
+            <line x1="46" y1="39" x2="38" y2="52"/>
+            <line x1="46" y1="39" x2="54" y2="52"/>
+            <circle cx="10" cy="54" r="2.5"/>
+            <circle cx="26" cy="54" r="2.5"/>
+            <circle cx="38" cy="54" r="2.5"/>
+            <circle cx="54" cy="54" r="2.5"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Classification of Organisms</h3>
+          <div class="years">Life Science</div>
+          <div class="tagline">The branching tree of all living things</div>
+        </div>
+      </a>
+
+      <a href="cells-and-microorganisms.html" class="card" style="--card-color: var(--sci-2);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <ellipse cx="32" cy="32" rx="22" ry="18"/>
+            <circle cx="32" cy="32" r="7"/>
+            <circle cx="32" cy="32" r="2.5" fill="currentColor"/>
+            <circle cx="18" cy="26" r="2" fill="currentColor"/>
+            <circle cx="46" cy="38" r="2" fill="currentColor"/>
+            <circle cx="42" cy="22" r="1.5" fill="currentColor"/>
+            <circle cx="22" cy="40" r="1.5" fill="currentColor"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Cells &amp; Microorganisms</h3>
+          <div class="years">Life Science</div>
+          <div class="tagline">The smallest units of life</div>
+        </div>
+      </a>
+
+    </div>
+
+    <div class="subsection"><h2>Space Science</h2><span class="count">Three modules</span></div>
+    <div class="grid">
+
+      <a href="scientific-views-of-universe.html" class="card" style="--card-color: var(--sci-2);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M32 32 Q44 22 50 32 Q52 42 42 44 Q30 44 22 38 Q14 30 22 22 Q30 16 38 22"/>
+            <circle cx="32" cy="32" r="3" fill="currentColor"/>
+            <circle cx="20" cy="20" r="1" fill="currentColor"/>
+            <circle cx="48" cy="48" r="1" fill="currentColor"/>
+            <circle cx="14" cy="44" r="1" fill="currentColor"/>
+            <circle cx="50" cy="14" r="1" fill="currentColor"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Views of the Universe</h3>
+          <div class="years">Space Science</div>
+          <div class="tagline">From ancient models to modern cosmology</div>
+        </div>
+      </a>
+
+      <a href="earth-moon-sun.html" class="card" style="--card-color: var(--sci-3);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="14" cy="32" r="8" fill="currentColor" fill-opacity="0.3"/>
+            <circle cx="34" cy="32" r="6"/>
+            <circle cx="50" cy="32" r="3" fill="currentColor"/>
+            <path d="M14 22 L14 18 M14 46 L14 42 M4 32 L8 32 M20 22 L23 25 M20 42 L23 39"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Earth, Moon, &amp; Sun</h3>
+          <div class="years">Space Science</div>
+          <div class="tagline">Orbits, seasons, eclipses, and tides</div>
+        </div>
+      </a>
+
+      <a href="solar-system.html" class="card" style="--card-color: var(--sci-4);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+            <circle cx="32" cy="32" r="5" fill="currentColor"/>
+            <circle cx="32" cy="32" r="11"/>
+            <circle cx="32" cy="32" r="18"/>
+            <circle cx="32" cy="32" r="25"/>
+            <circle cx="43" cy="32" r="2" fill="currentColor"/>
+            <circle cx="14" cy="32" r="2.5" fill="currentColor"/>
+            <circle cx="48" cy="20" r="2" fill="currentColor"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>The Solar System</h3>
+          <div class="years">Space Science</div>
+          <div class="tagline">Eight planets and the star they orbit</div>
+        </div>
+      </a>
+
     </div>
   </section>
 
+  <!-- ============================================================
+       MATH
+       ============================================================ -->
   <section id="math" class="panel" role="tabpanel">
-    <div class="empty-state">
-      <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M12 20 L52 20"/>
-        <path d="M22 20 L18 52"/>
-        <path d="M40 20 L40 52"/>
-        <path d="M40 36 Q46 30 50 36"/>
-      </svg>
-      <h2>Math is <em>coming</em></h2>
-      <p>Patterns, proofs, and the language of the universe. Modules will appear here as they are added to the library.</p>
+    <p class="section-intro">Sixteen modules building number sense, geometric thinking, and the pre-algebra foundations that prepare students for what comes next.</p>
+
+    <div class="subsection"><h2>Number Sense</h2><span class="count">Three modules</span></div>
+    <div class="grid">
+
+      <a href="powers-of-10.html" class="card" style="--card-color: var(--math-1);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <text x="20" y="44" text-anchor="middle" font-size="28" font-family="serif" font-weight="600" fill="currentColor" stroke="none">10</text>
+            <text x="44" y="28" text-anchor="middle" font-size="18" font-family="serif" font-weight="600" fill="currentColor" stroke="none">n</text>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Powers of 10</h3>
+          <div class="years">Number Sense</div>
+          <div class="tagline">Place value at every scale</div>
+        </div>
+      </a>
+
+      <a href="multiplication-and-division.html" class="card" style="--card-color: var(--math-3);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="14" y1="18" x2="26" y2="30"/>
+            <line x1="26" y1="18" x2="14" y2="30"/>
+            <line x1="38" y1="24" x2="50" y2="24"/>
+            <circle cx="44" cy="40" r="2" fill="currentColor"/>
+            <line x1="38" y1="46" x2="50" y2="46"/>
+            <circle cx="44" cy="52" r="2" fill="currentColor"/>
+            <line x1="14" y1="44" x2="26" y2="44"/>
+            <line x1="20" y1="38" x2="20" y2="50"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Multiplication &amp; Division</h3>
+          <div class="years">Number Sense</div>
+          <div class="tagline">Multi-digit fluency, the long way and the short</div>
+        </div>
+      </a>
+
+      <a href="numerical-expressions.html" class="card" style="--card-color: var(--math-5);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 14 Q12 32 18 50"/>
+            <path d="M46 14 Q52 32 46 50"/>
+            <line x1="24" y1="32" x2="34" y2="32"/>
+            <line x1="29" y1="27" x2="29" y2="37"/>
+            <line x1="37" y1="32" x2="42" y2="32"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Numerical Expressions</h3>
+          <div class="years">Number Sense</div>
+          <div class="tagline">Parentheses, operations, and order</div>
+        </div>
+      </a>
+
+    </div>
+
+    <div class="subsection"><h2>Fractions &amp; Decimals</h2><span class="count">Two modules</span></div>
+    <div class="grid">
+
+      <a href="fractions.html" class="card" style="--card-color: var(--math-4);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="32" cy="32" r="22"/>
+            <line x1="32" y1="10" x2="32" y2="54"/>
+            <line x1="32" y1="32" x2="54" y2="32"/>
+            <path d="M32 10 A22 22 0 0 1 54 32 L32 32 Z" fill="currentColor" fill-opacity="0.2"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Fractions</h3>
+          <div class="years">Fractions &amp; Decimals</div>
+          <div class="tagline">Parts of a whole, and how they combine</div>
+        </div>
+      </a>
+
+      <a href="decimals.html" class="card" style="--card-color: var(--math-2);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <text x="32" y="44" text-anchor="middle" font-size="32" font-family="serif" font-weight="600" fill="currentColor" stroke="none">0.5</text>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Decimals</h3>
+          <div class="years">Fractions &amp; Decimals</div>
+          <div class="tagline">Place value beyond the point</div>
+        </div>
+      </a>
+
+    </div>
+
+    <div class="subsection"><h2>Geometry</h2><span class="count">Four modules</span></div>
+    <div class="grid">
+
+      <a href="2d-geometry.html" class="card" style="--card-color: var(--math-6);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="22" cy="26" r="12"/>
+            <rect x="30" y="30" width="22" height="22"/>
+            <path d="M34 14 L48 30 L20 30 Z"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>2D Geometry</h3>
+          <div class="years">Geometry</div>
+          <div class="tagline">Shapes, angles, and the plane</div>
+        </div>
+      </a>
+
+      <a href="polygons.html" class="card" style="--card-color: var(--math-1);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M32 6 L52 18 L52 42 L32 54 L12 42 L12 18 Z"/>
+            <line x1="32" y1="6" x2="32" y2="54"/>
+            <line x1="12" y1="18" x2="52" y2="42"/>
+            <line x1="52" y1="18" x2="12" y2="42"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Polygons</h3>
+          <div class="years">Geometry</div>
+          <div class="tagline">Closed figures and their families</div>
+        </div>
+      </a>
+
+      <a href="volume.html" class="card" style="--card-color: var(--math-3);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22 L32 14 L52 22 L52 50 L32 58 L12 50 Z"/>
+            <path d="M12 22 L32 30 L52 22"/>
+            <line x1="32" y1="30" x2="32" y2="58"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Volume</h3>
+          <div class="years">Geometry</div>
+          <div class="tagline">Measuring space in three dimensions</div>
+        </div>
+      </a>
+
+      <a href="rectangular-prisms.html" class="card" style="--card-color: var(--math-6);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M10 24 L44 24 L44 54 L10 54 Z"/>
+            <path d="M10 24 L22 12 L56 12 L44 24"/>
+            <path d="M44 54 L56 42 L56 12"/>
+            <line x1="22" y1="12" x2="22" y2="38"/>
+            <line x1="10" y1="38" x2="22" y2="38"/>
+            <line x1="22" y1="38" x2="56" y2="38"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Rectangular Prisms</h3>
+          <div class="years">Geometry</div>
+          <div class="tagline">Boxes, volume, and unit cubes</div>
+        </div>
+      </a>
+
+    </div>
+
+    <div class="subsection"><h2>Measurement &amp; Data</h2><span class="count">Three modules</span></div>
+    <div class="grid">
+
+      <a href="measurement-unit-conversion.html" class="card" style="--card-color: var(--math-5);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="8" y="22" width="48" height="20"/>
+            <line x1="14" y1="22" x2="14" y2="32"/>
+            <line x1="20" y1="22" x2="20" y2="28"/>
+            <line x1="26" y1="22" x2="26" y2="32"/>
+            <line x1="32" y1="22" x2="32" y2="28"/>
+            <line x1="38" y1="22" x2="38" y2="32"/>
+            <line x1="44" y1="22" x2="44" y2="28"/>
+            <line x1="50" y1="22" x2="50" y2="32"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Measurement &amp; Conversion</h3>
+          <div class="years">Measurement</div>
+          <div class="tagline">Length, weight, capacity, and how to convert</div>
+        </div>
+      </a>
+
+      <a href="measurement-conversion.html" class="card" style="--card-color: var(--math-2);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 24 L26 24 L20 36 Z"/>
+            <line x1="20" y1="14" x2="20" y2="20"/>
+            <line x1="20" y1="38" x2="20" y2="52"/>
+            <path d="M38 28 L50 28 L44 40 Z"/>
+            <line x1="44" y1="14" x2="44" y2="24"/>
+            <line x1="44" y1="42" x2="44" y2="52"/>
+            <path d="M28 32 L36 32"/>
+            <path d="M30 28 L36 32 L30 36"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Measurement Conversion</h3>
+          <div class="years">Measurement</div>
+          <div class="tagline">Customary and metric, side by side</div>
+        </div>
+      </a>
+
+      <a href="data-and-graphs.html" class="card" style="--card-color: var(--math-1);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="10" y1="52" x2="56" y2="52"/>
+            <line x1="10" y1="52" x2="10" y2="10"/>
+            <rect x="16" y="36" width="8" height="16" fill="currentColor" fill-opacity="0.2"/>
+            <rect x="28" y="22" width="8" height="30" fill="currentColor" fill-opacity="0.2"/>
+            <rect x="40" y="30" width="8" height="22" fill="currentColor" fill-opacity="0.2"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Data &amp; Graphs</h3>
+          <div class="years">Data</div>
+          <div class="tagline">Reading and making sense of charts</div>
+        </div>
+      </a>
+
+    </div>
+
+    <div class="subsection"><h2>Pre-Algebra</h2><span class="count">Four modules</span></div>
+    <div class="grid">
+
+      <a href="integers-and-rationals.html" class="card" style="--card-color: var(--math-6);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="8" y1="32" x2="56" y2="32"/>
+            <line x1="14" y1="28" x2="14" y2="36"/>
+            <line x1="22" y1="28" x2="22" y2="36"/>
+            <line x1="30" y1="26" x2="30" y2="38"/>
+            <line x1="38" y1="28" x2="38" y2="36"/>
+            <line x1="46" y1="28" x2="46" y2="36"/>
+            <path d="M52 28 L56 32 L52 36"/>
+            <path d="M12 28 L8 32 L12 36"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Integers &amp; Rationals</h3>
+          <div class="years">Pre-Algebra</div>
+          <div class="tagline">The number line in both directions</div>
+        </div>
+      </a>
+
+      <a href="ratios.html" class="card" style="--card-color: var(--math-4);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="22" cy="22" r="3" fill="currentColor"/>
+            <circle cx="22" cy="42" r="3" fill="currentColor"/>
+            <circle cx="42" cy="14" r="3" fill="currentColor"/>
+            <circle cx="42" cy="32" r="3" fill="currentColor"/>
+            <circle cx="42" cy="50" r="3" fill="currentColor"/>
+            <line x1="14" y1="32" x2="30" y2="32"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Ratios</h3>
+          <div class="years">Pre-Algebra</div>
+          <div class="tagline">Comparing quantities, part to part</div>
+        </div>
+      </a>
+
+      <a href="rate-and-unit-rates.html" class="card" style="--card-color: var(--math-3);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="32" cy="34" r="20"/>
+            <line x1="32" y1="34" x2="32" y2="20"/>
+            <line x1="32" y1="34" x2="44" y2="38"/>
+            <line x1="32" y1="14" x2="32" y2="10"/>
+            <line x1="52" y1="34" x2="56" y2="34"/>
+            <line x1="32" y1="54" x2="32" y2="58"/>
+            <line x1="12" y1="34" x2="8" y2="34"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Rate &amp; Unit Rates</h3>
+          <div class="years">Pre-Algebra</div>
+          <div class="tagline">Comparisons over time and per unit</div>
+        </div>
+      </a>
+
+      <a href="percents.html" class="card" style="--card-color: var(--math-2);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="20" cy="20" r="6"/>
+            <circle cx="44" cy="44" r="6"/>
+            <line x1="50" y1="14" x2="14" y2="50"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Percents</h3>
+          <div class="years">Pre-Algebra</div>
+          <div class="tagline">Parts per hundred and how we use them</div>
+        </div>
+      </a>
+
     </div>
   </section>
 
+  <!-- ============================================================
+       OTHER TOPICS
+       ============================================================ -->
   <section id="other" class="panel" role="tabpanel">
     <div class="empty-state">
       <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -621,6 +1909,7 @@
       tab.classList.add('active');
       const panel = document.getElementById(target);
       if (panel) panel.classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   });
 </script>
