@@ -144,6 +144,9 @@ body{background:var(--yt-dark);color:var(--text);font-family:'Nunito',sans-serif
 .answer-key{margin-top:30px;background:rgba(0,255,135,.05);border:1px solid var(--neon-green);border-radius:10px;padding:20px;}
 .answer-key h4{font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--neon-green);margin-bottom:12px;}
 .answer-key p{font-size:14px;color:#CCC;margin-bottom:6px;}
+
+.icon-wrap{display:block;width:48px;height:48px;margin:0 auto 10px;color:var(--neon-yellow);}
+.icon-wrap svg{width:100%;height:100%;display:block;}
 /* RESPONSIVE */
 @media(max-width:600px){.match-grid{grid-template-columns:1fr;}.tf-item{flex-direction:column;gap:8px;}}
 </style>
@@ -176,15 +179,15 @@ body{background:var(--yt-dark);color:var(--text);font-family:'Nunito',sans-serif
   </div>
 
   <div class="content-block">
-    <p>The late 2010s started with a wild realization: the internet wasn't just for cat videos and funny tweets anymore. It had become a full-on political battlefield. After the 2016 U.S. election, one of the biggest issues in America was <span class="vocab" onclick="openModal('Russian Interference','When a foreign country (in this case, Russia) tried to mess with America\'s democracy. The Mueller Report said Russia hacked emails and ran fake social media accounts to confuse and divide American voters.')">Russian interference</span>.</p>
-    <p>Special Counsel <span class="vocab" onclick="openModal('Robert Mueller','A lawyer and former FBI director appointed to investigate whether Russia interfered in the 2016 presidential election. His team spent nearly two years investigating and published a huge report in 2019.')">Robert Mueller's</span> 2019 report concluded that Russia interfered in the 2016 election in a "sweeping and systematic fashion." Russia hacked Democratic emails AND ran <span class="vocab" onclick="openModal('Disinformation','False or misleading information spread deliberately. Not just being wrong — it\'s being intentionally deceptive. Russia used fake social media accounts to spread disinformation and make Americans angrier at each other.')">disinformation</span> campaigns on social media to divide Americans.</p>
+    <p>The late 2010s started with a wild realization: the internet wasn't just for cat videos and funny tweets anymore. It had become a full-on political battlefield. After the 2016 U.S. election, one of the biggest issues in America was <span class="vocab" data-term="Russian Interference" data-def="When a foreign country (in this case, Russia) tried to mess with America&#39;s democracy. The Mueller Report said Russia hacked emails and ran fake social media accounts to confuse and divide American voters.">Russian interference</span>.</p>
+    <p>Special Counsel <span class="vocab" data-term="Robert Mueller" data-def="A lawyer and former FBI director appointed to investigate whether Russia interfered in the 2016 presidential election. His team spent nearly two years investigating and published a huge report in 2019.">Robert Mueller's</span> 2019 report concluded that Russia interfered in the 2016 election in a "sweeping and systematic fashion." Russia hacked Democratic emails AND ran <span class="vocab" data-term="Disinformation" data-def="False or misleading information spread deliberately. Not just being wrong — it&#39;s being intentionally deceptive. Russia used fake social media accounts to spread disinformation and make Americans angrier at each other.">disinformation</span> campaigns on social media to divide Americans.</p>
   </div>
 
 <div style="margin:22px 0;"><img id="imgMueller" alt="Robert Mueller testifying" style="width:100%;border-radius:10px;margin:18px 0;display:block;"><p style="text-align:center;font-size:12px;color:#888;margin-top:-12px;margin-bottom:18px;">Special Counsel Robert Mueller testifying before Congress, 2019</p></div>
   <div class="callout">💡 This didn't mean every online argument was from Russia — America already had big divisions. But it showed how foreign countries could exploit social media to mess with us.</div>
 
   <div class="content-block">
-    <p>Then there were <span class="vocab" onclick="openModal('Meme','An idea, joke, image, or format that spreads from person to person — often changing as it travels. Memes have existed forever (think slogans and cartoons) but the internet made them travel at warp speed.')">memes</span>. At first, internet memes were just silly: cats, reaction faces, weird jokes. But by the late 2010s, memes became political weapons too. They could simplify complex issues, mock opponents, build group identity, or make extreme ideas seem like jokes.</p>
+    <p>Then there were <span class="vocab" data-term="Meme" data-def="An idea, joke, image, or format that spreads from person to person — often changing as it travels. Memes have existed forever (think slogans and cartoons) but the internet made them travel at warp speed.">memes</span>. At first, internet memes were just silly: cats, reaction faces, weird jokes. But by the late 2010s, memes became political weapons too. They could simplify complex issues, mock opponents, build group identity, or make extreme ideas seem like jokes.</p>
     <p>The scary part? A false claim could go viral faster than the truth. A foreign influence operation and a teenager in their bedroom were competing in the same feed — and sometimes it was hard to tell them apart.</p>
   </div>
 
@@ -192,10 +195,10 @@ body{background:var(--yt-dark);color:var(--text);font-family:'Nunito',sans-serif
   <div class="callout-fun">
     <div class="fun-label">🎮 CULTURE CHECK — Did You Live Through These?</div>
     <div class="culture-row">
-      <div class="culture-card"><span class="emoji">🕹️</span><div class="c-title">Fidget Spinners</div><div class="c-desc">2017's biggest craze. Schools banned them.</div></div>
+      <div class="culture-card"><span class="icon-wrap" data-icon="spinner"></span><div class="c-title">Fidget Spinners</div><div class="c-desc">2017's biggest craze. Schools banned them.</div></div>
       <div class="culture-card"><img id="imgFN" alt="Fortnite gameplay" style="width:100%;height:120px;object-fit:cover;border-radius:8px;margin-bottom:6px;"><div class="c-title">Fortnite</div><div class="c-desc">Everyone was doing the floss dance. Even your gym teacher.</div></div>
       <div class="culture-card"><img id="imgST" alt="Stranger Things - Eleven" style="width:100%;height:120px;object-fit:cover;border-radius:8px;margin-bottom:6px;"><div class="c-title">Stranger Things</div><div class="c-desc">Netflix + 80s nostalgia = everyone's obsession.</div></div>
-      <div class="culture-card"><span class="emoji">🦸‍♀️</span><div class="c-title">Wonder Woman</div><div class="c-desc">2017. A massive hit that changed superhero movies.</div></div>
+      <div class="culture-card"><span class="icon-wrap" data-icon="cape"></span><div class="c-title">Wonder Woman</div><div class="c-desc">2017. A massive hit that changed superhero movies.</div></div>
     </div>
   </div>
 
@@ -212,17 +215,17 @@ body{background:var(--yt-dark);color:var(--text);font-family:'Nunito',sans-serif
     <div class="qc-question">
       <p>1. Robert Mueller's 2019 report said Russia interfered in what election?</p>
       <div class="qc-opts">
-        <label><input type="radio" name="q1a" value="a"> The 2012 election</label>
-        <label><input type="radio" name="q1a" value="b"> The 2016 election</label>
-        <label><input type="radio" name="q1a" value="c"> The 2020 election</label>
+        <label><input type="radio" name="q1a" value="a"> The 2012 presidential election</label>
+        <label><input type="radio" name="q1a" value="b"> The 2016 presidential election</label>
+        <label><input type="radio" name="q1a" value="c"> The 2020 presidential election</label>
       </div>
     </div>
     <div class="qc-question">
       <p>2. What makes a meme different from regular political news?</p>
       <div class="qc-opts">
-        <label><input type="radio" name="q1b" value="a"> Memes are always true</label>
-        <label><input type="radio" name="q1b" value="b"> Memes spread faster and are more emotional/shareable</label>
-        <label><input type="radio" name="q1b" value="c"> Memes only come from news organizations</label>
+        <label><input type="radio" name="q1b" value="a"> Memes are always factually true and well-researched</label>
+        <label><input type="radio" name="q1b" value="b"> Memes spread fast and are emotional and shareable</label>
+        <label><input type="radio" name="q1b" value="c"> Memes only come from official news organizations and reporters</label>
       </div>
     </div>
     <button class="check-btn" onclick="checkQC('qc1')">CHECK ANSWERS</button>
@@ -241,18 +244,18 @@ body{background:var(--yt-dark);color:var(--text);font-family:'Nunito',sans-serif
   </div>
 
   <div class="content-block">
-    <p><span class="vocab" onclick="openModal('Cryptocurrency','Digital money that uses complex math (cryptography) to secure transactions instead of trusting a bank or government. Bitcoin was the first big one. Unlike regular money, no single authority controls it.')">Cryptocurrency</span> moved from a nerdy internet idea into the mainstream. Bitcoin had been invented in 2008 by the mysterious <span class="vocab" onclick="openModal('Satoshi Nakamoto','The fake name used by whoever invented Bitcoin. Nobody knows if it\'s one person or a group. The name is Japanese, but the real identity has never been confirmed.')">Satoshi Nakamoto</span>, but in the late 2010s it exploded into headlines. Supporters said crypto could challenge banks and give financial freedom to anyone. Critics pointed to scams, wild price swings, and massive energy use.</p>
+    <p><span class="vocab" data-term="Cryptocurrency" data-def="Digital money that uses complex math (cryptography) to secure transactions instead of trusting a bank or government. Bitcoin was the first big one. Unlike regular money, no single authority controls it.">Cryptocurrency</span> moved from a nerdy internet idea into the mainstream. Bitcoin had been invented in 2008 by the mysterious <span class="vocab" data-term="Satoshi Nakamoto" data-def="The fake name used by whoever invented Bitcoin. Nobody knows if it&#39;s one person or a group. The name is Japanese, but the real identity has never been confirmed.">Satoshi Nakamoto</span>, but in the late 2010s it exploded into headlines. Supporters said crypto could challenge banks and give financial freedom to anyone. Critics pointed to scams, wild price swings, and massive energy use.</p>
   </div>
 
   <div class="content-block">
-    <p>Americans also fought over <span class="vocab" onclick="openModal('Net Neutrality','The rule that internet providers must treat all internet traffic equally — no speeding up some websites and slowing down others. Think of it like roads: every car gets the same lanes, no matter where it\'s going.')">net neutrality</span> — the idea that internet providers should treat all web traffic equally. In 2017, the FCC under Chairman Ajit Pai voted to repeal the 2015 net neutrality rules. Supporters of net neutrality worried that without it, companies like Comcast or Verizon could speed up their own video services and slow down competitors like Netflix or YouTube.</p>
+    <p>Americans also fought over <span class="vocab" data-term="Net Neutrality" data-def="The rule that internet providers must treat all internet traffic equally — no speeding up some websites and slowing down others. Think of it like roads: every car gets the same lanes, no matter where it&#39;s going.">net neutrality</span> — the idea that internet providers should treat all web traffic equally. In 2017, the FCC under Chairman Ajit Pai voted to repeal the 2015 net neutrality rules. Supporters of net neutrality worried that without it, companies like Comcast or Verizon could speed up their own video services and slow down competitors like Netflix or YouTube.</p>
 <div style="margin:22px 0;"><img id="imgAlgo" alt="What is an Algorithm diagram" style="width:100%;border-radius:10px;margin:18px 0;display:block;"><p style="text-align:center;font-size:12px;color:#888;margin-top:-12px;margin-bottom:18px;">An algorithm: rules that turn input into output. TikTok's algorithm turns your watch history into your next video.</p></div>
   </div>
 
   <div class="callout">📱 By the late 2010s, the smartphone wasn't just a phone. It was your camera, map, wallet, alarm clock, classroom distraction, music player, news feed, social stage, and argument machine — all in one device.</div>
 
   <div class="content-block">
-    <p>And then came <span class="vocab" onclick="openModal('TikTok','A short-video app made by Chinese company ByteDance. Its powerful algorithm learns what you like and keeps showing you content that keeps you watching. Merged with Musical.ly in 2017. Raised major questions about data privacy and foreign influence.')">TikTok</span>. After ByteDance merged with Musical.ly in 2017, TikTok's rise was unstoppable. But unlike older platforms where you mostly saw what friends posted, TikTok's <span class="vocab" onclick="openModal('Algorithm','A set of rules a computer follows to make decisions. TikTok\'s algorithm is famous for learning exactly what keeps each person watching and serving them more of it — which is very powerful and a little creepy.')">algorithm</span> learned exactly what kept each person glued to the screen and served up an endless feed of it.</p>
+    <p>And then came <span class="vocab" data-term="TikTok" data-def="A short-video app made by Chinese company ByteDance. Its powerful algorithm learns what you like and keeps showing you content that keeps you watching. Merged with Musical.ly in 2017. Raised major questions about data privacy and foreign influence.">TikTok</span>. After ByteDance merged with Musical.ly in 2017, TikTok's rise was unstoppable. But unlike older platforms where you mostly saw what friends posted, TikTok's <span class="vocab" data-term="Algorithm" data-def="A set of rules a computer follows to make decisions. TikTok&#39;s algorithm is famous for learning exactly what keeps each person watching and serving them more of it — which is very powerful and a little creepy.">algorithm</span> learned exactly what kept each person glued to the screen and served up an endless feed of it.</p>
     <p>Concerns exploded: too much screen time, body image problems for teens, misinformation, and — because TikTok's parent company ByteDance is based in China — questions about data privacy and foreign influence.</p>
   </div>
 
@@ -260,10 +263,10 @@ body{background:var(--yt-dark);color:var(--text);font-family:'Nunito',sans-serif
   <div class="callout-fun">
     <div class="fun-label">🔥 MORE CULTURE MOMENTS</div>
     <div class="culture-row">
-      <div class="culture-card"><span class="emoji">🟢</span><div class="c-title">Spotify</div><div class="c-desc">Streaming music became normal. CDs became antiques.</div></div>
-      <div class="culture-card"><span class="emoji">🌊</span><div class="c-title">Tide Pod Challenge</div><div class="c-desc">Internet dares got dangerously dumb. Don't eat laundry pods.</div></div>
-      <div class="culture-card"><span class="emoji">💻</span><div class="c-title">Discord & Twitch</div><div class="c-desc">New platforms for gaming communities blew up.</div></div>
-      <div class="culture-card"><span class="emoji">🐸</span><div class="c-title">Pepe the Frog</div><div class="c-desc">Started as a harmless comic. Got hijacked by politics.</div></div>
+      <div class="culture-card"><span class="icon-wrap" data-icon="headphones"></span><div class="c-title">Spotify</div><div class="c-desc">Streaming music became normal. CDs became antiques.</div></div>
+      <div class="culture-card"><span class="icon-wrap" data-icon="wave"></span><div class="c-title">Tide Pod Challenge</div><div class="c-desc">Internet dares got dangerously dumb. Don't eat laundry pods.</div></div>
+      <div class="culture-card"><span class="icon-wrap" data-icon="chat"></span><div class="c-title">Discord & Twitch</div><div class="c-desc">New platforms for gaming communities blew up.</div></div>
+      <div class="culture-card"><span class="icon-wrap" data-icon="frog"></span><div class="c-title">Pepe the Frog</div><div class="c-desc">Started as a harmless comic. Got hijacked by politics.</div></div>
     </div>
   </div>
 
@@ -280,17 +283,17 @@ body{background:var(--yt-dark);color:var(--text);font-family:'Nunito',sans-serif
     <div class="qc-question">
       <p>1. What is net neutrality?</p>
       <div class="qc-opts">
-        <label><input type="radio" name="q2a" value="a"> A type of cryptocurrency</label>
-        <label><input type="radio" name="q2a" value="b"> The rule that internet providers must treat all web traffic equally</label>
-        <label><input type="radio" name="q2a" value="c"> A social media platform</label>
+        <label><input type="radio" name="q2a" value="a"> A specific type of cryptocurrency designed for fast online payments</label>
+        <label><input type="radio" name="q2a" value="b"> The rule that providers must treat all web traffic equally</label>
+        <label><input type="radio" name="q2a" value="c"> A new social media platform that competed with Facebook and Twitter</label>
       </div>
     </div>
     <div class="qc-question">
       <p>2. Why did the U.S. government worry about TikTok?</p>
       <div class="qc-opts">
-        <label><input type="radio" name="q2b" value="a"> It was too funny</label>
-        <label><input type="radio" name="q2b" value="b"> Its parent company ByteDance is based in China, raising data and influence concerns</label>
-        <label><input type="radio" name="q2b" value="c"> The videos were too short</label>
+        <label><input type="radio" name="q2b" value="a"> The app was simply too funny and addictive for American teens to handle</label>
+        <label><input type="radio" name="q2b" value="b"> Its parent company ByteDance is based in China, raising data concerns</label>
+        <label><input type="radio" name="q2b" value="c"> The videos were way too short for any meaningful information to be shared</label>
       </div>
     </div>
     <button class="check-btn" onclick="checkQC('qc2')">CHECK ANSWERS</button>
@@ -309,29 +312,29 @@ body{background:var(--yt-dark);color:var(--text);font-family:'Nunito',sans-serif
   </div>
 
   <div class="content-block">
-    <p><span class="vocab" onclick="openModal('Artificial Intelligence (AI)','Technology that allows computers to do things that normally require human intelligence — like recognizing faces, translating languages, recommending videos, or even writing text. AI has existed since the 1950s, but got much more powerful in the 2010s.')">Artificial intelligence</span> didn't start in the 2010s — researchers had been working on it since the 1950s. But the late 2010s felt like the beginning of the modern AI era because <span class="vocab" onclick="openModal('Deep Learning','A type of AI that uses artificial neural networks — computer systems loosely inspired by the human brain — to learn patterns from huge amounts of data. It\'s why AI got so much better at recognizing images, translating languages, and more.')">deep learning</span> systems became shockingly powerful.</p>
-    <p>A huge turning point came in 2012 when <span class="vocab" onclick="openModal('AlexNet','A deep neural network created by Alex Krizhevsky, Ilya Sutskever, and Geoffrey Hinton that crushed the competition in an image-recognition challenge in 2012. It showed that with enough data and computing power, AI could recognize patterns far better than older methods.')">AlexNet</span> — built by Alex Krizhevsky, Ilya Sutskever, and Geoffrey Hinton — blew away the competition in a massive image-recognition challenge. It was trained on 1.2 million photos and could identify objects far better than any AI before it.</p>
+    <p><span class="vocab" data-term="Artificial Intelligence (AI)" data-def="Technology that allows computers to do things that normally require human intelligence — like recognizing faces, translating languages, recommending videos, or even writing text. AI has existed since the 1950s, but got much more powerful in the 2010s.">Artificial intelligence</span> didn't start in the 2010s — researchers had been working on it since the 1950s. But the late 2010s felt like the beginning of the modern AI era because <span class="vocab" data-term="Deep Learning" data-def="A type of AI that uses artificial neural networks — computer systems loosely inspired by the human brain — to learn patterns from huge amounts of data. It&#39;s why AI got so much better at recognizing images, translating languages, and more.">deep learning</span> systems became shockingly powerful.</p>
+    <p>A huge turning point came in 2012 when <span class="vocab" data-term="AlexNet" data-def="A deep neural network created by Alex Krizhevsky, Ilya Sutskever, and Geoffrey Hinton that crushed the competition in an image-recognition challenge in 2012. It showed that with enough data and computing power, AI could recognize patterns far better than older methods.">AlexNet</span> — built by Alex Krizhevsky, Ilya Sutskever, and Geoffrey Hinton — blew away the competition in a massive image-recognition challenge. It was trained on 1.2 million photos and could identify objects far better than any AI before it.</p>
   </div>
 
   <div class="content-block">
-    <p>By the late 2010s, AI was everywhere: translation apps, facial recognition, recommendation systems, ads that knew your interests, voice assistants, search engines, and medical imaging. But AI wasn't neutral. It could inherit <span class="vocab" onclick="openModal('AI Bias','When an AI system produces unfair results because of problems in its training data. For example, if an AI is trained mostly on photos of white faces, it might struggle to recognize Black faces. Bias in, bias out.')">bias</span> from training data and make invisible mistakes at scale.</p>
+    <p>By the late 2010s, AI was everywhere: translation apps, facial recognition, recommendation systems, ads that knew your interests, voice assistants, search engines, and medical imaging. But AI wasn't neutral. It could inherit <span class="vocab" data-term="AI Bias" data-def="When an AI system produces unfair results because of problems in its training data. For example, if an AI is trained mostly on photos of white faces, it might struggle to recognize Black faces. Bias in, bias out.">bias</span> from training data and make invisible mistakes at scale.</p>
   </div>
 
 <div style="margin:22px 0;"><img id="imgAlexNet" alt="AlexNet in AI history timeline" style="width:100%;border-radius:10px;margin:18px 0;display:block;"><p style="text-align:center;font-size:12px;color:#888;margin-top:-12px;margin-bottom:18px;">AlexNet was a turning point in the history of AI — the leap that made modern deep learning possible</p></div>
   <div class="callout">🔭 So the late 2010s had two kinds of machine vision: one that looked AT us through phones and algorithms — and one that looked across 55 million light-years of space.</div>
 
   <div class="content-block">
-    <p>In April 2019, scientists did something that seemed impossible: they released the first photograph of a <span class="vocab" onclick="openModal('Black Hole','A region of space where gravity is so strong that nothing — not even light — can escape. Scientists used to think we could never photograph one directly. The Event Horizon Telescope proved them wrong in 2019.')">black hole</span>. The <span class="vocab" onclick="openModal('Event Horizon Telescope','Not a single telescope but a global network of radio telescopes that work together as one giant telescope. By combining data from telescopes around the world, scientists could image the supermassive black hole at the center of galaxy M87.')">Event Horizon Telescope</span> — a network of radio telescopes linked across the entire planet — captured the black hole at the center of galaxy Messier 87, some 55 million light-years away. The image showed a glowing ring around pure darkness. It was real.</p>
+    <p>In April 2019, scientists did something that seemed impossible: they released the first photograph of a <span class="vocab" data-term="Black Hole" data-def="A region of space where gravity is so strong that nothing — not even light — can escape. Scientists used to think we could never photograph one directly. The Event Horizon Telescope proved them wrong in 2019.">black hole</span>. The <span class="vocab" data-term="Event Horizon Telescope" data-def="Not a single telescope but a global network of radio telescopes that work together as one giant telescope. By combining data from telescopes around the world, scientists could image the supermassive black hole at the center of galaxy M87.">Event Horizon Telescope</span> — a network of radio telescopes linked across the entire planet — captured the black hole at the center of galaxy Messier 87, some 55 million light-years away. The image showed a glowing ring around pure darkness. It was real.</p>
   </div>
 
 <div style="margin:22px 0;"><img id="imgBlackHole" alt="First photograph of a black hole" style="width:100%;border-radius:10px;margin:18px 0;display:block;"><p style="text-align:center;font-size:12px;color:#888;margin-top:-12px;margin-bottom:18px;">The first-ever photograph of a black hole — galaxy M87, April 10, 2019. 55 million light-years away.</p></div>
   <div class="callout-fun">
     <div class="fun-label">🌟 MORE LATE 2010s CULTURE</div>
     <div class="culture-row">
-      <div class="culture-card"><span class="emoji">🐣</span><div class="c-title">Baby Yoda</div><div class="c-desc">The Mandalorian dropped Nov 2019. The internet lost its mind.</div></div>
+      <div class="culture-card"><span class="icon-wrap" data-icon="alien"></span><div class="c-title">Baby Yoda</div><div class="c-desc">The Mandalorian dropped Nov 2019. The internet lost its mind.</div></div>
       <div class="culture-card"><img id="imgA51" alt="Area 51 raid crowd" style="width:100%;height:120px;object-fit:cover;border-radius:8px;margin-bottom:6px;"><div class="c-title">Area 51 Raid</div><div class="c-desc">A meme became a real event. 2 million said they'd go. 150 actually showed up.</div></div>
-      <div class="culture-card"><span class="emoji">🎵</span><div class="c-title">Old Town Road</div><div class="c-desc">Lil Nas X + Billy Ray Cyrus. 19 weeks at #1. A meme that became a hit.</div></div>
-      <div class="culture-card"><span class="emoji">🤖</span><div class="c-title">Alexa & Siri</div><div class="c-desc">Voice AI went mainstream. Everyone was talking to their house.</div></div>
+      <div class="culture-card"><span class="icon-wrap" data-icon="note"></span><div class="c-title">Old Town Road</div><div class="c-desc">Lil Nas X + Billy Ray Cyrus. 19 weeks at #1. A meme that became a hit.</div></div>
+      <div class="culture-card"><span class="icon-wrap" data-icon="robot"></span><div class="c-title">Alexa & Siri</div><div class="c-desc">Voice AI went mainstream. Everyone was talking to their house.</div></div>
     </div>
   </div>
 
@@ -348,17 +351,17 @@ body{background:var(--yt-dark);color:var(--text);font-family:'Nunito',sans-serif
     <div class="qc-question">
       <p>1. What was AlexNet?</p>
       <div class="qc-opts">
-        <label><input type="radio" name="q3a" value="a"> A social media platform</label>
-        <label><input type="radio" name="q3a" value="b"> A deep neural network that revolutionized image recognition in 2012</label>
-        <label><input type="radio" name="q3a" value="c"> A type of cryptocurrency</label>
+        <label><input type="radio" name="q3a" value="a"> A short-video social media platform that rose to fame in the 2010s</label>
+        <label><input type="radio" name="q3a" value="b"> A deep neural network that transformed image recognition in 2012</label>
+        <label><input type="radio" name="q3a" value="c"> A type of cryptocurrency invented by Alex Krizhevsky for online payments</label>
       </div>
     </div>
     <div class="qc-question">
       <p>2. What did the Event Horizon Telescope capture in 2019?</p>
       <div class="qc-opts">
-        <label><input type="radio" name="q3b" value="a"> The surface of Mars</label>
-        <label><input type="radio" name="q3b" value="b"> The first-ever photograph of a black hole</label>
-        <label><input type="radio" name="q3b" value="c"> A distant galaxy being formed</label>
+        <label><input type="radio" name="q3b" value="a"> A detailed close-up image of the surface of Mars and its volcanoes</label>
+        <label><input type="radio" name="q3b" value="b"> The first-ever photograph of a real black hole</label>
+        <label><input type="radio" name="q3b" value="c"> A distant galaxy in the process of being formed from cosmic dust</label>
       </div>
     </div>
     <button class="check-btn" onclick="checkQC('qc3')">CHECK ANSWERS</button>
@@ -377,12 +380,12 @@ body{background:var(--yt-dark);color:var(--text);font-family:'Nunito',sans-serif
   </div>
 
   <div class="content-block">
-    <p>For years, many U.S. leaders believed that trading with China would make China more open and democratic over time. By the late 2010s, that hope had faded. China had become a manufacturing superpower, a technological force, and a growing military power. The U.S. worried about <span class="vocab" onclick="openModal('Trade Deficit','When a country imports (buys) more from another country than it exports (sells) to them. The U.S. bought a lot more stuff from China than China bought from the U.S., which worried many American leaders.')">trade deficits</span>, <span class="vocab" onclick="openModal('Intellectual Property Theft','Stealing ideas, inventions, brand names, or creative works. China was accused of stealing American technology secrets, business plans, and patents — sometimes through hacking.')">intellectual property theft</span>, cyberespionage, and China's rapid military expansion in the South China Sea.</p>
-    <p>In 2017, the U.S. National Security Strategy called China and Russia <span class="vocab" onclick="openModal('"Revisionist Powers"','Countries that want to change the existing world order — the rules and systems set up after WWII that mainly benefit the U.S. and its allies. Calling China and Russia "revisionist" was a big policy shift from treating China as a trade partner.')">revisionist powers</span> that challenged American power. This was a major shift — from seeing China mostly as a trading partner to seeing China as a strategic rival.</p>
+    <p>For years, many U.S. leaders believed that trading with China would make China more open and democratic over time. By the late 2010s, that hope had faded. China had become a manufacturing superpower, a technological force, and a growing military power. The U.S. worried about <span class="vocab" data-term="Trade Deficit" data-def="When a country imports (buys) more from another country than it exports (sells) to them. The U.S. bought a lot more stuff from China than China bought from the U.S., which worried many American leaders.">trade deficits</span>, <span class="vocab" data-term="Intellectual Property Theft" data-def="Stealing ideas, inventions, brand names, or creative works. China was accused of stealing American technology secrets, business plans, and patents — sometimes through hacking.">intellectual property theft</span>, cyberespionage, and China's rapid military expansion in the South China Sea.</p>
+    <p>In 2017, the U.S. National Security Strategy called China and Russia <span class="vocab" data-term="&quot;Revisionist Powers&quot;" data-def="Countries that want to change the existing world order — the rules and systems set up after WWII that mainly benefit the U.S. and its allies. Calling China and Russia &quot;revisionist&quot; was a big policy shift from treating China as a trade partner.">revisionist powers</span> that challenged American power. This was a major shift — from seeing China mostly as a trading partner to seeing China as a strategic rival.</p>
   </div>
 
   <div class="content-block">
-    <p>The Trump administration responded by putting <span class="vocab" onclick="openModal('Tariffs','Taxes on imported goods. If the U.S. puts a tariff on Chinese steel, it gets more expensive for Americans to buy Chinese steel, which is supposed to help American steel companies. China retaliated with its own tariffs on American products.')">tariffs</span> on Chinese goods. China fired back. This back-and-forth is called a <span class="vocab" onclick="openModal('Trade War','When two countries keep hitting each other with tariffs and trade restrictions. Neither country really "wins" — both economies get hurt, and consumers often pay higher prices.')">trade war</span>. But the competition went way beyond economics. It was also about who controls 5G networks, semiconductors, AI, data, and the platforms billions of people use every day.</p>
+    <p>The Trump administration responded by putting <span class="vocab" data-term="Tariffs" data-def="Taxes on imported goods. If the U.S. puts a tariff on Chinese steel, it gets more expensive for Americans to buy Chinese steel, which is supposed to help American steel companies. China retaliated with its own tariffs on American products.">tariffs</span> on Chinese goods. China fired back. This back-and-forth is called a <span class="vocab" data-term="Trade War" data-def="When two countries keep hitting each other with tariffs and trade restrictions. Neither country really &quot;wins&quot; — both economies get hurt, and consumers often pay higher prices.">trade war</span>. But the competition went way beyond economics. It was also about who controls 5G networks, semiconductors, AI, data, and the platforms billions of people use every day.</p>
   </div>
 
 <div style="margin:22px 0;"><img id="imgTradeWar" alt="US-China trade rivalry" style="width:100%;border-radius:10px;margin:18px 0;display:block;"><p style="text-align:center;font-size:12px;color:#888;margin-top:-12px;margin-bottom:18px;">The U.S.–China rivalry became one of the defining geopolitical stories of the late 2010s</p></div>
@@ -405,17 +408,17 @@ body{background:var(--yt-dark);color:var(--text);font-family:'Nunito',sans-serif
     <div class="qc-question">
       <p>1. What did the 2017 National Security Strategy call China and Russia?</p>
       <div class="qc-opts">
-        <label><input type="radio" name="q4a" value="a"> Allied nations</label>
+        <label><input type="radio" name="q4a" value="a"> Close allied nations and trade partners</label>
         <label><input type="radio" name="q4a" value="b"> Revisionist powers</label>
-        <label><input type="radio" name="q4a" value="c"> Developing economies</label>
+        <label><input type="radio" name="q4a" value="c"> Developing economies that needed U.S. help</label>
       </div>
     </div>
     <div class="qc-question">
       <p>2. A tariff is a:</p>
       <div class="qc-opts">
-        <label><input type="radio" name="q4b" value="a"> Type of social media algorithm</label>
-        <label><input type="radio" name="q4b" value="b"> Tax on imported goods</label>
-        <label><input type="radio" name="q4b" value="c"> Name for a trade treaty</label>
+        <label><input type="radio" name="q4b" value="a"> A type of social media algorithm used to rank political posts</label>
+        <label><input type="radio" name="q4b" value="b"> A tax on goods imported from another country</label>
+        <label><input type="radio" name="q4b" value="c"> Another name for a formal trade treaty signed between nations</label>
       </div>
     </div>
     <button class="check-btn" onclick="checkQC('qc4')">CHECK ANSWERS</button>
@@ -434,25 +437,25 @@ body{background:var(--yt-dark);color:var(--text);font-family:'Nunito',sans-serif
   </div>
 
   <div class="content-block">
-    <p>At the very end of 2019, the decade gave one final warning. On December 31, 2019, Chinese officials reported a cluster of mysterious pneumonia cases in Wuhan, Hubei Province to the <span class="vocab" onclick="openModal('World Health Organization (WHO)','A United Nations agency that monitors global health, coordinates responses to disease outbreaks, and sets international health standards. When a new disease appears anywhere in the world, the WHO is usually the first international body to investigate.')">World Health Organization</span>. The WHO reported that by January 3, Chinese authorities had told them about 44 patients with pneumonia of unknown cause — 11 severely ill, 33 stable.</p>
-    <p>At first it sounded like a distant local health alert. But it was the beginning of <span class="vocab" onclick="openModal('COVID-19','The disease caused by SARS-CoV-2, a new coronavirus first identified in Wuhan, China in late 2019. Within months it became a global pandemic, infecting and killing millions worldwide and disrupting life on a scale not seen since the 1918 flu.')">COVID-19</span>, the disease caused by SARS-CoV-2. Within months it became a global pandemic.</p>
+    <p>At the very end of 2019, the decade gave one final warning. On December 31, 2019, Chinese officials reported a cluster of mysterious pneumonia cases in Wuhan, Hubei Province to the <span class="vocab" data-term="World Health Organization (WHO)" data-def="A United Nations agency that monitors global health, coordinates responses to disease outbreaks, and sets international health standards. When a new disease appears anywhere in the world, the WHO is usually the first international body to investigate.">World Health Organization</span>. The WHO reported that by January 3, Chinese authorities had told them about 44 patients with pneumonia of unknown cause — 11 severely ill, 33 stable.</p>
+    <p>At first it sounded like a distant local health alert. But it was the beginning of <span class="vocab" data-term="COVID-19" data-def="The disease caused by SARS-CoV-2, a new coronavirus first identified in Wuhan, China in late 2019. Within months it became a global pandemic, infecting and killing millions worldwide and disrupting life on a scale not seen since the 1918 flu.">COVID-19</span>, the disease caused by SARS-CoV-2. Within months it became a global pandemic.</p>
   </div>
 
   <div class="callout">⚠️ The timing mattered enormously. COVID arrived into a world already built by the late 2010s: misinformation traveled at internet speed, governments were already distrusted, U.S.–China tensions were rising, and everyone had a smartphone — meaning every development would be filmed, shared, debated, and distorted in real time.</div>
 
   <div class="content-block">
-    <p>The <span class="vocab" onclick="openModal('Pandemic','A disease that spreads across multiple countries or continents, affecting a large number of people. COVID-19 was declared a pandemic by the WHO in March 2020. The last comparable global pandemic before it was the 1918 Spanish Flu.')">pandemic</span> that followed wasn't only a medical crisis. It was an information crisis (what's true?), a trust crisis (who do I believe?), an economic crisis (shutdowns, job losses), and a political crisis. Every problem of the late 2010s — polarization, misinformation, social media speed, U.S.–China tension — would shape how the world experienced COVID-19.</p>
+    <p>The <span class="vocab" data-term="Pandemic" data-def="A disease that spreads across multiple countries or continents, affecting a large number of people. COVID-19 was declared a pandemic by the WHO in March 2020. The last comparable global pandemic before it was the 1918 Spanish Flu.">pandemic</span> that followed wasn't only a medical crisis. It was an information crisis (what's true?), a trust crisis (who do I believe?), an economic crisis (shutdowns, job losses), and a political crisis. Every problem of the late 2010s — polarization, misinformation, social media speed, U.S.–China tension — would shape how the world experienced COVID-19.</p>
   </div>
 
   <div class="callout-fun">
     <div class="fun-label">📜 HOW THE DECADE ENDED</div>
     <div class="culture-row">
-      <div class="culture-card"><span class="emoji">🇷🇺</span><div class="c-title">Russia Interference</div><div class="c-desc">Showed democracy could be hacked through attention</div></div>
-      <div class="culture-card"><span class="emoji">₿</span><div class="c-title">Crypto</div><div class="c-desc">Challenged what money even means</div></div>
-      <div class="culture-card"><span class="emoji">🌐</span><div class="c-title">Net Neutrality</div><div class="c-desc">Who controls the internet's roads?</div></div>
-      <div class="culture-card"><span class="emoji">🎵</span><div class="c-title">TikTok</div><div class="c-desc">Algorithms, children, and foreign influence</div></div>
-      <div class="culture-card"><span class="emoji">🤖</span><div class="c-title">AI</div><div class="c-desc">Machines that see, sort, and recommend</div></div>
-      <div class="culture-card"><span class="emoji">🕳️</span><div class="c-title">Black Hole Photo</div><div class="c-desc">Humans saw the unseeable</div></div>
+      <div class="culture-card"><span class="icon-wrap" data-icon="flag-russia"></span><div class="c-title">Russia Interference</div><div class="c-desc">Showed democracy could be hacked through attention</div></div>
+      <div class="culture-card"><span class="icon-wrap" data-icon="bitcoin"></span><div class="c-title">Crypto</div><div class="c-desc">Challenged what money even means</div></div>
+      <div class="culture-card"><span class="icon-wrap" data-icon="globe"></span><div class="c-title">Net Neutrality</div><div class="c-desc">Who controls the internet's roads?</div></div>
+      <div class="culture-card"><span class="icon-wrap" data-icon="note"></span><div class="c-title">TikTok</div><div class="c-desc">Algorithms, children, and foreign influence</div></div>
+      <div class="culture-card"><span class="icon-wrap" data-icon="robot"></span><div class="c-title">AI</div><div class="c-desc">Machines that see, sort, and recommend</div></div>
+      <div class="culture-card"><span class="icon-wrap" data-icon="blackhole"></span><div class="c-title">Black Hole Photo</div><div class="c-desc">Humans saw the unseeable</div></div>
     </div>
   </div>
 
@@ -469,17 +472,17 @@ body{background:var(--yt-dark);color:var(--text);font-family:'Nunito',sans-serif
     <div class="qc-question">
       <p>1. On what date did China first report the mystery pneumonia cases to the WHO?</p>
       <div class="qc-opts">
-        <label><input type="radio" name="q5a" value="a"> January 1, 2020</label>
-        <label><input type="radio" name="q5a" value="b"> March 15, 2020</label>
-        <label><input type="radio" name="q5a" value="c"> December 31, 2019</label>
+        <label><input type="radio" name="q5a" value="a"> January 1, 2020, the very first day of the new decade</label>
+        <label><input type="radio" name="q5a" value="b"> March 15, 2020, right before the U.S. lockdowns</label>
+        <label><input type="radio" name="q5a" value="c"> December 31, 2019, the last day of the year</label>
       </div>
     </div>
     <div class="qc-question">
       <p>2. Why was COVID's arrival into the late-2010s world especially dangerous?</p>
       <div class="qc-opts">
-        <label><input type="radio" name="q5b" value="a"> Because technology made it spread physically faster</label>
-        <label><input type="radio" name="q5b" value="b"> Because social media misinformation, political distrust, and global tensions already existed</label>
-        <label><input type="radio" name="q5b" value="c"> Because the WHO didn't exist yet</label>
+        <label><input type="radio" name="q5b" value="a"> Because new technology allowed the virus to spread physically faster across the planet</label>
+        <label><input type="radio" name="q5b" value="b"> Because misinformation, distrust, and global tensions already existed online</label>
+        <label><input type="radio" name="q5b" value="c"> Because the World Health Organization did not exist yet when the virus first appeared</label>
       </div>
     </div>
     <button class="check-btn" onclick="checkQC('qc5')">CHECK ANSWERS</button>
@@ -524,73 +527,73 @@ body{background:var(--yt-dark);color:var(--text);font-family:'Nunito',sans-serif
     <h3 class="green">🔘 PART 3: MULTIPLE CHOICE</h3>
     <div class="mc-item">
       <p>1. Which of the following was a method Russia used to interfere in the 2016 U.S. election?</p>
-      <label class="mc-opt"><input type="radio" name="mc1" value="a"> Hacking voting machines on Election Day</label>
-      <label class="mc-opt"><input type="radio" name="mc1" value="b"> Running fake social media accounts to divide Americans</label>
-      <label class="mc-opt"><input type="radio" name="mc1" value="c"> Mailing forged ballots to key states</label>
-      <label class="mc-opt"><input type="radio" name="mc1" value="d"> Paying U.S. journalists to write false stories</label>
+      <label class="mc-opt"><input type="radio" name="mc1" value="a"> Hacking into voting machines on Election Day to flip results</label>
+      <label class="mc-opt"><input type="radio" name="mc1" value="b"> Running social media operations to divide American voters</label>
+      <label class="mc-opt"><input type="radio" name="mc1" value="c"> Mailing fake paper ballots to voters in key swing states</label>
+      <label class="mc-opt"><input type="radio" name="mc1" value="d"> Paying American journalists to publish stories Russia approved</label>
     </div>
     <div class="mc-item">
       <p>2. What is the BEST description of a meme in the political context of the late 2010s?</p>
-      <label class="mc-opt"><input type="radio" name="mc2" value="a"> A paid political ad approved by a campaign</label>
-      <label class="mc-opt"><input type="radio" name="mc2" value="b"> A fast-spreading format that can simplify or distort political ideas</label>
-      <label class="mc-opt"><input type="radio" name="mc2" value="c"> A government rule about online content</label>
-      <label class="mc-opt"><input type="radio" name="mc2" value="d"> A type of encrypted digital message</label>
+      <label class="mc-opt"><input type="radio" name="mc2" value="a"> A paid political advertisement that a campaign officially approved</label>
+      <label class="mc-opt"><input type="radio" name="mc2" value="b"> A shareable format that can simplify or distort political ideas</label>
+      <label class="mc-opt"><input type="radio" name="mc2" value="c"> A government rule deciding what people can post online</label>
+      <label class="mc-opt"><input type="radio" name="mc2" value="d"> An academic paper studying internet behavior in young people</label>
     </div>
     <div class="mc-item">
       <p>3. Who were the creators of AlexNet?</p>
-      <label class="mc-opt"><input type="radio" name="mc3" value="a"> Elon Musk, Jeff Bezos, and Bill Gates</label>
+      <label class="mc-opt"><input type="radio" name="mc3" value="a"> Elon Musk, Jeff Bezos, Bill Gates, and Steve Jobs</label>
       <label class="mc-opt"><input type="radio" name="mc3" value="b"> Alex Krizhevsky, Ilya Sutskever, and Geoffrey Hinton</label>
-      <label class="mc-opt"><input type="radio" name="mc3" value="c"> Mark Zuckerberg, Sergey Brin, and Larry Page</label>
-      <label class="mc-opt"><input type="radio" name="mc3" value="d"> Satoshi Nakamoto, Ajit Pai, and Tim Berners-Lee</label>
+      <label class="mc-opt"><input type="radio" name="mc3" value="c"> Mark Zuckerberg, Sergey Brin, Larry Page, and Sundar Pichai</label>
+      <label class="mc-opt"><input type="radio" name="mc3" value="d"> Satoshi Nakamoto, Ajit Pai, Tim Berners-Lee, and Vint Cerf</label>
     </div>
     <div class="mc-item">
       <p>4. In what galaxy was the 2019 black hole photograph taken?</p>
-      <label class="mc-opt"><input type="radio" name="mc4" value="a"> The Milky Way galaxy</label>
-      <label class="mc-opt"><input type="radio" name="mc4" value="b"> The Andromeda galaxy</label>
-      <label class="mc-opt"><input type="radio" name="mc4" value="c"> Galaxy Messier 87 (M87)</label>
-      <label class="mc-opt"><input type="radio" name="mc4" value="d"> The Large Magellanic Cloud</label>
+      <label class="mc-opt"><input type="radio" name="mc4" value="a"> The Milky Way galaxy, where Earth is located</label>
+      <label class="mc-opt"><input type="radio" name="mc4" value="b"> The Andromeda galaxy, our nearest large neighbor</label>
+      <label class="mc-opt"><input type="radio" name="mc4" value="c"> The galaxy known as Messier 87 (M87)</label>
+      <label class="mc-opt"><input type="radio" name="mc4" value="d"> The Large Magellanic Cloud, a satellite galaxy</label>
     </div>
     <div class="mc-item">
       <p>5. What does net neutrality protect against?</p>
-      <label class="mc-opt"><input type="radio" name="mc5" value="a"> Foreign governments hacking U.S. websites</label>
-      <label class="mc-opt"><input type="radio" name="mc5" value="b"> Providers slowing or blocking certain websites</label>
-      <label class="mc-opt"><input type="radio" name="mc5" value="c"> Scams involving cryptocurrency</label>
-      <label class="mc-opt"><input type="radio" name="mc5" value="d"> Biased decisions made by AI systems</label>
+      <label class="mc-opt"><input type="radio" name="mc5" value="a"> Foreign governments breaking into American government websites</label>
+      <label class="mc-opt"><input type="radio" name="mc5" value="b"> Internet providers slowing down or blocking sites they dislike</label>
+      <label class="mc-opt"><input type="radio" name="mc5" value="c"> Online scammers stealing cryptocurrency from regular users</label>
+      <label class="mc-opt"><input type="radio" name="mc5" value="d"> Artificial intelligence systems making unfair, biased decisions</label>
     </div>
     <div class="mc-item">
       <p>6. Why did many U.S. officials worry about TikTok?</p>
-      <label class="mc-opt"><input type="radio" name="mc6" value="a"> Its video format was considered too addictive</label>
-      <label class="mc-opt"><input type="radio" name="mc6" value="b"> Its Chinese parent company raised data and influence concerns</label>
-      <label class="mc-opt"><input type="radio" name="mc6" value="c"> It blocked users from posting political content</label>
-      <label class="mc-opt"><input type="radio" name="mc6" value="d"> It had already been banned across the EU</label>
+      <label class="mc-opt"><input type="radio" name="mc6" value="a"> Its short video format was considered too addictive for teens</label>
+      <label class="mc-opt"><input type="radio" name="mc6" value="b"> Its parent company ByteDance is based in China</label>
+      <label class="mc-opt"><input type="radio" name="mc6" value="c"> It blocked users from posting any political content at all</label>
+      <label class="mc-opt"><input type="radio" name="mc6" value="d"> It had already been completely banned across the European Union</label>
     </div>
     <div class="mc-item">
       <p>7. When the U.S. and China imposed tariffs on each other's goods, what was this called?</p>
-      <label class="mc-opt"><input type="radio" name="mc7" value="a"> A cold war</label>
-      <label class="mc-opt"><input type="radio" name="mc7" value="b"> A trade war</label>
-      <label class="mc-opt"><input type="radio" name="mc7" value="c"> Net neutrality</label>
-      <label class="mc-opt"><input type="radio" name="mc7" value="d"> An arms race</label>
+      <label class="mc-opt"><input type="radio" name="mc7" value="a"> A cold war between two distant superpowers</label>
+      <label class="mc-opt"><input type="radio" name="mc7" value="b"> A trade war between two countries</label>
+      <label class="mc-opt"><input type="radio" name="mc7" value="c"> A net neutrality dispute about internet access</label>
+      <label class="mc-opt"><input type="radio" name="mc7" value="d"> An arms race for new weapons and technology</label>
     </div>
     <div class="mc-item">
       <p>8. The mystery illness in Wuhan first came to the WHO's attention in:</p>
-      <label class="mc-opt"><input type="radio" name="mc8" value="a"> March 2020</label>
-      <label class="mc-opt"><input type="radio" name="mc8" value="b"> January 2020</label>
-      <label class="mc-opt"><input type="radio" name="mc8" value="c"> December 2019</label>
-      <label class="mc-opt"><input type="radio" name="mc8" value="d"> June 2019</label>
+      <label class="mc-opt"><input type="radio" name="mc8" value="a"> March of 2020, after schools had closed</label>
+      <label class="mc-opt"><input type="radio" name="mc8" value="b"> January of 2020, just before flights got restricted</label>
+      <label class="mc-opt"><input type="radio" name="mc8" value="c"> December of 2019, on the last day of the year</label>
+      <label class="mc-opt"><input type="radio" name="mc8" value="d"> June of 2019, during a routine WHO health check</label>
     </div>
     <div class="mc-item">
       <p>9. What is "deep learning" in AI?</p>
-      <label class="mc-opt"><input type="radio" name="mc9" value="a"> Hand-coding every rule an AI must follow</label>
+      <label class="mc-opt"><input type="radio" name="mc9" value="a"> A method where humans hand-write every single rule the AI must follow</label>
       <label class="mc-opt"><input type="radio" name="mc9" value="b"> Using neural networks to learn patterns from large data sets</label>
-      <label class="mc-opt"><input type="radio" name="mc9" value="c"> A technique that makes computers run faster</label>
-      <label class="mc-opt"><input type="radio" name="mc9" value="d"> Training a computer to memorize a database</label>
+      <label class="mc-opt"><input type="radio" name="mc9" value="c"> A technique for making computer processors run much faster than before</label>
+      <label class="mc-opt"><input type="radio" name="mc9" value="d"> Training a computer to perfectly memorize entire textbooks word-for-word</label>
     </div>
     <div class="mc-item">
       <p>10. How was the late-2010s U.S.–China rivalry DIFFERENT from the Cold War U.S.–Soviet rivalry?</p>
       <label class="mc-opt"><input type="radio" name="mc10" value="a"> The U.S. and China traded heavily, unlike the U.S. and Soviet Union</label>
-      <label class="mc-opt"><input type="radio" name="mc10" value="b"> The U.S. held no nuclear weapons in the late 2010s</label>
-      <label class="mc-opt"><input type="radio" name="mc10" value="c"> China was seeking membership in NATO</label>
-      <label class="mc-opt"><input type="radio" name="mc10" value="d"> China and the Soviet Union were the same nation</label>
+      <label class="mc-opt"><input type="radio" name="mc10" value="b"> The U.S. had given up all of its nuclear weapons during the late 2010s</label>
+      <label class="mc-opt"><input type="radio" name="mc10" value="c"> China was officially seeking full membership in the NATO alliance</label>
+      <label class="mc-opt"><input type="radio" name="mc10" value="d"> The Soviet Union and China had merged into a single Communist nation</label>
     </div>
   </div>
 
@@ -713,7 +716,7 @@ window.addEventListener('scroll',()=>{
   document.getElementById('progress-bar').style.width=pct+'%';
 });
 
-// MODAL
+// MODAL via event delegation (avoids HTML-attribute quoting issues)
 function openModal(title,body){
   document.getElementById('modal-title').textContent=title;
   document.getElementById('modal-body').textContent=body;
@@ -721,14 +724,35 @@ function openModal(title,body){
 }
 function closeModal(){document.getElementById('modal').classList.remove('open');}
 function closeModalOutside(e){if(e.target.id==='modal')closeModal();}
+document.addEventListener('click',function(e){
+  const v=e.target.closest('.vocab');
+  if(v){openModal(v.dataset.term, v.dataset.def);}
+});
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeModal();});
 
-// QUICK CHECK
+// QUICK CHECK answer keys
+const QC_ANS={
+  qc1:{q1a:'b',q1b:'b'},
+  qc2:{q2a:'b',q2b:'b'},
+  qc3:{q3a:'b',q3b:'b'},
+  qc4:{q4a:'b',q4b:'b'},
+  qc5:{q5a:'c',q5b:'b'}
+};
 function checkQC(id){
   const r=document.getElementById(id+'-result');
+  const ans=QC_ANS[id]||{};
+  let correct=0,total=0;
+  const lines=[];
+  Object.keys(ans).forEach(function(name,idx){
+    total++;
+    const sel=document.querySelector('input[name="'+name+'"]:checked');
+    if(!sel){lines.push((idx+1)+'. ⚠️ no answer picked — correct: '+ans[name].toUpperCase());}
+    else if(sel.value===ans[name]){correct++;lines.push((idx+1)+'. ✅ correct');}
+    else{lines.push((idx+1)+'. ❌ you picked '+sel.value.toUpperCase()+' — correct is '+ans[name].toUpperCase());}
+  });
   r.style.display='block';
-  r.style.color=var('--neon-green','#0f0');
-  r.textContent='✅ Great work reviewing! Check the correct answers (marked above) and see how you did!';
-  r.style.color='#0f0';
+  r.style.color = correct===total ? '#0f0' : '#FFE000';
+  r.innerHTML='<div style="margin-bottom:6px;">Score: '+correct+'/'+total+'</div>'+lines.map(function(l){return '<div style="font-weight:400;font-size:13px;">'+l+'</div>';}).join('');
 }
 
 // T/F SELECT
@@ -746,6 +770,29 @@ const ANSWERS={
   mc:['b','b','b','c','b','b','b','c','b','a'],
   match:['b','c','e','d','a','f']
 };
+
+
+// SVG ICON LIBRARY — injected into .icon-wrap elements
+const ICONS = {
+  spinner: '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="24" r="4"/><circle cx="24" cy="8" r="6"/><circle cx="10" cy="32" r="6"/><circle cx="38" cy="32" r="6"/><line x1="24" y1="14" x2="24" y2="20"/><line x1="14" y1="29" x2="20" y2="26"/><line x1="34" y1="29" x2="28" y2="26"/></svg>',
+  cape: '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 14 L24 6 L40 14 L36 20 L24 16 L12 20 Z" fill="currentColor" fill-opacity="0.25"/><circle cx="24" cy="10" r="2" fill="currentColor"/><path d="M14 22 L24 26 L34 22 L34 40 L24 36 L14 40 Z"/></svg>',
+  headphones: '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 28 Q8 8 24 8 Q40 8 40 28"/><rect x="6" y="26" width="8" height="14" rx="3" fill="currentColor" fill-opacity="0.3"/><rect x="34" y="26" width="8" height="14" rx="3" fill="currentColor" fill-opacity="0.3"/></svg>',
+  wave: '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 18 Q12 10 20 18 T36 18 T48 18"/><path d="M4 28 Q12 20 20 28 T36 28 T48 28"/><path d="M4 38 Q12 30 20 38 T36 38 T48 38"/></svg>',
+  chat: '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 10 H34 Q38 10 38 14 V26 Q38 30 34 30 H18 L10 38 V30 H10 Q6 30 6 26 V14 Q6 10 10 10 Z" fill="currentColor" fill-opacity="0.2"/><circle cx="17" cy="20" r="1.5" fill="currentColor"/><circle cx="24" cy="20" r="1.5" fill="currentColor"/><circle cx="31" cy="20" r="1.5" fill="currentColor"/></svg>',
+  frog: '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="24" cy="28" rx="16" ry="14" fill="currentColor" fill-opacity="0.2"/><circle cx="16" cy="16" r="6" fill="currentColor" fill-opacity="0.3"/><circle cx="32" cy="16" r="6" fill="currentColor" fill-opacity="0.3"/><circle cx="16" cy="16" r="2" fill="currentColor"/><circle cx="32" cy="16" r="2" fill="currentColor"/><path d="M16 32 Q24 38 32 32" stroke-linecap="round"/></svg>',
+  alien: '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="24" cy="22" rx="14" ry="16" fill="currentColor" fill-opacity="0.15"/><ellipse cx="17" cy="22" rx="4" ry="6" fill="currentColor"/><ellipse cx="31" cy="22" rx="4" ry="6" fill="currentColor"/><path d="M20 34 Q24 36 28 34"/><path d="M10 14 Q6 10 8 6" stroke-linecap="round"/><path d="M38 14 Q42 10 40 6" stroke-linecap="round"/></svg>',
+  note: '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 36 V12 L36 8 V32"/><ellipse cx="16" cy="36" rx="6" ry="4" fill="currentColor" fill-opacity="0.4"/><ellipse cx="32" cy="32" rx="6" ry="4" fill="currentColor" fill-opacity="0.4"/></svg>',
+  robot: '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="10" y="14" width="28" height="22" rx="4" fill="currentColor" fill-opacity="0.15"/><circle cx="18" cy="24" r="2.5" fill="currentColor"/><circle cx="30" cy="24" r="2.5" fill="currentColor"/><line x1="24" y1="8" x2="24" y2="14"/><circle cx="24" cy="6" r="2" fill="currentColor"/><line x1="6" y1="22" x2="10" y2="22"/><line x1="38" y1="22" x2="42" y2="22"/><path d="M18 30 H30"/></svg>',
+  'flag-russia': '<svg viewBox="0 0 48 48"><rect x="4" y="12" width="40" height="8" fill="white" stroke="currentColor" stroke-width="1.5"/><rect x="4" y="20" width="40" height="8" fill="#0039A6"/><rect x="4" y="28" width="40" height="8" fill="#D52B1E"/></svg>',
+  bitcoin: '<svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="20" fill="#F7931A"/><path d="M19 14 v4 M19 30 v4 M14 18 h12 a4 4 0 0 1 0 8 h-12 M14 26 h13 a4 4 0 0 1 0 8 h-13 M14 18 v16" stroke="white" stroke-width="2.5" stroke-linecap="round" fill="none"/></svg>',
+  globe: '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="24" r="18" fill="currentColor" fill-opacity="0.15"/><ellipse cx="24" cy="24" rx="8" ry="18"/><line x1="6" y1="24" x2="42" y2="24"/><line x1="24" y1="6" x2="24" y2="42"/></svg>',
+  blackhole: '<svg viewBox="0 0 48 48"><defs><radialGradient id="bhg" cx="50%" cy="55%"><stop offset="0%" stop-color="#000"/><stop offset="38%" stop-color="#000"/><stop offset="50%" stop-color="#FF8500"/><stop offset="70%" stop-color="#FFE000"/><stop offset="100%" stop-color="#1a0a00" stop-opacity="0"/></radialGradient></defs><rect width="48" height="48" fill="#000"/><circle cx="24" cy="26" r="22" fill="url(#bhg)"/></svg>',
+};
+document.querySelectorAll('.icon-wrap').forEach(function(el){
+  const name = el.dataset.icon;
+  if(ICONS[name]) el.innerHTML = ICONS[name];
+});
+
 
 function submitQuiz(){
   let score=0,total=0;
