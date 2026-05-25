@@ -1,0 +1,1936 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Fraction Lab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,300..900,0..100,0..1&family=DM+Sans:opsz,wght@9..40,300..800&family=JetBrains+Mono:wght@400..700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --paper: #FFF8EC;
+  --paper-warm: #FBEFD6;
+  --paper-deep: #F5E2BD;
+  --ink: #1B1B3A;
+  --ink-soft: #2E2E4F;
+  --ink-light: #5E5E80;
+  --coral: #E94B3C;
+  --coral-light: #F58A7E;
+  --mustard: #F5B82E;
+  --mustard-soft: #F8D17A;
+  --sage: #5C8A6F;
+  --sage-light: #9BC2A7;
+  --lavender: #8B5FBF;
+  --lavender-soft: #BFA1DD;
+  --pink: #E84A6F;
+  --sky: #4A90C2;
+  --sky-soft: #92BDD9;
+  --shadow: 4px 4px 0 var(--ink);
+  --shadow-lg: 6px 6px 0 var(--ink);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--paper);
+  background-image:
+    radial-gradient(circle at 20% 10%, rgba(245, 184, 46, 0.08) 0%, transparent 40%),
+    radial-gradient(circle at 80% 60%, rgba(139, 95, 191, 0.06) 0%, transparent 40%),
+    radial-gradient(circle at 50% 90%, rgba(233, 75, 60, 0.05) 0%, transparent 40%);
+  color: var(--ink);
+  line-height: 1.6;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 0.1 0 0 0 0 0.1 0 0 0 0 0.2 0 0 0 0.04 0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.6;
+}
+main, header, nav, footer, section { position: relative; z-index: 2; }
+.display { font-family: 'Fraunces', serif; font-variation-settings: "opsz" 144, "SOFT" 50, "WONK" 1; font-weight: 800; line-height: 0.95; letter-spacing: -0.02em; }
+h1, h2, h3 { font-family: 'Fraunces', serif; font-weight: 700; line-height: 1.1; letter-spacing: -0.015em; }
+.mono { font-family: 'JetBrains Mono', monospace; }
+header {
+  padding: 1.5rem 2rem;
+  border-bottom: 3px solid var(--ink);
+  background: var(--paper);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.logo { display: flex; align-items: center; gap: 0.75rem; }
+.logo-mark {
+  width: 48px; height: 48px;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--coral); border: 3px solid var(--ink);
+  border-radius: 12px; color: var(--paper);
+  font-family: 'Fraunces', serif; font-weight: 900; font-size: 1.3rem;
+  transform: rotate(-3deg);
+  box-shadow: 3px 3px 0 var(--ink);
+}
+.logo-text { font-family: 'Fraunces', serif; font-weight: 800; font-size: 1.4rem; letter-spacing: -0.02em; }
+.logo-text span { color: var(--coral); }
+.progress-display { display: flex; gap: 0.5rem; align-items: center; }
+.progress-display .label {
+  font-size: 0.75rem; font-weight: 600; text-transform: uppercase;
+  letter-spacing: 0.08em; color: var(--ink-light);
+}
+.progress-pip {
+  width: 14px; height: 14px; border: 2px solid var(--ink);
+  border-radius: 4px; background: var(--paper); transition: all 0.3s;
+}
+.progress-pip.done { background: var(--mustard); transform: rotate(-8deg); }
+.day-nav {
+  position: sticky; top: 0; z-index: 50;
+  background: var(--paper); border-bottom: 2px solid var(--ink);
+  padding: 0.75rem 1rem; overflow-x: auto; white-space: nowrap;
+}
+.day-nav-inner { display: inline-flex; gap: 0.5rem; align-items: center; }
+.nav-pill {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  padding: 0.5rem 0.9rem; background: var(--paper);
+  border: 2px solid var(--ink); border-radius: 20px;
+  font-size: 0.8rem; font-weight: 600; color: var(--ink);
+  text-decoration: none; cursor: pointer; transition: all 0.15s;
+  font-family: 'DM Sans', sans-serif;
+}
+.nav-pill:hover { transform: translate(-2px, -2px); box-shadow: 2px 2px 0 var(--ink); background: var(--mustard-soft); }
+.nav-pill.active { background: var(--ink); color: var(--paper); }
+.nav-pill.done::before { content: '✓'; color: var(--sage); font-weight: 900; }
+.nav-pill.done.active::before { color: var(--mustard); }
+.hero { padding: 4rem 2rem 5rem; max-width: 1200px; margin: 0 auto; text-align: center; position: relative; }
+.hero-eyebrow {
+  display: inline-block; background: var(--ink); color: var(--paper);
+  padding: 0.4rem 1rem; border-radius: 24px;
+  font-size: 0.75rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.12em; margin-bottom: 1.5rem;
+}
+.hero h1 { font-size: clamp(2.5rem, 7vw, 5.5rem); margin-bottom: 1.5rem; font-variation-settings: "opsz" 144, "SOFT" 100, "WONK" 1; }
+.hero h1 .accent-coral { color: var(--coral); font-style: italic; }
+.hero h1 .accent-mustard { color: var(--mustard); }
+.hero h1 .accent-sage { color: var(--sage); font-style: italic; }
+.hero p { font-size: 1.2rem; max-width: 640px; margin: 0 auto 2.5rem; color: var(--ink-soft); }
+.hero-cta-row { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+.btn-primary, .btn-secondary {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 1rem 1.75rem; border: 3px solid var(--ink);
+  border-radius: 14px; font-family: 'DM Sans', sans-serif;
+  font-weight: 700; font-size: 1rem; cursor: pointer;
+  text-decoration: none; transition: all 0.15s ease;
+  box-shadow: var(--shadow);
+}
+.btn-primary { background: var(--coral); color: var(--paper); }
+.btn-secondary { background: var(--paper); color: var(--ink); }
+.btn-primary:hover, .btn-secondary:hover { transform: translate(-3px, -3px); box-shadow: 7px 7px 0 var(--ink); }
+.btn-primary:active, .btn-secondary:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--ink); }
+.hero-deco { position: absolute; pointer-events: none; opacity: 0.9; }
+.hero-deco.top-left { top: 1rem; left: 5%; animation: float 6s ease-in-out infinite; }
+.hero-deco.top-right { top: 3rem; right: 5%; animation: float 8s ease-in-out infinite reverse; }
+.hero-deco.bottom-left { bottom: -1rem; left: 8%; animation: float 7s ease-in-out infinite; }
+.hero-deco.bottom-right { bottom: 0; right: 10%; animation: float 9s ease-in-out infinite reverse; }
+@keyframes float { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-15px) rotate(5deg); } }
+.day-section { padding: 4rem 1.5rem; max-width: 880px; margin: 0 auto; scroll-margin-top: 4rem; }
+.day-header { display: flex; align-items: center; gap: 1.25rem; margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 2px dashed var(--ink); }
+.day-badge {
+  flex-shrink: 0; width: 90px; height: 90px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  border: 3px solid var(--ink); border-radius: 16px;
+  background: var(--mustard); box-shadow: var(--shadow);
+  transform: rotate(-2deg);
+}
+.day-section:nth-of-type(even) .day-badge { background: var(--coral); color: var(--paper); transform: rotate(2deg); }
+.day-badge .label { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; }
+.day-badge .num { font-family: 'Fraunces', serif; font-size: 2.2rem; font-weight: 800; line-height: 1; }
+.day-title h2 { font-size: clamp(1.8rem, 4vw, 2.8rem); margin-bottom: 0.25rem; font-variation-settings: "opsz" 144, "SOFT" 50; }
+.day-title .subtitle { font-size: 1rem; color: var(--ink-light); font-style: italic; }
+.content-block { margin-bottom: 2rem; }
+.content-block p { font-size: 1.05rem; margin-bottom: 1.1rem; color: var(--ink-soft); }
+.content-block h3 { font-size: 1.5rem; margin: 2rem 0 1rem; color: var(--ink); display: flex; align-items: center; gap: 0.6rem; }
+.content-block h3::before { content: ''; width: 14px; height: 14px; background: var(--coral); border: 2px solid var(--ink); border-radius: 4px; transform: rotate(45deg); }
+.vocab {
+  background: var(--mustard-soft); padding: 0.05em 0.3em;
+  border-radius: 4px; border-bottom: 2px solid var(--ink);
+  cursor: pointer; font-weight: 700; color: var(--ink);
+  transition: all 0.15s; text-decoration: none; display: inline-block;
+}
+.vocab:hover { background: var(--mustard); transform: translateY(-1px); }
+.vocab::after { content: '✦'; font-size: 0.7em; margin-left: 0.2em; vertical-align: super; opacity: 0.6; }
+.math-display {
+  background: var(--paper-warm); border: 2px solid var(--ink);
+  border-radius: 12px; padding: 1.25rem 1.5rem; margin: 1.25rem 0;
+  font-family: 'JetBrains Mono', monospace; font-size: 1.15rem;
+  text-align: center; box-shadow: 3px 3px 0 var(--ink);
+}
+.math-display.large { font-size: 1.6rem; padding: 1.75rem; }
+.frac { display: inline-flex; flex-direction: column; align-items: center; vertical-align: middle; margin: 0 0.15em; line-height: 1; }
+.frac > .num { border-bottom: 2px solid currentColor; padding: 0 0.3em 0.15em; }
+.frac > .den { padding: 0.15em 0.3em 0; }
+.frac.large { font-size: 1.4em; }
+.visualization {
+  background: var(--paper-warm); border: 2px solid var(--ink);
+  border-radius: 16px; padding: 1.5rem; margin: 1.5rem 0;
+  text-align: center; box-shadow: 3px 3px 0 var(--ink);
+}
+.viz-caption { font-size: 0.85rem; color: var(--ink-light); font-style: italic; margin-top: 0.75rem; }
+.reflection {
+  background: var(--lavender-soft); border: 3px solid var(--ink);
+  border-radius: 16px; padding: 1.5rem 1.75rem; margin: 2rem 0;
+  position: relative; box-shadow: var(--shadow);
+}
+.reflection::before {
+  content: 'STOP & THINK'; position: absolute; top: -14px; left: 1.5rem;
+  background: var(--ink); color: var(--paper);
+  padding: 0.25rem 0.75rem; font-size: 0.7rem; font-weight: 700;
+  letter-spacing: 0.1em; border-radius: 12px;
+}
+.reflection h4 { font-family: 'Fraunces', serif; font-size: 1.15rem; margin-bottom: 0.75rem; font-weight: 700; }
+.reflection p, .reflection li { font-size: 0.98rem; color: var(--ink-soft); }
+.reflection ol, .reflection ul { padding-left: 1.5rem; margin-top: 0.5rem; }
+.reflection li { margin-bottom: 0.4rem; }
+.quick-check {
+  background: var(--sage-light); border: 3px solid var(--ink);
+  border-radius: 16px; padding: 1.75rem; margin: 2rem 0;
+  box-shadow: var(--shadow); position: relative;
+}
+.quick-check::before {
+  content: 'QUICK CHECK'; position: absolute; top: -14px; left: 1.5rem;
+  background: var(--sage); color: var(--paper);
+  padding: 0.25rem 0.75rem; font-size: 0.7rem; font-weight: 700;
+  letter-spacing: 0.1em; border-radius: 12px; border: 2px solid var(--ink);
+}
+.qc-question { margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px dashed var(--ink-light); }
+.qc-question:last-child { border-bottom: none; padding-bottom: 0; margin-bottom: 0; }
+.qc-prompt { font-weight: 600; font-size: 1.02rem; margin-bottom: 0.6rem; display: flex; align-items: baseline; gap: 0.5rem; }
+.qc-prompt .qnum { background: var(--ink); color: var(--paper); padding: 0.1rem 0.5rem; border-radius: 4px; font-size: 0.85rem; font-weight: 700; flex-shrink: 0; }
+.qc-input-row { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+.qc-input { padding: 0.5rem 0.75rem; border: 2px solid var(--ink); border-radius: 8px; font-family: 'JetBrains Mono', monospace; font-size: 1rem; background: var(--paper); width: 100px; }
+.qc-input:focus { outline: 3px solid var(--mustard); }
+.qc-options { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.5rem; }
+.qc-option { padding: 0.5rem 1rem; border: 2px solid var(--ink); border-radius: 10px; background: var(--paper); cursor: pointer; font-family: 'DM Sans', sans-serif; font-weight: 600; transition: all 0.15s; }
+.qc-option:hover { transform: translate(-2px, -2px); box-shadow: 2px 2px 0 var(--ink); }
+.qc-option.correct { background: var(--sage); color: var(--paper); pointer-events: none; }
+.qc-option.wrong { background: var(--coral); color: var(--paper); animation: shake 0.3s; }
+.qc-option.selected { background: var(--mustard); }
+@keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
+.qc-check-btn { padding: 0.5rem 1rem; background: var(--ink); color: var(--paper); border: 2px solid var(--ink); border-radius: 8px; font-weight: 700; cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; }
+.qc-check-btn:hover { background: var(--coral); }
+.qc-feedback { margin-top: 0.75rem; padding: 0.75rem 1rem; border-radius: 8px; font-size: 0.95rem; display: none; border: 2px solid var(--ink); }
+.qc-feedback.show { display: block; animation: fadeIn 0.3s; }
+.qc-feedback.right { background: var(--sage-light); }
+.qc-feedback.wrong { background: var(--coral-light); }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
+.practice-cta {
+  margin-top: 2.5rem; padding: 2rem; background: var(--ink); color: var(--paper);
+  border-radius: 16px; text-align: center; position: relative; overflow: hidden;
+}
+.practice-cta::before { content: ''; position: absolute; width: 200px; height: 200px; background: var(--mustard); border-radius: 50%; top: -100px; right: -100px; opacity: 0.3; }
+.practice-cta h4 { font-family: 'Fraunces', serif; font-size: 1.5rem; margin-bottom: 0.5rem; position: relative; }
+.practice-cta p { margin-bottom: 1.25rem; opacity: 0.9; position: relative; }
+.practice-cta .btn-primary { background: var(--mustard); color: var(--ink); position: relative; }
+.protip { background: var(--paper); border-left: 5px solid var(--coral); padding: 1.25rem 1.5rem; margin: 1.5rem 0; border-radius: 0 12px 12px 0; font-size: 0.97rem; }
+.protip strong { color: var(--coral); text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.78rem; display: block; margin-bottom: 0.4rem; }
+.section-divider { text-align: center; margin: 4rem 0; font-family: 'Fraunces', serif; font-size: 2rem; color: var(--ink-light); font-weight: 700; letter-spacing: 0.3em; }
+.modal-overlay { position: fixed; inset: 0; background: rgba(27, 27, 58, 0.75); display: none; align-items: center; justify-content: center; z-index: 1000; padding: 1rem; animation: fadeIn 0.2s; }
+.modal-overlay.show { display: flex; }
+.modal { background: var(--paper); border: 3px solid var(--ink); border-radius: 20px; padding: 2rem; max-width: 480px; width: 100%; box-shadow: 8px 8px 0 var(--coral); position: relative; animation: popIn 0.3s ease-out; }
+@keyframes popIn { from { transform: scale(0.85) translateY(20px); opacity: 0; } to { transform: scale(1) translateY(0); opacity: 1; } }
+.modal-close { position: absolute; top: 1rem; right: 1rem; width: 36px; height: 36px; border-radius: 50%; border: 2px solid var(--ink); background: var(--paper); cursor: pointer; font-size: 1.2rem; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+.modal-close:hover { background: var(--coral); color: var(--paper); }
+.modal h3 { font-family: 'Fraunces', serif; font-size: 1.6rem; margin-bottom: 0.4rem; padding-right: 2rem; }
+.modal .word-type { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--coral); font-weight: 700; margin-bottom: 1rem; }
+.modal-body { font-size: 1rem; color: var(--ink-soft); }
+.modal-body .example { margin-top: 1rem; padding: 0.75rem 1rem; background: var(--mustard-soft); border-radius: 10px; font-family: 'JetBrains Mono', monospace; font-size: 0.95rem; border: 2px solid var(--ink); }
+#practice-lab { background: var(--ink); color: var(--paper); padding: 4rem 1.5rem; margin-top: 4rem; position: relative; overflow: hidden; }
+#practice-lab::before { content: ''; position: absolute; top: -50px; left: -50px; width: 200px; height: 200px; background: var(--coral); border-radius: 50%; opacity: 0.2; }
+#practice-lab::after { content: ''; position: absolute; bottom: -80px; right: -50px; width: 250px; height: 250px; background: var(--mustard); border-radius: 50%; opacity: 0.2; }
+.lab-inner { max-width: 900px; margin: 0 auto; position: relative; z-index: 1; }
+.lab-header { text-align: center; margin-bottom: 2.5rem; }
+.lab-header .eyebrow { display: inline-block; background: var(--mustard); color: var(--ink); padding: 0.4rem 1rem; border-radius: 20px; font-weight: 700; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 1rem; }
+.lab-header h2 { font-size: clamp(2rem, 5vw, 3.5rem); margin-bottom: 0.5rem; font-variation-settings: "opsz" 144, "SOFT" 100, "WONK" 1; }
+.lab-header p { opacity: 0.85; max-width: 580px; margin: 0 auto; font-size: 1.05rem; }
+.lab-stats { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 2rem; }
+.lab-stat { background: rgba(255, 248, 236, 0.1); padding: 0.75rem 1.25rem; border-radius: 12px; border: 2px solid var(--paper); text-align: center; min-width: 120px; }
+.lab-stat .stat-num { font-family: 'Fraunces', serif; font-size: 1.8rem; font-weight: 800; display: block; line-height: 1; }
+.lab-stat .stat-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; opacity: 0.85; margin-top: 0.25rem; }
+.lab-stat .stat-num.streak-on { color: var(--mustard); }
+.topic-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 0.75rem; margin-bottom: 2rem; }
+.topic-btn { padding: 1rem; background: var(--paper); color: var(--ink); border: 3px solid var(--ink); border-radius: 12px; font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 0.92rem; cursor: pointer; text-align: left; transition: all 0.15s; display: flex; align-items: center; gap: 0.6rem; }
+.topic-btn:hover { transform: translate(-3px, -3px); box-shadow: 4px 4px 0 var(--paper); }
+.topic-btn.active { background: var(--coral); color: var(--paper); box-shadow: 4px 4px 0 var(--mustard); }
+.topic-btn .icon { flex-shrink: 0; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; background: var(--mustard); border: 2px solid var(--ink); border-radius: 6px; font-size: 0.8rem; font-weight: 800; }
+.topic-btn.active .icon { background: var(--paper); color: var(--coral); }
+.lab-card { background: var(--paper); color: var(--ink); border: 3px solid var(--paper); border-radius: 20px; padding: 2rem; box-shadow: 6px 6px 0 var(--coral); min-height: 240px; }
+.lab-card .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 2px dashed var(--ink); }
+.lab-card .card-topic { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--coral); }
+.lab-card .question-num { font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: var(--ink-light); }
+.lab-question { font-family: 'Fraunces', serif; font-size: 1.6rem; font-weight: 700; text-align: center; margin: 1.5rem 0; min-height: 60px; display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 0.4rem; }
+.lab-question .frac { font-size: 1em; }
+.lab-answer-row { display: flex; gap: 0.5rem; align-items: center; justify-content: center; flex-wrap: wrap; margin-bottom: 1rem; }
+.lab-input { padding: 0.7rem 1rem; border: 3px solid var(--ink); border-radius: 10px; font-family: 'JetBrains Mono', monospace; font-size: 1.2rem; text-align: center; width: 90px; background: var(--paper-warm); font-weight: 700; }
+.lab-input:focus { outline: 3px solid var(--mustard); }
+.lab-fraction-input { display: inline-flex; flex-direction: column; align-items: center; gap: 0.15rem; }
+.lab-fraction-input .lab-input { width: 70px; font-size: 1.1rem; padding: 0.5rem; }
+.lab-fraction-input .divider { width: 60px; height: 3px; background: var(--ink); border-radius: 2px; }
+.lab-controls { display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; margin-top: 1rem; }
+.lab-btn { padding: 0.75rem 1.5rem; border: 3px solid var(--ink); border-radius: 10px; font-family: 'DM Sans', sans-serif; font-weight: 700; cursor: pointer; transition: all 0.15s; box-shadow: 3px 3px 0 var(--ink); font-size: 0.95rem; }
+.lab-btn.check { background: var(--sage); color: var(--paper); }
+.lab-btn.next { background: var(--coral); color: var(--paper); }
+.lab-btn.hint { background: var(--paper); color: var(--ink); }
+.lab-btn.show { background: var(--lavender); color: var(--paper); }
+.lab-btn:hover { transform: translate(-2px, -2px); box-shadow: 5px 5px 0 var(--ink); }
+.lab-btn:active { transform: translate(1px, 1px); box-shadow: 1px 1px 0 var(--ink); }
+.lab-feedback { margin-top: 1rem; padding: 1rem; border-radius: 10px; border: 2px solid var(--ink); font-size: 0.97rem; display: none; }
+.lab-feedback.show { display: block; animation: fadeIn 0.3s; }
+.lab-feedback.right { background: var(--sage-light); }
+.lab-feedback.wrong { background: var(--coral-light); }
+.lab-feedback.hint { background: var(--mustard-soft); }
+.lab-feedback strong { font-family: 'Fraunces', serif; font-size: 1.1rem; }
+.lab-placeholder { text-align: center; padding: 3rem 1rem; color: var(--ink-light); }
+.lab-placeholder p { font-size: 1.05rem; }
+#final { padding: 4rem 1.5rem; max-width: 880px; margin: 0 auto; scroll-margin-top: 4rem; }
+.final-header { text-align: center; margin-bottom: 3rem; }
+.final-header .eyebrow { display: inline-block; background: var(--coral); color: var(--paper); padding: 0.4rem 1rem; border-radius: 20px; font-weight: 700; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 1rem; }
+.final-header h2 { font-size: clamp(2.2rem, 5vw, 4rem); font-variation-settings: "opsz" 144, "SOFT" 100, "WONK" 1; }
+.final-section { background: var(--paper); border: 3px solid var(--ink); border-radius: 20px; padding: 2rem; margin-bottom: 2rem; box-shadow: var(--shadow); }
+.final-section .section-tag { display: inline-block; padding: 0.3rem 0.8rem; background: var(--ink); color: var(--paper); border-radius: 16px; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.75rem; }
+.final-section h3 { font-family: 'Fraunces', serif; font-size: 1.5rem; margin-bottom: 1.25rem; }
+.fb-item { margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px dashed var(--ink-light); display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap; }
+.fb-item:last-child { border-bottom: none; }
+.fb-prompt { flex: 1; min-width: 200px; }
+.match-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+.match-item { padding: 0.75rem 1rem; background: var(--paper-warm); border: 2px solid var(--ink); border-radius: 10px; cursor: pointer; transition: all 0.15s; font-size: 0.92rem; }
+.match-item:hover { background: var(--mustard-soft); }
+.match-item.selected { background: var(--mustard); transform: scale(0.98); }
+.match-item.matched-coral { background: var(--coral-light); border-color: var(--coral); pointer-events: none; }
+.match-item.matched-sage { background: var(--sage-light); border-color: var(--sage); pointer-events: none; }
+.match-item.matched-lavender { background: var(--lavender-soft); border-color: var(--lavender); pointer-events: none; }
+.match-item.matched-mustard { background: var(--mustard-soft); border-color: var(--mustard); pointer-events: none; }
+.match-item.matched-sky { background: var(--sky-soft); border-color: var(--sky); pointer-events: none; }
+.match-item.wrong { background: var(--coral); color: var(--paper); animation: shake 0.3s; }
+.essay-box { width: 100%; min-height: 130px; padding: 1rem; border: 2px solid var(--ink); border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 1rem; background: var(--paper-warm); resize: vertical; }
+.essay-box:focus { outline: 3px solid var(--mustard); }
+#submit-final { display: block; margin: 2rem auto; padding: 1.25rem 2.5rem; font-size: 1.1rem; }
+#final-results { display: none; margin-top: 2rem; padding: 2rem; background: var(--mustard); border: 3px solid var(--ink); border-radius: 20px; box-shadow: var(--shadow); text-align: center; }
+#final-results.show { display: block; animation: popIn 0.4s; }
+#final-results h3 { font-family: 'Fraunces', serif; font-size: 2rem; margin-bottom: 0.5rem; }
+#final-results .score { font-family: 'Fraunces', serif; font-size: 4rem; font-weight: 800; color: var(--coral); line-height: 1; margin: 0.5rem 0; }
+.confetti { position: fixed; width: 10px; height: 14px; pointer-events: none; z-index: 9999; animation: confettiFall 2.5s ease-out forwards; }
+@keyframes confettiFall { 0% { transform: translateY(-20px) rotate(0); opacity: 1; } 100% { transform: translateY(100vh) rotate(720deg); opacity: 0; } }
+footer { background: var(--ink); color: var(--paper); padding: 2.5rem 1.5rem; text-align: center; border-top: 3px solid var(--ink); }
+footer .footer-mark { font-family: 'Fraunces', serif; font-size: 1.8rem; font-weight: 800; margin-bottom: 0.5rem; font-variation-settings: "opsz" 144, "SOFT" 100, "WONK" 1; }
+footer .footer-mark span { color: var(--coral); }
+footer p { opacity: 0.75; font-size: 0.92rem; }
+@media (max-width: 600px) {
+  .hero { padding: 3rem 1rem 4rem; }
+  .day-header { flex-direction: column; align-items: flex-start; }
+  .day-badge { width: 70px; height: 70px; }
+  .day-badge .num { font-size: 1.8rem; }
+  .content-block p { font-size: 1rem; }
+  .math-display { font-size: 1rem; padding: 1rem; }
+  .math-display.large { font-size: 1.3rem; }
+  .modal { padding: 1.5rem; }
+  .lab-card { padding: 1.5rem; }
+  .lab-question { font-size: 1.3rem; }
+  .topic-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">
+    <div class="logo-mark">⅗</div>
+    <div class="logo-text">The Fraction <span>Lab</span></div>
+  </div>
+  <div class="progress-display">
+    <span class="label">Progress</span>
+    <div class="progress-pip" data-day="1"></div>
+    <div class="progress-pip" data-day="2"></div>
+    <div class="progress-pip" data-day="3"></div>
+    <div class="progress-pip" data-day="4"></div>
+    <div class="progress-pip" data-day="5"></div>
+    <div class="progress-pip" data-day="6"></div>
+    <div class="progress-pip" data-day="7"></div>
+    <div class="progress-pip" data-day="8"></div>
+    <div class="progress-pip" data-day="9"></div>
+    <div class="progress-pip" data-day="10"></div>
+  </div>
+</header>
+
+<nav class="day-nav">
+  <div class="day-nav-inner">
+    <a class="nav-pill" href="#welcome">Start</a>
+    <a class="nav-pill" href="#day-1" data-nav="1">Day 1 · Meet</a>
+    <a class="nav-pill" href="#day-2" data-nav="2">Day 2 · Family</a>
+    <a class="nav-pill" href="#day-3" data-nav="3">Day 3 · Twins</a>
+    <a class="nav-pill" href="#day-4" data-nav="4">Day 4 · Add Like</a>
+    <a class="nav-pill" href="#day-5" data-nav="5">Day 5 · Add Unlike</a>
+    <a class="nav-pill" href="#day-6" data-nav="6">Day 6 · Mixed</a>
+    <a class="nav-pill" href="#day-7" data-nav="7">Day 7 · Multiply</a>
+    <a class="nav-pill" href="#day-8" data-nav="8">Day 8 · Divide</a>
+    <a class="nav-pill" href="#day-9" data-nav="9">Day 9 · Compare</a>
+    <a class="nav-pill" href="#day-10" data-nav="10">Day 10 · Wild</a>
+    <a class="nav-pill" href="#practice-lab" style="background: var(--coral); color: var(--paper);">Practice Lab</a>
+    <a class="nav-pill" href="#final" style="background: var(--ink); color: var(--paper);">Final</a>
+  </div>
+</nav>
+
+<section class="hero" id="welcome">
+  <svg class="hero-deco top-left" width="80" height="80" viewBox="0 0 80 80">
+    <circle cx="40" cy="40" r="36" fill="none" stroke="#1B1B3A" stroke-width="3"/>
+    <path d="M 40 4 L 40 40 L 76 40 A 36 36 0 0 0 40 4 Z" fill="#E94B3C"/>
+    <text x="40" y="60" text-anchor="middle" font-family="Fraunces" font-size="14" fill="#1B1B3A" font-weight="800">¼</text>
+  </svg>
+  <svg class="hero-deco top-right" width="70" height="70" viewBox="0 0 70 70">
+    <rect x="5" y="5" width="60" height="60" fill="#F5B82E" stroke="#1B1B3A" stroke-width="3" transform="rotate(8 35 35)"/>
+    <text x="35" y="48" text-anchor="middle" font-family="Fraunces" font-size="28" fill="#1B1B3A" font-weight="800" transform="rotate(8 35 35)">⅔</text>
+  </svg>
+  <svg class="hero-deco bottom-left" width="90" height="90" viewBox="0 0 90 90">
+    <circle cx="45" cy="45" r="40" fill="#5C8A6F" stroke="#1B1B3A" stroke-width="3"/>
+    <path d="M 45 5 A 40 40 0 0 1 85 45 L 45 45 Z" fill="#FFF8EC"/>
+    <text x="45" y="55" text-anchor="middle" font-family="Fraunces" font-size="18" fill="#FFF8EC" font-weight="800">⅞</text>
+  </svg>
+  <svg class="hero-deco bottom-right" width="75" height="75" viewBox="0 0 75 75">
+    <polygon points="37,5 70,30 58,65 17,65 5,30" fill="#8B5FBF" stroke="#1B1B3A" stroke-width="3"/>
+    <text x="37" y="48" text-anchor="middle" font-family="Fraunces" font-size="22" fill="#FFF8EC" font-weight="800">⅗</text>
+  </svg>
+
+  <span class="hero-eyebrow">Ten Days · Practice Lab · Final Boss</span>
+  <h1 class="display">Fractions, but make it <span class="accent-coral">make sense</span>.</h1>
+  <p>Welcome to a ten-day journey through fractions. You will split things, share things, measure things, and learn to spot the tricks that fractions play on you. Each day ends with a quick check, and the Practice Lab gives you infinite random questions whenever you want to sharpen up.</p>
+  <div class="hero-cta-row">
+    <a href="#day-1" class="btn-primary">Start Day 1 →</a>
+    <a href="#practice-lab" class="btn-secondary">Practice Now</a>
+  </div>
+</section>
+<section class="day-section" id="day-1">
+  <div class="day-header">
+    <div class="day-badge"><span class="label">Day</span><span class="num">01</span></div>
+    <div class="day-title">
+      <h2>Meet the Fractions</h2>
+      <span class="subtitle">What they are, what their parts are called, and the four big things they can mean</span>
+    </div>
+  </div>
+  <div class="content-block">
+    <p>Fractions look simple at first. Half a pizza. One fourth of a candy bar. Three quarters of an hour. Easy. But the moment math starts asking you to subtract two and one third from one and five sixths, fractions can feel like a secret code.</p>
+    <p>They are not a secret code. They are a system. Once you understand what the pieces mean, the rules stop feeling like tricks.</p>
+    <h3>The two parts of every fraction</h3>
+    <p>A fraction has two numbers, stacked. The top one is the <span class="vocab" data-term="numerator">numerator</span>, and the bottom one is the <span class="vocab" data-term="denominator">denominator</span>.</p>
+    <div class="math-display large"><span class="frac large"><span class="num">3</span><span class="den">4</span></span></div>
+    <p>The denominator tells you how many equal pieces the whole has been split into. The numerator tells you how many of those pieces you have. So three fourths means the whole was split into 4 equal parts and you have 3 of them.</p>
+    <div class="visualization">
+      <svg width="100%" height="160" viewBox="0 0 400 160" style="max-width: 380px;">
+        <g transform="translate(200, 80)">
+          <circle r="65" fill="#FFF8EC" stroke="#1B1B3A" stroke-width="3"/>
+          <path d="M 0 -65 A 65 65 0 0 1 65 0 L 0 0 Z" fill="#E94B3C"/>
+          <path d="M 65 0 A 65 65 0 0 1 0 65 L 0 0 Z" fill="#F5B82E"/>
+          <path d="M 0 65 A 65 65 0 0 1 -65 0 L 0 0 Z" fill="#5C8A6F"/>
+          <line x1="0" y1="-65" x2="0" y2="65" stroke="#1B1B3A" stroke-width="2"/>
+          <line x1="-65" y1="0" x2="65" y2="0" stroke="#1B1B3A" stroke-width="2"/>
+        </g>
+      </svg>
+      <p class="viz-caption">Three of the four equal pieces are filled in.</p>
+    </div>
+    <h3>Bigger denominator does not mean bigger fraction</h3>
+    <p>Here is the trap: a bigger denominator often makes each piece <em>smaller</em>, because you are cutting the whole into more parts. One half is bigger than one eighth, even though 8 is bigger than 2.</p>
+    <div class="visualization">
+      <svg width="100%" height="90" viewBox="0 0 400 90" style="max-width: 380px;">
+        <rect x="20" y="15" width="160" height="60" fill="#4A90C2" stroke="#1B1B3A" stroke-width="3"/>
+        <rect x="180" y="15" width="160" height="60" fill="#FFF8EC" stroke="#1B1B3A" stroke-width="3"/>
+        <text x="100" y="52" text-anchor="middle" font-family="Fraunces" font-size="22" fill="#FFF8EC" font-weight="800">½</text>
+      </svg>
+      <svg width="100%" height="90" viewBox="0 0 400 90" style="max-width: 380px;">
+        <rect x="20" y="15" width="40" height="60" fill="#E94B3C" stroke="#1B1B3A" stroke-width="3"/>
+        <rect x="60" y="15" width="40" height="60" fill="#FFF8EC" stroke="#1B1B3A" stroke-width="3"/>
+        <rect x="100" y="15" width="40" height="60" fill="#FFF8EC" stroke="#1B1B3A" stroke-width="3"/>
+        <rect x="140" y="15" width="40" height="60" fill="#FFF8EC" stroke="#1B1B3A" stroke-width="3"/>
+        <rect x="180" y="15" width="40" height="60" fill="#FFF8EC" stroke="#1B1B3A" stroke-width="3"/>
+        <rect x="220" y="15" width="40" height="60" fill="#FFF8EC" stroke="#1B1B3A" stroke-width="3"/>
+        <rect x="260" y="15" width="40" height="60" fill="#FFF8EC" stroke="#1B1B3A" stroke-width="3"/>
+        <rect x="300" y="15" width="40" height="60" fill="#FFF8EC" stroke="#1B1B3A" stroke-width="3"/>
+        <text x="40" y="52" text-anchor="middle" font-family="Fraunces" font-size="16" fill="#FFF8EC" font-weight="800">⅛</text>
+      </svg>
+      <p class="viz-caption">Same bar, two ways to slice it. The half slice is much bigger than the eighth slice.</p>
+    </div>
+    <div class="protip"><strong>Pro Tip</strong>Think of the denominator as the "piece size controller." The bigger it gets (with a numerator of 1), the smaller each individual piece becomes.</div>
+    <h3>Four things a fraction can mean</h3>
+    <p>A fraction can mean part of a whole, like 2 slices of a 6 slice chocolate bar. It can mean part of a group, like 8 out of 20 students wearing sneakers. It can be a number on a number line, sitting between whole numbers. And it can mean division: the bar between the numerator and denominator is a division sign in disguise.</p>
+    <div class="math-display"><span class="frac large"><span class="num">3</span><span class="den">4</span></span> &nbsp;=&nbsp; 3 ÷ 4</div>
+    <p>That last one is huge. If 3 sandwiches are shared equally by 4 people, each person gets three fourths of a sandwich. The fraction <em>is</em> the answer.</p>
+    <div class="reflection">
+      <h4>Try this in your head</h4>
+      <p>Which is larger: one third or one sixth?</p>
+      <p style="margin-top: 0.5rem; font-style: italic; color: var(--ink-light);">If you split a brownie into 3 pieces or 6 pieces, which piece would you rather have?</p>
+    </div>
+  </div>
+  <div class="quick-check" data-quiz="day1">
+    <div class="qc-question" data-correct="1/4">
+      <div class="qc-prompt"><span class="qnum">Q1</span> Which is larger: 1/4 or 1/9? Type your answer (use a slash, like 1/4):</div>
+      <div class="qc-input-row"><input class="qc-input" type="text" placeholder="? / ?"><button class="qc-check-btn">Check</button></div>
+      <div class="qc-feedback"></div>
+    </div>
+    <div class="qc-question" data-correct="numerator">
+      <div class="qc-prompt"><span class="qnum">Q2</span> What is the top number in a fraction called?</div>
+      <div class="qc-options">
+        <button class="qc-option" data-answer="numerator">numerator</button>
+        <button class="qc-option" data-answer="denominator">denominator</button>
+        <button class="qc-option" data-answer="quotient">quotient</button>
+        <button class="qc-option" data-answer="reciprocal">reciprocal</button>
+      </div>
+      <div class="qc-feedback"></div>
+    </div>
+    <div class="qc-question" data-correct="7/10">
+      <div class="qc-prompt"><span class="qnum">Q3</span> A rectangle is split into 10 equal parts. Seven are shaded. What fraction is shaded?</div>
+      <div class="qc-input-row"><input class="qc-input" type="text" placeholder="? / ?"><button class="qc-check-btn">Check</button></div>
+      <div class="qc-feedback"></div>
+    </div>
+    <div class="qc-question" data-correct="2/3">
+      <div class="qc-prompt"><span class="qnum">Q4</span> Three friends share 2 sandwiches equally. What fraction does each friend get?</div>
+      <div class="qc-input-row"><input class="qc-input" type="text" placeholder="? / ?"><button class="qc-check-btn">Check</button></div>
+      <div class="qc-feedback"></div>
+    </div>
+  </div>
+  <div class="practice-cta">
+    <h4>Want more practice?</h4>
+    <p>Head to the Practice Lab to keep generating random Day 1 questions.</p>
+    <a href="#practice-lab" class="btn-primary" data-topic="identify">Open the Lab →</a>
+  </div>
+</section>
+
+<div class="section-divider">· · ·</div>
+
+<section class="day-section" id="day-2">
+  <div class="day-header">
+    <div class="day-badge"><span class="label">Day</span><span class="num">02</span></div>
+    <div class="day-title">
+      <h2>The Fraction Family</h2>
+      <span class="subtitle">Proper fractions, improper fractions, and mixed numbers</span>
+    </div>
+  </div>
+  <div class="content-block">
+    <p>Fractions come in different styles, and once you can tell them apart you stop being surprised when a problem hands you something like 11/4 or 2 and one third.</p>
+    <h3>Proper fractions</h3>
+    <p>A <span class="vocab" data-term="proper">proper fraction</span> has a numerator smaller than the denominator. That means it is less than 1. Half a sandwich. Three fifths of a pizza. Seven twelfths of an hour. These describe part of one whole.</p>
+    <div class="math-display"><span class="frac"><span class="num">1</span><span class="den">2</span></span>&nbsp;&nbsp;<span class="frac"><span class="num">3</span><span class="den">5</span></span>&nbsp;&nbsp;<span class="frac"><span class="num">7</span><span class="den">12</span></span></div>
+    <h3>Improper fractions</h3>
+    <p>An <span class="vocab" data-term="improper">improper fraction</span> has a numerator that is equal to or greater than the denominator. That means it is 1 or more. Five fourths, for example, is more than 1 whole, because 4 fourths already make a whole.</p>
+    <div class="visualization">
+      <svg width="100%" height="120" viewBox="0 0 400 120" style="max-width: 380px;">
+        <g transform="translate(80, 60)"><circle r="40" fill="#E94B3C" stroke="#1B1B3A" stroke-width="3"/><line x1="0" y1="-40" x2="0" y2="40" stroke="#1B1B3A" stroke-width="2"/><line x1="-40" y1="0" x2="40" y2="0" stroke="#1B1B3A" stroke-width="2"/></g>
+        <g transform="translate(200, 60)"><circle r="40" fill="#FFF8EC" stroke="#1B1B3A" stroke-width="3"/><path d="M 0 -40 A 40 40 0 0 1 40 0 L 0 0 Z" fill="#E94B3C"/><line x1="0" y1="-40" x2="0" y2="40" stroke="#1B1B3A" stroke-width="2"/><line x1="-40" y1="0" x2="40" y2="0" stroke="#1B1B3A" stroke-width="2"/></g>
+        <text x="320" y="70" font-family="Fraunces" font-size="26" font-weight="800" fill="#1B1B3A">= 5/4</text>
+      </svg>
+      <p class="viz-caption">Four fourths fill one whole circle. Plus one more fourth equals five fourths.</p>
+    </div>
+    <h3>Mixed numbers</h3>
+    <p>A <span class="vocab" data-term="mixed">mixed number</span> has a whole number paired with a fraction. Two and one half. Three and three fourths. They mean the same thing as improper fractions, but they are easier to picture.</p>
+    <h3>Improper to mixed</h3>
+    <p>Divide the numerator by the denominator. The whole number part is the answer to the division. The remainder becomes the new numerator. The denominator stays the same.</p>
+    <div class="math-display"><span class="frac"><span class="num">11</span><span class="den">4</span></span>&nbsp;→&nbsp; 11 ÷ 4 = 2 R 3 &nbsp;→&nbsp; <span style="font-family: Fraunces; font-weight: 800;">2</span><span class="frac"><span class="num">3</span><span class="den">4</span></span></div>
+    <h3>Mixed to improper</h3>
+    <p>Multiply the whole number by the denominator. Add the numerator. Keep the denominator. So 3 and two fifths becomes (3 × 5 + 2) over 5, which is 17/5.</p>
+    <div class="math-display"><span style="font-family: Fraunces; font-weight: 800;">3</span><span class="frac"><span class="num">2</span><span class="den">5</span></span>&nbsp;→&nbsp; (3 × 5) + 2 = 17 &nbsp;→&nbsp; <span class="frac"><span class="num">17</span><span class="den">5</span></span></div>
+    <div class="protip"><strong>Pro Tip</strong>The denominator never changes when you go between improper and mixed. Only the numerator and the whole number move around.</div>
+  </div>
+  <div class="quick-check" data-quiz="day2">
+    <div class="qc-question" data-correct="2 1/3">
+      <div class="qc-prompt"><span class="qnum">Q1</span> Convert 7/3 to a mixed number. Type it like this: 2 1/3</div>
+      <div class="qc-input-row"><input class="qc-input" type="text" placeholder="? ?/?"><button class="qc-check-btn">Check</button></div>
+      <div class="qc-feedback"></div>
+    </div>
+    <div class="qc-question" data-correct="11/3">
+      <div class="qc-prompt"><span class="qnum">Q2</span> Convert 3 2/3 to an improper fraction.</div>
+      <div class="qc-input-row"><input class="qc-input" type="text" placeholder="? / ?"><button class="qc-check-btn">Check</button></div>
+      <div class="qc-feedback"></div>
+    </div>
+    <div class="qc-question" data-correct="improper">
+      <div class="qc-prompt"><span class="qnum">Q3</span> What kind of fraction is 9/8?</div>
+      <div class="qc-options">
+        <button class="qc-option" data-answer="proper">proper</button>
+        <button class="qc-option" data-answer="improper">improper</button>
+        <button class="qc-option" data-answer="mixed">mixed number</button>
+        <button class="qc-option" data-answer="reciprocal">reciprocal</button>
+      </div>
+      <div class="qc-feedback"></div>
+    </div>
+  </div>
+  <div class="practice-cta">
+    <h4>Lock it in</h4>
+    <p>Practice converting back and forth in the Lab until it feels automatic.</p>
+    <a href="#practice-lab" class="btn-primary" data-topic="convert">Open the Lab →</a>
+  </div>
+</section>
+
+<div class="section-divider">· · ·</div>
+
+<section class="day-section" id="day-3">
+  <div class="day-header">
+    <div class="day-badge"><span class="label">Day</span><span class="num">03</span></div>
+    <div class="day-title">
+      <h2>Twins, Triplets, and Lowest Terms</h2>
+      <span class="subtitle">Equivalent fractions, simplifying, and the GCF</span>
+    </div>
+  </div>
+  <div class="content-block">
+    <p>Two fractions can look totally different and still mean the same amount. That is the deal with <span class="vocab" data-term="equivalent">equivalent fractions</span>. They are twins, triplets, even quintuplets, all standing in for the same value with different outfits on.</p>
+    <div class="math-display large"><span class="frac"><span class="num">1</span><span class="den">2</span></span>&nbsp;=&nbsp;<span class="frac"><span class="num">2</span><span class="den">4</span></span>&nbsp;=&nbsp;<span class="frac"><span class="num">3</span><span class="den">6</span></span>&nbsp;=&nbsp;<span class="frac"><span class="num">4</span><span class="den">8</span></span></div>
+    <div class="visualization">
+      <svg width="100%" height="180" viewBox="0 0 400 180" style="max-width: 380px;">
+        <rect x="20" y="20" width="180" height="35" fill="#E94B3C" stroke="#1B1B3A" stroke-width="2"/>
+        <rect x="200" y="20" width="180" height="35" fill="#FFF8EC" stroke="#1B1B3A" stroke-width="2"/>
+        <rect x="20" y="65" width="90" height="35" fill="#F5B82E" stroke="#1B1B3A" stroke-width="2"/>
+        <rect x="110" y="65" width="90" height="35" fill="#F5B82E" stroke="#1B1B3A" stroke-width="2"/>
+        <rect x="200" y="65" width="90" height="35" fill="#FFF8EC" stroke="#1B1B3A" stroke-width="2"/>
+        <rect x="290" y="65" width="90" height="35" fill="#FFF8EC" stroke="#1B1B3A" stroke-width="2"/>
+        <rect x="20" y="110" width="45" height="35" fill="#5C8A6F" stroke="#1B1B3A" stroke-width="2"/>
+        <rect x="65" y="110" width="45" height="35" fill="#5C8A6F" stroke="#1B1B3A" stroke-width="2"/>
+        <rect x="110" y="110" width="45" height="35" fill="#5C8A6F" stroke="#1B1B3A" stroke-width="2"/>
+        <rect x="155" y="110" width="45" height="35" fill="#5C8A6F" stroke="#1B1B3A" stroke-width="2"/>
+        <rect x="200" y="110" width="45" height="35" fill="#FFF8EC" stroke="#1B1B3A" stroke-width="2"/>
+        <rect x="245" y="110" width="45" height="35" fill="#FFF8EC" stroke="#1B1B3A" stroke-width="2"/>
+        <rect x="290" y="110" width="45" height="35" fill="#FFF8EC" stroke="#1B1B3A" stroke-width="2"/>
+        <rect x="335" y="110" width="45" height="35" fill="#FFF8EC" stroke="#1B1B3A" stroke-width="2"/>
+        <text x="200" y="170" text-anchor="middle" font-family="DM Sans" font-size="13" fill="#5E5E80" font-style="italic">Same amount. Different fraction.</text>
+      </svg>
+    </div>
+    <h3>Making equivalent fractions</h3>
+    <p>Multiply both the numerator and the denominator by the same number. That works because you are multiplying by a sneaky version of 1. Multiplying by four fourths, for example, is just multiplying by 1, which does not change the value.</p>
+    <div class="math-display"><span class="frac"><span class="num">2</span><span class="den">3</span></span>&nbsp;×&nbsp;<span class="frac"><span class="num">4</span><span class="den">4</span></span>&nbsp;=&nbsp;<span class="frac"><span class="num">8</span><span class="den">12</span></span></div>
+    <h3>Simplifying</h3>
+    <p>Going the other direction is called <span class="vocab" data-term="simplify">simplifying</span>. Divide the numerator and the denominator by the same number until you cannot anymore.</p>
+    <h3>The GCF shortcut</h3>
+    <p>The <span class="vocab" data-term="gcf">greatest common factor</span> (or GCF) is the biggest number that divides evenly into both the top and the bottom. If you find the GCF first, you can simplify in a single step.</p>
+    <div class="math-display"><span class="frac"><span class="num">18</span><span class="den">24</span></span>&nbsp;÷&nbsp;<span class="frac"><span class="num">6</span><span class="den">6</span></span>&nbsp;=&nbsp;<span class="frac"><span class="num">3</span><span class="den">4</span></span></div>
+    <div class="protip"><strong>Pro Tip</strong>If both the numerator and denominator are even, you can always start by dividing by 2. Keep going until you cannot.</div>
+    <div class="reflection">
+      <h4>Quick reflection</h4>
+      <p>Why does multiplying the top and the bottom by the same number NOT change the value of the fraction?</p>
+    </div>
+  </div>
+  <div class="quick-check" data-quiz="day3">
+    <div class="qc-question" data-correct="3/4">
+      <div class="qc-prompt"><span class="qnum">Q1</span> Simplify 9/12 to lowest terms.</div>
+      <div class="qc-input-row"><input class="qc-input" type="text" placeholder="? / ?"><button class="qc-check-btn">Check</button></div>
+      <div class="qc-feedback"></div>
+    </div>
+    <div class="qc-question" data-correct="6">
+      <div class="qc-prompt"><span class="qnum">Q2</span> Fill in the blank: 2/7 = ? / 21</div>
+      <div class="qc-input-row"><input class="qc-input" type="text" placeholder="?"><button class="qc-check-btn">Check</button></div>
+      <div class="qc-feedback"></div>
+    </div>
+    <div class="qc-question" data-correct="5/8">
+      <div class="qc-prompt"><span class="qnum">Q3</span> Which of these is NOT equivalent to 1/2?</div>
+      <div class="qc-options">
+        <button class="qc-option" data-answer="2/4">2/4</button>
+        <button class="qc-option" data-answer="3/6">3/6</button>
+        <button class="qc-option" data-answer="5/8">5/8</button>
+        <button class="qc-option" data-answer="4/8">4/8</button>
+      </div>
+      <div class="qc-feedback"></div>
+    </div>
+  </div>
+  <div class="practice-cta">
+    <h4>Drill it</h4>
+    <p>The Practice Lab can give you endless simplifying and equivalent fraction problems.</p>
+    <a href="#practice-lab" class="btn-primary" data-topic="simplify">Open the Lab →</a>
+  </div>
+</section>
+
+<div class="section-divider">· · ·</div>
+
+<section class="day-section" id="day-4">
+  <div class="day-header">
+    <div class="day-badge"><span class="label">Day</span><span class="num">04</span></div>
+    <div class="day-title">
+      <h2>Same Size Pieces</h2>
+      <span class="subtitle">Adding and subtracting fractions with like denominators</span>
+    </div>
+  </div>
+  <div class="content-block">
+    <p>When two fractions have the same denominator, they are made of pieces the same size. That makes them easy to combine. You just count the pieces.</p>
+    <div class="math-display large"><span class="frac"><span class="num">1</span><span class="den">4</span></span>&nbsp;+&nbsp;<span class="frac"><span class="num">2</span><span class="den">4</span></span>&nbsp;=&nbsp;<span class="frac"><span class="num">3</span><span class="den">4</span></span></div>
+    <p>One fourth plus two fourths is three fourths. That is just 1 piece plus 2 pieces of the same size. The denominator stays put, because the size of the pieces is not changing.</p>
+    <div class="visualization">
+      <svg width="100%" height="80" viewBox="0 0 400 80" style="max-width: 380px;">
+        <rect x="10" y="15" width="90" height="50" fill="#E94B3C" stroke="#1B1B3A" stroke-width="3"/>
+        <rect x="100" y="15" width="90" height="50" fill="#FFF8EC" stroke="#1B1B3A" stroke-width="3"/>
+        <rect x="190" y="15" width="90" height="50" fill="#FFF8EC" stroke="#1B1B3A" stroke-width="3"/>
+        <rect x="280" y="15" width="90" height="50" fill="#FFF8EC" stroke="#1B1B3A" stroke-width="3"/>
+      </svg>
+      <p class="viz-caption">1/4 (one shaded piece)</p>
+      <svg width="100%" height="80" viewBox="0 0 400 80" style="max-width: 380px;">
+        <rect x="10" y="15" width="90" height="50" fill="#5C8A6F" stroke="#1B1B3A" stroke-width="3"/>
+        <rect x="100" y="15" width="90" height="50" fill="#5C8A6F" stroke="#1B1B3A" stroke-width="3"/>
+        <rect x="190" y="15" width="90" height="50" fill="#5C8A6F" stroke="#1B1B3A" stroke-width="3"/>
+        <rect x="280" y="15" width="90" height="50" fill="#FFF8EC" stroke="#1B1B3A" stroke-width="3"/>
+      </svg>
+      <p class="viz-caption">1/4 + 2/4 = 3/4 (three shaded pieces total)</p>
+    </div>
+    <h3>The three-step recipe</h3>
+    <p>For adding or subtracting fractions with like denominators: (1) add or subtract the numerators, (2) keep the denominator, and (3) simplify if you can.</p>
+    <div class="math-display"><span class="frac"><span class="num">2</span><span class="den">9</span></span>&nbsp;+&nbsp;<span class="frac"><span class="num">4</span><span class="den">9</span></span>&nbsp;=&nbsp;<span class="frac"><span class="num">6</span><span class="den">9</span></span>&nbsp;=&nbsp;<span class="frac"><span class="num">2</span><span class="den">3</span></span></div>
+    <p>Six ninths simplifies to two thirds, because 6 and 9 both divide by 3.</p>
+    <h3>Subtraction is the same idea</h3>
+    <p>Seven tenths minus three tenths is just 7 pieces minus 3 pieces of the same size. That leaves 4 pieces. So the answer is four tenths, which simplifies to two fifths.</p>
+    <div class="math-display"><span class="frac"><span class="num">7</span><span class="den">10</span></span>&nbsp;−&nbsp;<span class="frac"><span class="num">3</span><span class="den">10</span></span>&nbsp;=&nbsp;<span class="frac"><span class="num">4</span><span class="den">10</span></span>&nbsp;=&nbsp;<span class="frac"><span class="num">2</span><span class="den">5</span></span></div>
+    <div class="protip"><strong>Trap warning</strong>Never add the denominators when adding like fractions. 1/4 + 2/4 is NOT 3/8. The pieces are not getting smaller, you are just collecting more of them.</div>
+  </div>
+  <div class="quick-check" data-quiz="day4">
+    <div class="qc-question" data-correct="3/5">
+      <div class="qc-prompt"><span class="qnum">Q1</span> Solve: 1/5 + 2/5</div>
+      <div class="qc-input-row"><input class="qc-input" type="text" placeholder="? / ?"><button class="qc-check-btn">Check</button></div>
+      <div class="qc-feedback"></div>
+    </div>
+    <div class="qc-question" data-correct="1/2">
+      <div class="qc-prompt"><span class="qnum">Q2</span> Solve and simplify: 3/8 + 1/8</div>
+      <div class="qc-input-row"><input class="qc-input" type="text" placeholder="? / ?"><button class="qc-check-btn">Check</button></div>
+      <div class="qc-feedback"></div>
+    </div>
+    <div class="qc-question" data-correct="1/2">
+      <div class="qc-prompt"><span class="qnum">Q3</span> Solve and simplify: 11/12 − 5/12</div>
+      <div class="qc-input-row"><input class="qc-input" type="text" placeholder="? / ?"><button class="qc-check-btn">Check</button></div>
+      <div class="qc-feedback"></div>
+    </div>
+  </div>
+  <div class="practice-cta">
+    <h4>Build that muscle memory</h4>
+    <p>Generate unlimited like-denominator add and subtract problems in the Lab.</p>
+    <a href="#practice-lab" class="btn-primary" data-topic="addLike">Open the Lab →</a>
+  </div>
+</section>
+
+<div class="section-divider">· · ·</div>
+
+<section class="day-section" id="day-5">
+  <div class="day-header">
+    <div class="day-badge"><span class="label">Day</span><span class="num">05</span></div>
+    <div class="day-title">
+      <h2>Different Size Pieces</h2>
+      <span class="subtitle">Adding and subtracting fractions with unlike denominators</span>
+    </div>
+  </div>
+  <div class="content-block">
+    <p>Here is where fractions get a reputation. If the denominators are different, you cannot just add the numerators, because the pieces are different sizes. Half a pizza plus a third of a pizza is not 2/5 of a pizza. That answer would actually be smaller than the half you started with, which makes no sense.</p>
+    <h3>Find a common denominator</h3>
+    <p>A <span class="vocab" data-term="commondenom">common denominator</span> is a number that both denominators can fit into evenly. For 2 and 3, a common denominator is 6, because 2 × 3 = 6 and both 2 and 3 divide into 6. For 4 and 6, a common denominator is 12.</p>
+    <p>Once you have a common denominator, rename both fractions so they use it. Then add or subtract like you did yesterday, when the pieces matched.</p>
+    <div class="math-display"><span class="frac"><span class="num">1</span><span class="den">2</span></span>&nbsp;+&nbsp;<span class="frac"><span class="num">1</span><span class="den">3</span></span>&nbsp;=&nbsp;<span class="frac"><span class="num">3</span><span class="den">6</span></span>&nbsp;+&nbsp;<span class="frac"><span class="num">2</span><span class="den">6</span></span>&nbsp;=&nbsp;<span class="frac"><span class="num">5</span><span class="den">6</span></span></div>
+    <h3>A reliable shortcut</h3>
+    <p>If you cannot think of a common denominator quickly, just multiply the two denominators together. That always gives you one that works, even if it is not the smallest. You can simplify at the end.</p>
+    <div class="math-display"><span class="frac"><span class="num">2</span><span class="den">3</span></span>&nbsp;+&nbsp;<span class="frac"><span class="num">1</span><span class="den">4</span></span>&nbsp;=&nbsp;<span class="frac"><span class="num">8</span><span class="den">12</span></span>&nbsp;+&nbsp;<span class="frac"><span class="num">3</span><span class="den">12</span></span>&nbsp;=&nbsp;<span class="frac"><span class="num">11</span><span class="den">12</span></span></div>
+    <h3>Subtraction works the same</h3>
+    <p>Rename first, then subtract. The hardest part is just remembering to rename before you do anything else.</p>
+    <div class="math-display"><span class="frac"><span class="num">3</span><span class="den">4</span></span>&nbsp;−&nbsp;<span class="frac"><span class="num">1</span><span class="den">6</span></span>&nbsp;=&nbsp;<span class="frac"><span class="num">9</span><span class="den">12</span></span>&nbsp;−&nbsp;<span class="frac"><span class="num">2</span><span class="den">12</span></span>&nbsp;=&nbsp;<span class="frac"><span class="num">7</span><span class="den">12</span></span></div>
+    <div class="protip"><strong>Sanity check</strong>Half plus a third should be more than a half. So the answer 5/6 makes sense, because 5/6 is bigger than 1/2. If your answer is somehow smaller than what you started with, something went wrong.</div>
+    <div class="reflection">
+      <h4>Think it through</h4>
+      <p>Why exactly does 1/2 + 1/3 not equal 2/5? Explain it in your own words, using the idea of piece size.</p>
+    </div>
+  </div>
+  <div class="quick-check" data-quiz="day5">
+    <div class="qc-question" data-correct="3/4">
+      <div class="qc-prompt"><span class="qnum">Q1</span> Solve: 1/2 + 1/4</div>
+      <div class="qc-input-row"><input class="qc-input" type="text" placeholder="? / ?"><button class="qc-check-btn">Check</button></div>
+      <div class="qc-feedback"></div>
+    </div>
+    <div class="qc-question" data-correct="13/15">
+      <div class="qc-prompt"><span class="qnum">Q2</span> Solve: 2/3 + 1/5</div>
+      <div class="qc-input-row"><input class="qc-input" type="text" placeholder="? / ?"><button class="qc-check-btn">Check</button></div>
+      <div class="qc-feedback"></div>
+    </div>
+    <div class="qc-question" data-correct="1/2">
+      <div class="qc-prompt"><span class="qnum">Q3</span> Solve and simplify: 5/6 − 1/3</div>
+      <div class="qc-input-row"><input class="qc-input" type="text" placeholder="? / ?"><button class="qc-check-btn">Check</button></div>
+      <div class="qc-feedback"></div>
+    </div>
+  </div>
+  <div class="practice-cta">
+    <h4>Common denominators on demand</h4>
+    <p>The Lab will hand you fresh unlike-denominator problems forever.</p>
+    <a href="#practice-lab" class="btn-primary" data-topic="addUnlike">Open the Lab →</a>
+  </div>
+</section>
+
+<div class="section-divider">· · ·</div>
+<section class="day-section" id="day-6">
+  <div class="day-header">
+    <div class="day-badge"><span class="label">Day</span><span class="num">06</span></div>
+    <div class="day-title">
+      <h2>Mixed Number Magic</h2>
+      <span class="subtitle">Adding, subtracting, and the dreaded borrowing</span>
+    </div>
+  </div>
+  <div class="content-block">
+    <p>Mixed numbers are how real life talks. Two and a half cups of flour. Five and three quarters feet of board. One and a third hours of video. Once you can add and subtract them cleanly, fraction word problems get a lot less scary.</p>
+    <h3>Adding mixed numbers</h3>
+    <p>Add the whole numbers. Add the fractions (rename them first if the denominators are different). Combine.</p>
+    <div class="math-display">1<span class="frac"><span class="num">1</span><span class="den">2</span></span>&nbsp;+&nbsp;2<span class="frac"><span class="num">1</span><span class="den">3</span></span>&nbsp;=&nbsp;3<span class="frac"><span class="num">5</span><span class="den">6</span></span></div>
+    <p>Sometimes the fraction part adds up to more than 1. Like 3/4 + 1/2 = 5/4 = 1 and 1/4. When that happens, add the extra whole to your running whole number total.</p>
+    <h3>Subtracting mixed numbers</h3>
+    <p>Subtract whole from whole, fraction from fraction. Easy when the top fraction is bigger than the bottom fraction.</p>
+    <h3>Borrowing (yes, like with regular subtraction)</h3>
+    <p>When the top fraction is smaller than the bottom one, you have to <span class="vocab" data-term="borrow">borrow</span> 1 whole and turn it into a fraction first. One whole is the same as denominator-over-denominator. So 1 = 4/4 = 6/6 = 8/8 and so on.</p>
+    <div class="math-display">5<span class="frac"><span class="num">1</span><span class="den">4</span></span>&nbsp;→&nbsp;4<span class="frac"><span class="num">5</span><span class="den">4</span></span></div>
+    <p>You took 1 from the 5 (giving you 4) and turned that 1 into 4/4, which you add to the 1/4 you already had, getting 5/4. Now you can subtract.</p>
+    <div class="math-display">4<span class="frac"><span class="num">5</span><span class="den">4</span></span>&nbsp;−&nbsp;2<span class="frac"><span class="num">3</span><span class="den">4</span></span>&nbsp;=&nbsp;2<span class="frac"><span class="num">2</span><span class="den">4</span></span>&nbsp;=&nbsp;2<span class="frac"><span class="num">1</span><span class="den">2</span></span></div>
+    <div class="protip"><strong>Pro Tip</strong>If you hate borrowing, convert both mixed numbers to improper fractions first. Then subtract. Then convert back. It works the same way, just more arithmetic.</div>
+  </div>
+  <div class="quick-check" data-quiz="day6">
+    <div class="qc-question" data-correct="3 3/4">
+      <div class="qc-prompt"><span class="qnum">Q1</span> Solve: 2 1/4 + 1 2/4 (give your answer as a mixed number)</div>
+      <div class="qc-input-row"><input class="qc-input" type="text" placeholder="? ?/?"><button class="qc-check-btn">Check</button></div>
+      <div class="qc-feedback"></div>
+    </div>
+    <div class="qc-question" data-correct="3 1/2">
+      <div class="qc-prompt"><span class="qnum">Q2</span> Solve and simplify: 5 1/4 − 1 3/4</div>
+      <div class="qc-input-row"><input class="qc-input" type="text" placeholder="? ?/?"><button class="qc-check-btn">Check</button></div>
+      <div class="qc-feedback"></div>
+    </div>
+    <div class="qc-question" data-correct="3 5/6">
+      <div class="qc-prompt"><span class="qnum">Q3</span> Solve: 1 1/2 + 2 1/3</div>
+      <div class="qc-input-row"><input class="qc-input" type="text" placeholder="? ?/?"><button class="qc-check-btn">Check</button></div>
+      <div class="qc-feedback"></div>
+    </div>
+  </div>
+  <div class="practice-cta">
+    <h4>Master the borrow</h4>
+    <p>Mixed number problems are a Lab specialty. Run a few before bed.</p>
+    <a href="#practice-lab" class="btn-primary" data-topic="mixed">Open the Lab →</a>
+  </div>
+</section>
+
+<div class="section-divider">· · ·</div>
+
+<section class="day-section" id="day-7">
+  <div class="day-header">
+    <div class="day-badge"><span class="label">Day</span><span class="num">07</span></div>
+    <div class="day-title">
+      <h2>Multiplying Fractions</h2>
+      <span class="subtitle">No common denominators required. Yes, really.</span>
+    </div>
+  </div>
+  <div class="content-block">
+    <p>Here is some good news after the past two days: multiplying fractions does NOT require finding a common denominator. You just multiply straight across. Top times top, bottom times bottom.</p>
+    <div class="math-display large"><span class="frac"><span class="num">2</span><span class="den">3</span></span>&nbsp;×&nbsp;<span class="frac"><span class="num">4</span><span class="den">5</span></span>&nbsp;=&nbsp;<span class="frac"><span class="num">8</span><span class="den">15</span></span></div>
+    <h3>What does it actually mean?</h3>
+    <p>With whole numbers, multiplication usually means "groups of." With fractions, multiplication usually means "part of." So 1/2 × 1/3 means "half of one third." And half of a third is one sixth.</p>
+    <div class="visualization">
+      <svg width="100%" height="180" viewBox="0 0 400 180" style="max-width: 380px;">
+        <rect x="50" y="30" width="300" height="120" fill="#FFF8EC" stroke="#1B1B3A" stroke-width="3"/>
+        <line x1="150" y1="30" x2="150" y2="150" stroke="#1B1B3A" stroke-width="2"/>
+        <line x1="250" y1="30" x2="250" y2="150" stroke="#1B1B3A" stroke-width="2"/>
+        <rect x="50" y="30" width="100" height="120" fill="#F5B82E" opacity="0.6"/>
+        <line x1="50" y1="90" x2="350" y2="90" stroke="#1B1B3A" stroke-width="2"/>
+        <rect x="50" y="30" width="100" height="60" fill="#E94B3C"/>
+        <text x="100" y="68" text-anchor="middle" font-family="Fraunces" font-size="20" font-weight="800" fill="#FFF8EC">1/6</text>
+        <text x="200" y="170" text-anchor="middle" font-family="DM Sans" font-size="13" fill="#5E5E80" font-style="italic">Half of one third equals one sixth</text>
+      </svg>
+    </div>
+    <p>This is why multiplying two proper fractions gives you a SMALLER answer. That feels weird because multiplying whole numbers usually makes things bigger. But you are taking a part of a part. That has to be smaller than where you started.</p>
+    <h3>Multiplying with whole numbers</h3>
+    <p>Just write the whole number as itself over 1. Then multiply normally.</p>
+    <div class="math-display">4 × <span class="frac"><span class="num">2</span><span class="den">3</span></span>&nbsp;=&nbsp;<span class="frac"><span class="num">4</span><span class="den">1</span></span>&nbsp;×&nbsp;<span class="frac"><span class="num">2</span><span class="den">3</span></span>&nbsp;=&nbsp;<span class="frac"><span class="num">8</span><span class="den">3</span></span>&nbsp;=&nbsp; 2<span class="frac"><span class="num">2</span><span class="den">3</span></span></div>
+    <h3>Multiplying mixed numbers</h3>
+    <p>Convert both to improper fractions first. Then multiply. Then simplify or convert back.</p>
+    <div class="math-display">1<span class="frac"><span class="num">1</span><span class="den">2</span></span>&nbsp;×&nbsp;2<span class="frac"><span class="num">1</span><span class="den">3</span></span>&nbsp;=&nbsp;<span class="frac"><span class="num">3</span><span class="den">2</span></span>&nbsp;×&nbsp;<span class="frac"><span class="num">7</span><span class="den">3</span></span>&nbsp;=&nbsp;<span class="frac"><span class="num">21</span><span class="den">6</span></span>&nbsp;=&nbsp; 3<span class="frac"><span class="num">1</span><span class="den">2</span></span></div>
+    <div class="protip"><strong>Pro Tip</strong>A multiplication shortcut: if the numerator of one fraction and the denominator of the other share a factor, you can cancel BEFORE multiplying to save yourself work. Like 2/3 × 9/4: the 2 and the 4 share a factor of 2, so cancel to 1/3 × 9/2.</div>
+  </div>
+  <div class="quick-check" data-quiz="day7">
+    <div class="qc-question" data-correct="1/15">
+      <div class="qc-prompt"><span class="qnum">Q1</span> Solve: 1/3 × 1/5</div>
+      <div class="qc-input-row"><input class="qc-input" type="text" placeholder="? / ?"><button class="qc-check-btn">Check</button></div>
+      <div class="qc-feedback"></div>
+    </div>
+    <div class="qc-question" data-correct="1/2">
+      <div class="qc-prompt"><span class="qnum">Q2</span> Solve and simplify: 2/3 × 3/4</div>
+      <div class="qc-input-row"><input class="qc-input" type="text" placeholder="? / ?"><button class="qc-check-btn">Check</button></div>
+      <div class="qc-feedback"></div>
+    </div>
+    <div class="qc-question" data-correct="4">
+      <div class="qc-prompt"><span class="qnum">Q3</span> Solve: 6 × 2/3 (give your answer as a whole number)</div>
+      <div class="qc-input-row"><input class="qc-input" type="text" placeholder="?"><button class="qc-check-btn">Check</button></div>
+      <div class="qc-feedback"></div>
+    </div>
+  </div>
+  <div class="practice-cta">
+    <h4>Drill multiplication</h4>
+    <p>The Lab has a dedicated topic for fraction multiplication. Get 10 in a row.</p>
+    <a href="#practice-lab" class="btn-primary" data-topic="multiply">Open the Lab →</a>
+  </div>
+</section>
+
+<div class="section-divider">· · ·</div>
+
+<section class="day-section" id="day-8">
+  <div class="day-header">
+    <div class="day-badge"><span class="label">Day</span><span class="num">08</span></div>
+    <div class="day-title">
+      <h2>Dividing Fractions</h2>
+      <span class="subtitle">Keep, change, flip. The weirdest rule that actually works.</span>
+    </div>
+  </div>
+  <div class="content-block">
+    <p>Dividing by a fraction sounds like it should be hard, but the rule is short: to divide by a fraction, multiply by its <span class="vocab" data-term="reciprocal">reciprocal</span>. The reciprocal is just the fraction flipped upside down. 2/3 becomes 3/2. 5/8 becomes 8/5.</p>
+    <p>People sometimes say "Keep, Change, Flip." Keep the first fraction. Change the divide sign to a times sign. Flip the second fraction.</p>
+    <div class="math-display large"><span class="frac"><span class="num">1</span><span class="den">2</span></span>&nbsp;÷&nbsp;<span class="frac"><span class="num">1</span><span class="den">4</span></span>&nbsp;=&nbsp;<span class="frac"><span class="num">1</span><span class="den">2</span></span>&nbsp;×&nbsp;<span class="frac"><span class="num">4</span><span class="den">1</span></span>&nbsp;=&nbsp; 2</div>
+    <h3>Why does that work?</h3>
+    <p>Think about what division asks. 1/2 ÷ 1/4 is asking "how many fourths fit inside one half?" One half is the same as two fourths, so the answer is 2. Two fourths fit. Try this with real fractions and you will see that "multiply by the reciprocal" gives the same answer every time.</p>
+    <div class="visualization">
+      <svg width="100%" height="120" viewBox="0 0 400 120" style="max-width: 380px;">
+        <rect x="50" y="30" width="300" height="60" fill="#FFF8EC" stroke="#1B1B3A" stroke-width="3"/>
+        <rect x="50" y="30" width="150" height="60" fill="#E94B3C" opacity="0.4"/>
+        <line x1="125" y1="30" x2="125" y2="90" stroke="#1B1B3A" stroke-width="2" stroke-dasharray="4"/>
+        <line x1="200" y1="30" x2="200" y2="90" stroke="#1B1B3A" stroke-width="2"/>
+        <line x1="275" y1="30" x2="275" y2="90" stroke="#1B1B3A" stroke-width="2" stroke-dasharray="4"/>
+        <text x="87" y="65" text-anchor="middle" font-family="Fraunces" font-size="18" font-weight="800" fill="#1B1B3A">1/4</text>
+        <text x="162" y="65" text-anchor="middle" font-family="Fraunces" font-size="18" font-weight="800" fill="#1B1B3A">1/4</text>
+        <text x="200" y="110" text-anchor="middle" font-family="DM Sans" font-size="13" fill="#5E5E80" font-style="italic">Two fourths fit inside one half.</text>
+      </svg>
+    </div>
+    <h3>Dividing whole numbers by fractions</h3>
+    <p>Write the whole number over 1. Flip and multiply. So 3 ÷ 1/2 becomes 3/1 × 2/1 = 6. That makes sense: three wholes are six halves.</p>
+    <h3>Dividing fractions by whole numbers</h3>
+    <p>Same idea. Write the whole number over 1. Flip it and multiply. So 3/4 ÷ 2 becomes 3/4 × 1/2 = 3/8. Half of three fourths is three eighths.</p>
+    <div class="math-display"><span class="frac"><span class="num">3</span><span class="den">4</span></span>&nbsp;÷&nbsp; 2 &nbsp;=&nbsp;<span class="frac"><span class="num">3</span><span class="den">4</span></span>&nbsp;×&nbsp;<span class="frac"><span class="num">1</span><span class="den">2</span></span>&nbsp;=&nbsp;<span class="frac"><span class="num">3</span><span class="den">8</span></span></div>
+    <div class="protip"><strong>Trap warning</strong>Only flip the SECOND fraction (the one you are dividing by). Flipping the first one too is a common mistake that ruins the whole problem.</div>
+  </div>
+  <div class="quick-check" data-quiz="day8">
+    <div class="qc-question" data-correct="2">
+      <div class="qc-prompt"><span class="qnum">Q1</span> Solve: 1/2 ÷ 1/4 (whole number answer)</div>
+      <div class="qc-input-row"><input class="qc-input" type="text" placeholder="?"><button class="qc-check-btn">Check</button></div>
+      <div class="qc-feedback"></div>
+    </div>
+    <div class="qc-question" data-correct="9">
+      <div class="qc-prompt"><span class="qnum">Q2</span> Solve: 3 ÷ 1/3 (whole number answer)</div>
+      <div class="qc-input-row"><input class="qc-input" type="text" placeholder="?"><button class="qc-check-btn">Check</button></div>
+      <div class="qc-feedback"></div>
+    </div>
+    <div class="qc-question" data-correct="3/8">
+      <div class="qc-prompt"><span class="qnum">Q3</span> Solve: 3/4 ÷ 2</div>
+      <div class="qc-input-row"><input class="qc-input" type="text" placeholder="? / ?"><button class="qc-check-btn">Check</button></div>
+      <div class="qc-feedback"></div>
+    </div>
+  </div>
+  <div class="practice-cta">
+    <h4>Keep, change, flip, repeat</h4>
+    <p>The Lab has division problems lined up for you.</p>
+    <a href="#practice-lab" class="btn-primary" data-topic="divide">Open the Lab →</a>
+  </div>
+</section>
+
+<div class="section-divider">· · ·</div>
+
+<section class="day-section" id="day-9">
+  <div class="day-header">
+    <div class="day-badge"><span class="label">Day</span><span class="num">09</span></div>
+    <div class="day-title">
+      <h2>Compare and Conquer</h2>
+      <span class="subtitle">Which fraction is bigger, and the traps fractions love to set</span>
+    </div>
+  </div>
+  <div class="content-block">
+    <p>Sometimes you do not need to add, subtract, multiply, or divide. You just need to know which fraction is bigger. Here are four ways to figure that out without guessing.</p>
+    <h3>Same denominator? Look at the top.</h3>
+    <p>If the denominators match, just compare the numerators. 5/8 is bigger than 3/8 because 5 pieces of the same size beats 3 pieces of the same size.</p>
+    <h3>Same numerator? Look at the bottom (carefully).</h3>
+    <p>If the numerators match, the fraction with the SMALLER denominator is bigger. 1/3 is bigger than 1/6, because thirds are bigger pieces than sixths.</p>
+    <h3>Different everything? Common denominator.</h3>
+    <p>Rename both fractions so they have the same denominator. Then compare the numerators.</p>
+    <div class="math-display"><span class="frac"><span class="num">3</span><span class="den">4</span></span>&nbsp;vs&nbsp;<span class="frac"><span class="num">5</span><span class="den">6</span></span>&nbsp;→&nbsp;<span class="frac"><span class="num">9</span><span class="den">12</span></span>&nbsp;vs&nbsp;<span class="frac"><span class="num">10</span><span class="den">12</span></span>&nbsp;→&nbsp;<span class="frac"><span class="num">5</span><span class="den">6</span></span>&nbsp;wins</div>
+    <h3>The 1/2 benchmark</h3>
+    <p>One of the most useful tricks: compare each fraction to one half. If one is less than 1/2 and the other is more than 1/2, you already have your answer without doing any real math.</p>
+    <p>To check if a fraction is bigger or smaller than 1/2, double the numerator. If the doubled number is bigger than the denominator, the fraction is bigger than 1/2. If smaller, smaller.</p>
+    <h3>Top five fraction traps</h3>
+    <ol style="padding-left: 1.5rem; margin: 1rem 0;">
+      <li style="margin-bottom: 0.5rem;"><strong style="color: var(--coral);">Adding the denominators.</strong> 1/2 + 1/3 is NOT 2/5. Rename first.</li>
+      <li style="margin-bottom: 0.5rem;"><strong style="color: var(--coral);">Thinking bigger denominator means bigger fraction.</strong> 1/10 is smaller than 1/2.</li>
+      <li style="margin-bottom: 0.5rem;"><strong style="color: var(--coral);">Forgetting to simplify.</strong> 6/8 is not wrong, but 3/4 is the polished answer.</li>
+      <li style="margin-bottom: 0.5rem;"><strong style="color: var(--coral);">Bad borrowing.</strong> Borrowed wholes become denominator-over-denominator, not "1/something".</li>
+      <li style="margin-bottom: 0.5rem;"><strong style="color: var(--coral);">Flipping the wrong fraction in division.</strong> Only the divisor gets flipped.</li>
+    </ol>
+  </div>
+  <div class="quick-check" data-quiz="day9">
+    <div class="qc-question" data-correct="gt">
+      <div class="qc-prompt"><span class="qnum">Q1</span> Compare: 3/4 ___ 5/8</div>
+      <div class="qc-options">
+        <button class="qc-option" data-answer="lt">&lt;</button>
+        <button class="qc-option" data-answer="gt">&gt;</button>
+        <button class="qc-option" data-answer="eq">=</button>
+      </div>
+      <div class="qc-feedback"></div>
+    </div>
+    <div class="qc-question" data-correct="eq">
+      <div class="qc-prompt"><span class="qnum">Q2</span> Compare: 5/10 ___ 1/2</div>
+      <div class="qc-options">
+        <button class="qc-option" data-answer="lt">&lt;</button>
+        <button class="qc-option" data-answer="gt">&gt;</button>
+        <button class="qc-option" data-answer="eq">=</button>
+      </div>
+      <div class="qc-feedback"></div>
+    </div>
+    <div class="qc-question" data-correct="lt">
+      <div class="qc-prompt"><span class="qnum">Q3</span> Compare: 2/3 ___ 3/4</div>
+      <div class="qc-options">
+        <button class="qc-option" data-answer="lt">&lt;</button>
+        <button class="qc-option" data-answer="gt">&gt;</button>
+        <button class="qc-option" data-answer="eq">=</button>
+      </div>
+      <div class="qc-feedback"></div>
+    </div>
+  </div>
+  <div class="practice-cta">
+    <h4>Compare like a pro</h4>
+    <p>The Lab has random comparison problems to keep your instincts sharp.</p>
+    <a href="#practice-lab" class="btn-primary" data-topic="compare">Open the Lab →</a>
+  </div>
+</section>
+
+<div class="section-divider">· · ·</div>
+
+<section class="day-section" id="day-10">
+  <div class="day-header">
+    <div class="day-badge"><span class="label">Day</span><span class="num">10</span></div>
+    <div class="day-title">
+      <h2>Fractions in the Wild</h2>
+      <span class="subtitle">Word problems, real-life moves, and the big picture</span>
+    </div>
+  </div>
+  <div class="content-block">
+    <p>Fractions are not just school math. They show up in cooking, building, sports stats, music, maps, money, medicine, science, video game design, and probability. Anywhere amounts live between whole numbers, fractions live too.</p>
+    <h3>Recipe problem</h3>
+    <p>A recipe uses 3/4 cup of sugar. You want to make half the recipe. How much sugar do you need? You are asking for "half OF three fourths," which is multiplication.</p>
+    <div class="math-display"><span class="frac"><span class="num">1</span><span class="den">2</span></span>&nbsp;×&nbsp;<span class="frac"><span class="num">3</span><span class="den">4</span></span>&nbsp;=&nbsp;<span class="frac"><span class="num">3</span><span class="den">8</span></span> cup</div>
+    <h3>Hiking problem</h3>
+    <p>Maya hikes 2 and 1/3 miles in the morning and 1 and 3/4 miles in the afternoon. Total? Rename to twelfths. 2 and 4/12 + 1 and 9/12 = 3 and 13/12 = 4 and 1/12 miles total.</p>
+    <h3>Woodworking problem</h3>
+    <p>A board is 6 and 1/2 feet. You cut off 2 and 3/4 feet. What is left? Rename to fourths. 6 and 2/4 minus 2 and 3/4. The fraction on top is too small, so borrow. 5 and 6/4 minus 2 and 3/4 = 3 and 3/4 feet.</p>
+    <h3>Ribbon problem (division)</h3>
+    <p>You have 6 feet of ribbon. Each craft needs 2/3 foot. How many crafts can you make? You are asking how many 2/3 chunks fit in 6, which is division.</p>
+    <div class="math-display">6 &nbsp;÷&nbsp;<span class="frac"><span class="num">2</span><span class="den">3</span></span>&nbsp;=&nbsp;<span class="frac"><span class="num">6</span><span class="den">1</span></span>&nbsp;×&nbsp;<span class="frac"><span class="num">3</span><span class="den">2</span></span>&nbsp;=&nbsp; 9 crafts</div>
+    <h3>The big picture</h3>
+    <p>Equivalent fractions help you rename. Common denominators help you add and subtract. Simplifying tidies your answer. Improper fractions and mixed numbers are two outfits for the same number. Multiplication often means "part of." Division asks "how many of these fit inside that?"</p>
+    <p>The biggest skill is not memorizing rules. It is checking whether your answer makes sense. If you add something to 1/2 and get an answer smaller than 1/2, something is wrong. That kind of sanity check makes fractions stop being mysterious.</p>
+    <div class="reflection">
+      <h4>Final reflection</h4>
+      <p>Pick one fraction concept from these ten days that clicked the most for you. What changed in your head when it clicked?</p>
+    </div>
+  </div>
+  <div class="quick-check" data-quiz="day10">
+    <div class="qc-question" data-correct="4 1/12">
+      <div class="qc-prompt"><span class="qnum">Q1</span> Maya hikes 2 1/3 miles, then 1 3/4 miles. Total miles?</div>
+      <div class="qc-input-row"><input class="qc-input" type="text" placeholder="? ?/?"><button class="qc-check-btn">Check</button></div>
+      <div class="qc-feedback"></div>
+    </div>
+    <div class="qc-question" data-correct="3/8">
+      <div class="qc-prompt"><span class="qnum">Q2</span> A recipe uses 3/4 cup oil. You make 1/2 the recipe. How much oil?</div>
+      <div class="qc-input-row"><input class="qc-input" type="text" placeholder="? / ?"><button class="qc-check-btn">Check</button></div>
+      <div class="qc-feedback"></div>
+    </div>
+    <div class="qc-question" data-correct="20">
+      <div class="qc-prompt"><span class="qnum">Q3</span> You have 5 pizzas. Each student gets 1/4 pizza. How many students can eat?</div>
+      <div class="qc-input-row"><input class="qc-input" type="text" placeholder="?"><button class="qc-check-btn">Check</button></div>
+      <div class="qc-feedback"></div>
+    </div>
+  </div>
+  <div class="practice-cta">
+    <h4>You finished the ten days</h4>
+    <p>Take the Final Boss assessment when you are ready. Or warm up first in the Lab.</p>
+    <a href="#final" class="btn-primary">Take the Final →</a>
+  </div>
+</section>
+<section id="practice-lab">
+  <div class="lab-inner">
+    <div class="lab-header">
+      <span class="eyebrow">Infinite practice · pick a topic</span>
+      <h2 class="display">Practice Lab</h2>
+      <p>Pick what you want to drill. Get a fresh question every time. Build your streak.</p>
+    </div>
+    <div class="lab-stats">
+      <div class="lab-stat"><span class="stat-num" id="stat-attempted">0</span><span class="stat-label">Attempted</span></div>
+      <div class="lab-stat"><span class="stat-num" id="stat-correct">0</span><span class="stat-label">Correct</span></div>
+      <div class="lab-stat"><span class="stat-num streak-on" id="stat-streak">0</span><span class="stat-label">Streak</span></div>
+      <div class="lab-stat"><span class="stat-num" id="stat-best">0</span><span class="stat-label">Best Streak</span></div>
+    </div>
+    <div class="topic-grid">
+      <button class="topic-btn" data-topic="identify"><span class="icon">1</span>Identify Fractions</button>
+      <button class="topic-btn" data-topic="convert"><span class="icon">2</span>Improper / Mixed</button>
+      <button class="topic-btn" data-topic="simplify"><span class="icon">3</span>Simplify</button>
+      <button class="topic-btn" data-topic="equivalent"><span class="icon">4</span>Equivalent</button>
+      <button class="topic-btn" data-topic="addLike"><span class="icon">5</span>Add Like</button>
+      <button class="topic-btn" data-topic="subLike"><span class="icon">6</span>Subtract Like</button>
+      <button class="topic-btn" data-topic="addUnlike"><span class="icon">7</span>Add Unlike</button>
+      <button class="topic-btn" data-topic="subUnlike"><span class="icon">8</span>Subtract Unlike</button>
+      <button class="topic-btn" data-topic="mixed"><span class="icon">9</span>Mixed Numbers</button>
+      <button class="topic-btn" data-topic="multiply"><span class="icon">10</span>Multiply</button>
+      <button class="topic-btn" data-topic="divide"><span class="icon">11</span>Divide</button>
+      <button class="topic-btn" data-topic="compare"><span class="icon">12</span>Compare</button>
+    </div>
+    <div class="lab-card" id="lab-card">
+      <div class="lab-placeholder"><p>👉 Pick a topic above to start generating questions.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="final">
+  <div class="final-header">
+    <span class="eyebrow">The Final Boss</span>
+    <h2 class="display">Time to <span style="color: var(--coral); font-style: italic;">prove it</span>.</h2>
+  </div>
+
+  <div class="final-section">
+    <span class="section-tag" style="background: var(--coral);">Section 1 · Fill in the blank</span>
+    <h3>Solve these (answers go in the box)</h3>
+    <div class="fb-item">
+      <div class="fb-prompt">1. Simplify 12/16 to lowest terms:</div>
+      <input class="qc-input" data-final="fb1" data-correct="3/4" placeholder="? / ?">
+    </div>
+    <div class="fb-item">
+      <div class="fb-prompt">2. Convert 17/5 to a mixed number:</div>
+      <input class="qc-input" data-final="fb2" data-correct="3 2/5" placeholder="? ?/?">
+    </div>
+    <div class="fb-item">
+      <div class="fb-prompt">3. Solve: 3/8 + 1/4 =</div>
+      <input class="qc-input" data-final="fb3" data-correct="5/8" placeholder="? / ?">
+    </div>
+    <div class="fb-item">
+      <div class="fb-prompt">4. Solve: 5/6 − 1/2 =</div>
+      <input class="qc-input" data-final="fb4" data-correct="1/3" placeholder="? / ?">
+    </div>
+    <div class="fb-item">
+      <div class="fb-prompt">5. Solve: 2/3 × 6 =</div>
+      <input class="qc-input" data-final="fb5" data-correct="4" placeholder="?">
+    </div>
+  </div>
+
+  <div class="final-section">
+    <span class="section-tag" style="background: var(--mustard); color: var(--ink);">Section 2 · True or False</span>
+    <h3>Tap one for each</h3>
+    <div class="fb-item">
+      <div class="fb-prompt">6. 1/3 is bigger than 1/2.</div>
+      <div class="qc-options" data-final="tf6" data-correct="false">
+        <button class="qc-option" data-answer="true">True</button>
+        <button class="qc-option" data-answer="false">False</button>
+      </div>
+    </div>
+    <div class="fb-item">
+      <div class="fb-prompt">7. When adding fractions with unlike denominators, you need a common denominator.</div>
+      <div class="qc-options" data-final="tf7" data-correct="true">
+        <button class="qc-option" data-answer="true">True</button>
+        <button class="qc-option" data-answer="false">False</button>
+      </div>
+    </div>
+    <div class="fb-item">
+      <div class="fb-prompt">8. To divide by a fraction, you multiply by its reciprocal.</div>
+      <div class="qc-options" data-final="tf8" data-correct="true">
+        <button class="qc-option" data-answer="true">True</button>
+        <button class="qc-option" data-answer="false">False</button>
+      </div>
+    </div>
+    <div class="fb-item">
+      <div class="fb-prompt">9. Multiplying two proper fractions always gives a bigger result.</div>
+      <div class="qc-options" data-final="tf9" data-correct="false">
+        <button class="qc-option" data-answer="true">True</button>
+        <button class="qc-option" data-answer="false">False</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="final-section">
+    <span class="section-tag" style="background: var(--sage);">Section 3 · Multiple Choice</span>
+    <h3>Pick the best answer</h3>
+    <div class="fb-item" style="flex-direction: column; align-items: flex-start;">
+      <div class="fb-prompt">10. Which fraction is equivalent to 4/6?</div>
+      <div class="qc-options" data-final="mc10" data-correct="2/3" style="margin-top: 0.5rem;">
+        <button class="qc-option" data-answer="2/3">2/3</button>
+        <button class="qc-option" data-answer="3/4">3/4</button>
+        <button class="qc-option" data-answer="6/4">6/4</button>
+        <button class="qc-option" data-answer="1/2">1/2</button>
+      </div>
+    </div>
+    <div class="fb-item" style="flex-direction: column; align-items: flex-start;">
+      <div class="fb-prompt">11. What is 1/2 ÷ 1/4?</div>
+      <div class="qc-options" data-final="mc11" data-correct="2" style="margin-top: 0.5rem;">
+        <button class="qc-option" data-answer="1/8">1/8</button>
+        <button class="qc-option" data-answer="1/2">1/2</button>
+        <button class="qc-option" data-answer="2">2</button>
+        <button class="qc-option" data-answer="8">8</button>
+      </div>
+    </div>
+    <div class="fb-item" style="flex-direction: column; align-items: flex-start;">
+      <div class="fb-prompt">12. The reciprocal of 3/5 is:</div>
+      <div class="qc-options" data-final="mc12" data-correct="5/3" style="margin-top: 0.5rem;">
+        <button class="qc-option" data-answer="3/5">3/5</button>
+        <button class="qc-option" data-answer="5/3">5/3</button>
+        <button class="qc-option" data-answer="3/3">3/3</button>
+        <button class="qc-option" data-answer="1/5">1/5</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="final-section">
+    <span class="section-tag" style="background: var(--lavender);">Section 4 · Matching</span>
+    <h3>Tap a term, then tap its definition</h3>
+    <div class="match-grid">
+      <div class="match-item" data-match="numerator" data-side="term">Numerator</div>
+      <div class="match-item" data-match="bottom" data-side="def">The bottom number; the size of each piece</div>
+      <div class="match-item" data-match="denominator" data-side="term">Denominator</div>
+      <div class="match-item" data-match="top" data-side="def">The top number; how many pieces you have</div>
+      <div class="match-item" data-match="reciprocal" data-side="term">Reciprocal</div>
+      <div class="match-item" data-match="flipped" data-side="def">The fraction flipped upside down</div>
+      <div class="match-item" data-match="equivalent" data-side="term">Equivalent fractions</div>
+      <div class="match-item" data-match="same" data-side="def">Different fractions with the same value</div>
+      <div class="match-item" data-match="mixed" data-side="term">Mixed number</div>
+      <div class="match-item" data-match="whole" data-side="def">A whole number paired with a fraction</div>
+    </div>
+  </div>
+
+  <div class="final-section">
+    <span class="section-tag" style="background: var(--sky);">Section 5 · Short Essay</span>
+    <h3>Explain in your own words</h3>
+    <p style="margin-bottom: 1rem;">A classmate says: "1/2 + 1/3 = 2/5." Explain why this is wrong, using the idea of piece size. Then show the correct answer.</p>
+    <textarea class="essay-box" data-final="essay" placeholder="Write your explanation here..."></textarea>
+  </div>
+
+  <button id="submit-final" class="btn-primary">Submit Final Boss</button>
+  <div id="final-results">
+    <h3>You scored</h3>
+    <div class="score"><span id="score-num">0</span> / 12</div>
+    <p id="score-message" style="font-size: 1.1rem; margin-top: 0.5rem;"></p>
+    <p style="margin-top: 1rem; font-size: 0.95rem;">(Matching and essay are graded by you and your teacher.)</p>
+  </div>
+</section>
+
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal">
+    <button class="modal-close">×</button>
+    <div class="word-type" id="modal-type">Vocabulary</div>
+    <h3 id="modal-title">Term</h3>
+    <div class="modal-body" id="modal-body"></div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-mark">The Fraction <span>Lab</span></div>
+  <p>Ten days. Twelve practice topics. One Final Boss. You got this.</p>
+</footer>
+<script>
+/* ============ VOCAB DICTIONARY ============ */
+const VOCAB = {
+  numerator: {
+    title: 'Numerator', type: 'Noun · Fraction',
+    body: '<p>The top number in a fraction. It tells you how many of the equal pieces you have.</p><div class="example">In 3/4, the numerator is <strong>3</strong>. You have 3 of the 4 pieces.</div>'
+  },
+  denominator: {
+    title: 'Denominator', type: 'Noun · Fraction',
+    body: '<p>The bottom number in a fraction. It tells you how many equal pieces the whole was split into. It is the "piece size controller."</p><div class="example">In 3/4, the denominator is <strong>4</strong>. The whole was cut into 4 equal pieces.</div>'
+  },
+  proper: {
+    title: 'Proper Fraction', type: 'Type of Fraction',
+    body: '<p>A fraction where the numerator is smaller than the denominator. Always less than 1.</p><div class="example">1/2, 3/5, 7/12 are all proper fractions.</div>'
+  },
+  improper: {
+    title: 'Improper Fraction', type: 'Type of Fraction',
+    body: '<p>A fraction where the numerator is greater than or equal to the denominator. Always 1 or more.</p><div class="example">5/4, 9/8, 12/6 are all improper fractions.</div>'
+  },
+  mixed: {
+    title: 'Mixed Number', type: 'Type of Number',
+    body: '<p>A whole number paired with a proper fraction. Same value as an improper fraction, just written differently.</p><div class="example">2 1/2 means 2 wholes plus 1/2 of another. It equals 5/2 as an improper fraction.</div>'
+  },
+  equivalent: {
+    title: 'Equivalent Fractions', type: 'Noun · Plural',
+    body: '<p>Fractions that look different but have the same value. They sit on the same spot on a number line.</p><div class="example">1/2 = 2/4 = 3/6 = 4/8 = 50/100. All the same amount.</div>'
+  },
+  simplify: {
+    title: 'Simplify', type: 'Verb',
+    body: '<p>To rewrite a fraction in lowest terms by dividing the top and bottom by the same number until they have no common factors except 1.</p><div class="example">6/8 simplifies to 3/4 (divide both by 2).</div>'
+  },
+  gcf: {
+    title: 'Greatest Common Factor (GCF)', type: 'Concept',
+    body: '<p>The biggest whole number that divides evenly into two or more numbers. Use it to simplify a fraction in a single step.</p><div class="example">GCF of 18 and 24 is 6. So 18/24 simplifies to 3/4 in one move.</div>'
+  },
+  commondenom: {
+    title: 'Common Denominator', type: 'Concept',
+    body: '<p>A number that both denominators can fit into evenly. Once two fractions share a denominator, their pieces are the same size, and you can add or subtract them.</p><div class="example">For 1/2 and 1/3, a common denominator is 6. Rename to 3/6 and 2/6.</div>'
+  },
+  borrow: {
+    title: 'Borrow (Mixed Numbers)', type: 'Subtraction Move',
+    body: '<p>Take 1 whole from the whole number part and turn it into a fraction of the form denominator-over-denominator. Then add it to the fraction part you already had. Lets you subtract when the top fraction is too small.</p><div class="example">5 1/4 becomes 4 5/4 (you borrowed 4/4 from the 5).</div>'
+  },
+  reciprocal: {
+    title: 'Reciprocal', type: 'Math Object',
+    body: '<p>A fraction flipped upside down. To divide by a fraction, multiply by its reciprocal.</p><div class="example">The reciprocal of 2/3 is 3/2. The reciprocal of 5 (or 5/1) is 1/5.</div>'
+  }
+};
+
+/* ============ MATH HELPERS ============ */
+function gcd(a, b) { a = Math.abs(a); b = Math.abs(b); while (b) [a, b] = [b, a % b]; return a; }
+function lcm(a, b) { return (a * b) / gcd(a, b); }
+function simplifyFraction(n, d) {
+  if (d === 0) return [n, d];
+  const g = gcd(n, d);
+  return [n / g, d / g];
+}
+function parseFractionInput(input) {
+  if (input === null || input === undefined) return null;
+  input = String(input).trim().replace(/\s+/g, ' ');
+  if (input === '') return null;
+  const mixedMatch = input.match(/^(\d+)\s+(\d+)\/(\d+)$/);
+  if (mixedMatch) {
+    const w = parseInt(mixedMatch[1]);
+    const n = parseInt(mixedMatch[2]);
+    const d = parseInt(mixedMatch[3]);
+    if (d === 0) return null;
+    return { num: w * d + n, den: d };
+  }
+  const fracMatch = input.match(/^(-?\d+)\/(-?\d+)$/);
+  if (fracMatch) {
+    const n = parseInt(fracMatch[1]);
+    const d = parseInt(fracMatch[2]);
+    if (d === 0) return null;
+    return { num: n, den: d };
+  }
+  const wholeMatch = input.match(/^(-?\d+)$/);
+  if (wholeMatch) {
+    return { num: parseInt(wholeMatch[1]), den: 1 };
+  }
+  return null;
+}
+function fractionsEqual(f1, f2) {
+  if (!f1 || !f2) return false;
+  return f1.num * f2.den === f2.num * f1.den;
+}
+function checkAnswer(userInput, correctAnswer) {
+  if (correctAnswer === 'lt' || correctAnswer === 'gt' || correctAnswer === 'eq') {
+    return String(userInput).trim() === correctAnswer;
+  }
+  if (typeof correctAnswer === 'string' && isNaN(parseInt(correctAnswer)) && !correctAnswer.includes('/') && correctAnswer !== 'true' && correctAnswer !== 'false') {
+    return String(userInput).trim().toLowerCase() === correctAnswer.toLowerCase();
+  }
+  if (correctAnswer === 'true' || correctAnswer === 'false') {
+    return String(userInput).trim().toLowerCase() === correctAnswer;
+  }
+  const userFrac = parseFractionInput(userInput);
+  const correctFrac = parseFractionInput(correctAnswer);
+  if (!userFrac || !correctFrac) return false;
+  return fractionsEqual(userFrac, correctFrac);
+}
+function rand(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
+
+/* ============ VOCAB MODAL ============ */
+const modalOverlay = document.getElementById('modal-overlay');
+const modalTitle = document.getElementById('modal-title');
+const modalType = document.getElementById('modal-type');
+const modalBody = document.getElementById('modal-body');
+document.querySelectorAll('.vocab').forEach(el => {
+  el.addEventListener('click', () => {
+    const term = el.dataset.term;
+    const v = VOCAB[term];
+    if (!v) return;
+    modalTitle.textContent = v.title;
+    modalType.textContent = v.type;
+    modalBody.innerHTML = v.body;
+    modalOverlay.classList.add('show');
+  });
+});
+document.querySelector('.modal-close').addEventListener('click', () => modalOverlay.classList.remove('show'));
+modalOverlay.addEventListener('click', (e) => { if (e.target === modalOverlay) modalOverlay.classList.remove('show'); });
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') modalOverlay.classList.remove('show'); });
+
+/* ============ PROGRESS ============ */
+const completedDays = new Set();
+function markDayComplete(day) {
+  if (completedDays.has(day)) return;
+  completedDays.add(day);
+  const pip = document.querySelector('.progress-pip[data-day="' + day + '"]');
+  if (pip) pip.classList.add('done');
+  const navPill = document.querySelector('.nav-pill[data-nav="' + day + '"]');
+  if (navPill) navPill.classList.add('done');
+}
+
+/* ============ CONFETTI ============ */
+function launchConfetti(count) {
+  count = count || 20;
+  const colors = ['#E94B3C', '#F5B82E', '#5C8A6F', '#8B5FBF', '#4A90C2', '#E84A6F'];
+  for (let i = 0; i < count; i++) {
+    const c = document.createElement('div');
+    c.className = 'confetti';
+    c.style.left = Math.random() * 100 + 'vw';
+    c.style.top = '-20px';
+    c.style.background = colors[Math.floor(Math.random() * colors.length)];
+    c.style.animationDuration = (1.5 + Math.random() * 1.5) + 's';
+    c.style.transform = 'rotate(' + (Math.random() * 360) + 'deg)';
+    document.body.appendChild(c);
+    setTimeout(() => c.remove(), 3000);
+  }
+}
+
+/* ============ QUICK CHECKS ============ */
+document.querySelectorAll('.quick-check').forEach(qc => {
+  const quizId = qc.dataset.quiz;
+  const dayNum = parseInt(quizId.replace('day', ''));
+  const questions = qc.querySelectorAll('.qc-question');
+  questions.forEach(q => {
+    const correct = q.dataset.correct;
+    const feedback = q.querySelector('.qc-feedback');
+    const inputRow = q.querySelector('.qc-input-row');
+    const options = q.querySelector('.qc-options');
+    if (inputRow) {
+      const btn = inputRow.querySelector('.qc-check-btn');
+      const input = inputRow.querySelector('.qc-input');
+      const handleCheck = () => {
+        const isRight = checkAnswer(input.value, correct);
+        feedback.classList.remove('right', 'wrong');
+        feedback.classList.add('show');
+        if (isRight) {
+          feedback.classList.add('right');
+          feedback.innerHTML = '<strong>✓ Correct!</strong> Nice work.';
+          checkQuizComplete(qc, dayNum);
+          launchConfetti(8);
+        } else {
+          feedback.classList.add('wrong');
+          feedback.innerHTML = '<strong>Not quite.</strong> The answer is <span class="mono">' + correct + '</span>. Try again, or move on.';
+        }
+      };
+      btn.addEventListener('click', handleCheck);
+      input.addEventListener('keypress', e => { if (e.key === 'Enter') handleCheck(); });
+    }
+    if (options) {
+      options.querySelectorAll('.qc-option').forEach(opt => {
+        opt.addEventListener('click', () => {
+          const answer = opt.dataset.answer;
+          const isRight = answer === correct;
+          if (isRight) {
+            opt.classList.add('correct');
+            feedback.classList.remove('wrong');
+            feedback.classList.add('show', 'right');
+            feedback.innerHTML = '<strong>✓ Correct!</strong>';
+            checkQuizComplete(qc, dayNum);
+            launchConfetti(8);
+          } else {
+            opt.classList.add('wrong');
+            feedback.classList.remove('right');
+            feedback.classList.add('show', 'wrong');
+            feedback.innerHTML = '<strong>Try again.</strong>';
+            setTimeout(() => opt.classList.remove('wrong'), 600);
+          }
+        });
+      });
+    }
+  });
+});
+function checkQuizComplete(qc, dayNum) {
+  const total = qc.querySelectorAll('.qc-question').length;
+  const correctCount = qc.querySelectorAll('.qc-feedback.right').length;
+  if (correctCount >= Math.ceil(total * 0.5)) {
+    markDayComplete(dayNum);
+  }
+}
+
+/* ============ NAV ACTIVE STATE ============ */
+document.querySelectorAll('section[id]').forEach(sec => {
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        document.querySelectorAll('.nav-pill').forEach(p => p.classList.remove('active'));
+        const pill = document.querySelector('.nav-pill[href="#' + sec.id + '"]');
+        if (pill) pill.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-30% 0px -60% 0px' });
+  obs.observe(sec);
+});
+
+/* ============ PRACTICE LAB ============ */
+const labCard = document.getElementById('lab-card');
+let labState = { topic: null, current: null, attempted: 0, correct: 0, streak: 0, best: 0 };
+const TOPIC_LABELS = {
+  identify: 'Identify Fractions',
+  convert: 'Improper / Mixed',
+  simplify: 'Simplify',
+  equivalent: 'Equivalent Fractions',
+  addLike: 'Add Like Denominators',
+  subLike: 'Subtract Like Denominators',
+  addUnlike: 'Add Unlike Denominators',
+  subUnlike: 'Subtract Unlike Denominators',
+  mixed: 'Mixed Numbers',
+  multiply: 'Multiply Fractions',
+  divide: 'Divide Fractions',
+  compare: 'Compare Fractions'
+};
+
+const GENERATORS = {
+  identify: function() {
+    const den = rand(3, 10);
+    const num = rand(1, den);
+    let rects = '';
+    for (let i = 0; i < den; i++) {
+      const fill = i < num ? '#E94B3C' : '#FFF8EC';
+      const x = 10 + i * (220 / den);
+      rects += '<rect x="' + x + '" y="20" width="' + (220 / den) + '" height="40" fill="' + fill + '" stroke="#1B1B3A" stroke-width="2"/>';
+    }
+    return {
+      promptHTML: '<div><svg width="240" height="80" viewBox="0 0 240 80">' + rects + '</svg><div style="margin-top: 0.5rem; font-size: 1rem; font-family: DM Sans, sans-serif; font-weight: 600;">What fraction is shaded?</div></div>',
+      answer: num + '/' + den,
+      inputType: 'fraction',
+      explanation: num + ' of ' + den + ' equal pieces are shaded, so the fraction is ' + num + '/' + den + '.'
+    };
+  },
+  convert: function() {
+    const goImproperToMixed = Math.random() < 0.5;
+    if (goImproperToMixed) {
+      const den = rand(2, 9);
+      const whole = rand(1, 5);
+      const numPart = rand(1, den - 1);
+      const num = whole * den + numPart;
+      return {
+        promptHTML: 'Convert to a mixed number: <span class="frac large"><span class="num">' + num + '</span><span class="den">' + den + '</span></span>',
+        answer: whole + ' ' + numPart + '/' + den,
+        inputType: 'mixed',
+        explanation: num + ' ÷ ' + den + ' = ' + whole + ' remainder ' + numPart + '. So ' + num + '/' + den + ' = ' + whole + ' ' + numPart + '/' + den + '.'
+      };
+    } else {
+      const whole = rand(1, 6);
+      const den = rand(2, 9);
+      const numPart = rand(1, den - 1);
+      const result = whole * den + numPart;
+      return {
+        promptHTML: 'Convert to an improper fraction: <strong style="font-family: Fraunces;">' + whole + '</strong> <span class="frac large"><span class="num">' + numPart + '</span><span class="den">' + den + '</span></span>',
+        answer: result + '/' + den,
+        inputType: 'fraction',
+        explanation: whole + ' × ' + den + ' = ' + (whole * den) + '. Then ' + (whole * den) + ' + ' + numPart + ' = ' + result + '. So the improper fraction is ' + result + '/' + den + '.'
+      };
+    }
+  },
+  simplify: function() {
+    const baseN = rand(1, 8);
+    const baseD = rand(baseN + 1, 12);
+    const mult = rand(2, 5);
+    const n = baseN * mult;
+    const d = baseD * mult;
+    const simplified = simplifyFraction(n, d);
+    return {
+      promptHTML: 'Simplify: <span class="frac large"><span class="num">' + n + '</span><span class="den">' + d + '</span></span>',
+      answer: simplified[0] + '/' + simplified[1],
+      inputType: 'fraction',
+      explanation: 'GCF of ' + n + ' and ' + d + ' is ' + gcd(n, d) + '. Divide both by it to get ' + simplified[0] + '/' + simplified[1] + '.'
+    };
+  },
+  equivalent: function() {
+    const baseN = rand(1, 7);
+    const baseD = rand(baseN + 1, 10);
+    const mult = rand(2, 6);
+    const newD = baseD * mult;
+    const newN = baseN * mult;
+    return {
+      promptHTML: 'Fill in the blank: <span class="frac large"><span class="num">' + baseN + '</span><span class="den">' + baseD + '</span></span> = <span class="frac large"><span class="num">?</span><span class="den">' + newD + '</span></span>',
+      answer: String(newN),
+      inputType: 'whole',
+      explanation: baseD + ' × ' + mult + ' = ' + newD + ', so multiply the top by ' + mult + ' too: ' + baseN + ' × ' + mult + ' = ' + newN + '.'
+    };
+  },
+  addLike: function() {
+    const den = rand(3, 12);
+    const n1 = rand(1, den - 2);
+    const n2 = rand(1, den - n1);
+    const sumN = n1 + n2;
+    const simplified = simplifyFraction(sumN, den);
+    return {
+      promptHTML: 'Solve and simplify: <span class="frac large"><span class="num">' + n1 + '</span><span class="den">' + den + '</span></span> + <span class="frac large"><span class="num">' + n2 + '</span><span class="den">' + den + '</span></span>',
+      answer: simplified[0] + '/' + simplified[1],
+      inputType: 'fraction',
+      explanation: 'Add the tops: ' + n1 + ' + ' + n2 + ' = ' + sumN + '. Keep the denominator: ' + sumN + '/' + den + '. Simplified: ' + simplified[0] + '/' + simplified[1] + '.'
+    };
+  },
+  subLike: function() {
+    const den = rand(3, 12);
+    const n1 = rand(2, den);
+    const n2 = rand(1, n1 - 1);
+    const diffN = n1 - n2;
+    const simplified = simplifyFraction(diffN, den);
+    return {
+      promptHTML: 'Solve and simplify: <span class="frac large"><span class="num">' + n1 + '</span><span class="den">' + den + '</span></span> − <span class="frac large"><span class="num">' + n2 + '</span><span class="den">' + den + '</span></span>',
+      answer: simplified[0] + '/' + simplified[1],
+      inputType: 'fraction',
+      explanation: 'Subtract the tops: ' + n1 + ' − ' + n2 + ' = ' + diffN + '. Keep the denominator: ' + diffN + '/' + den + '. Simplified: ' + simplified[0] + '/' + simplified[1] + '.'
+    };
+  },
+  addUnlike: function() {
+    const denoms = [[2,3], [2,5], [3,4], [3,5], [4,6], [3,6], [4,8], [2,6], [5,10], [3,9]];
+    const pair = denoms[rand(0, denoms.length - 1)];
+    const d1 = pair[0], d2 = pair[1];
+    const n1 = rand(1, d1 - 1);
+    const n2 = rand(1, d2 - 1);
+    const commonD = lcm(d1, d2);
+    const newN1 = n1 * (commonD / d1);
+    const newN2 = n2 * (commonD / d2);
+    const sumN = newN1 + newN2;
+    const simplified = simplifyFraction(sumN, commonD);
+    return {
+      promptHTML: 'Solve and simplify: <span class="frac large"><span class="num">' + n1 + '</span><span class="den">' + d1 + '</span></span> + <span class="frac large"><span class="num">' + n2 + '</span><span class="den">' + d2 + '</span></span>',
+      answer: simplified[0] + '/' + simplified[1],
+      inputType: 'fraction',
+      explanation: 'Common denominator: ' + commonD + '. Rename: ' + newN1 + '/' + commonD + ' + ' + newN2 + '/' + commonD + ' = ' + sumN + '/' + commonD + '. Simplified: ' + simplified[0] + '/' + simplified[1] + '.'
+    };
+  },
+  subUnlike: function() {
+    const denoms = [[2,3], [2,5], [3,4], [3,5], [4,6], [3,6], [4,8], [2,6], [5,10]];
+    const pair = denoms[rand(0, denoms.length - 1)];
+    let d1 = pair[0], d2 = pair[1];
+    let n1 = rand(1, d1 - 1);
+    let n2 = rand(1, d2 - 1);
+    const commonD = lcm(d1, d2);
+    let newN1 = n1 * (commonD / d1);
+    let newN2 = n2 * (commonD / d2);
+    if (newN1 < newN2) {
+      const td = d1; d1 = d2; d2 = td;
+      const tn = n1; n1 = n2; n2 = tn;
+      const tnew = newN1; newN1 = newN2; newN2 = tnew;
+    }
+    const diffN = newN1 - newN2;
+    const simplified = simplifyFraction(diffN, commonD);
+    return {
+      promptHTML: 'Solve and simplify: <span class="frac large"><span class="num">' + n1 + '</span><span class="den">' + d1 + '</span></span> − <span class="frac large"><span class="num">' + n2 + '</span><span class="den">' + d2 + '</span></span>',
+      answer: simplified[0] + '/' + simplified[1],
+      inputType: 'fraction',
+      explanation: 'Common denominator: ' + commonD + '. Rename: ' + newN1 + '/' + commonD + ' − ' + newN2 + '/' + commonD + ' = ' + diffN + '/' + commonD + '. Simplified: ' + simplified[0] + '/' + simplified[1] + '.'
+    };
+  },
+  mixed: function() {
+    const isAdd = Math.random() < 0.5;
+    const dens = [3, 4, 5, 6, 8];
+    const den = dens[rand(0, dens.length - 1)];
+    const w1 = rand(1, 5);
+    const n1 = rand(1, den - 1);
+    const w2 = rand(1, 4);
+    const n2 = rand(1, den - 1);
+    const i1 = w1 * den + n1;
+    const i2 = w2 * den + n2;
+    let resultN;
+    if (isAdd) {
+      resultN = i1 + i2;
+    } else {
+      if (i1 < i2) return GENERATORS.mixed();
+      resultN = i1 - i2;
+    }
+    const simplified = simplifyFraction(resultN, den);
+    const sN = simplified[0], sD = simplified[1];
+    const wholePart = Math.floor(sN / sD);
+    const remNum = sN - wholePart * sD;
+    let answer;
+    if (remNum === 0) answer = String(wholePart);
+    else if (wholePart === 0) answer = sN + '/' + sD;
+    else answer = wholePart + ' ' + remNum + '/' + sD;
+    return {
+      promptHTML: 'Solve: <strong style="font-family:Fraunces">' + w1 + '</strong> <span class="frac large"><span class="num">' + n1 + '</span><span class="den">' + den + '</span></span> ' + (isAdd ? '+' : '−') + ' <strong style="font-family:Fraunces">' + w2 + '</strong> <span class="frac large"><span class="num">' + n2 + '</span><span class="den">' + den + '</span></span>',
+      answer: answer,
+      inputType: 'mixed',
+      explanation: 'Convert to improper: ' + i1 + '/' + den + ' ' + (isAdd ? '+' : '−') + ' ' + i2 + '/' + den + ' = ' + resultN + '/' + den + '. Simplify and convert back: ' + answer + '.'
+    };
+  },
+  multiply: function() {
+    const d1 = rand(2, 8);
+    const n1 = rand(1, d1 - 1);
+    const d2 = rand(2, 8);
+    const n2 = rand(1, d2 - 1);
+    const resN = n1 * n2;
+    const resD = d1 * d2;
+    const simplified = simplifyFraction(resN, resD);
+    return {
+      promptHTML: 'Solve and simplify: <span class="frac large"><span class="num">' + n1 + '</span><span class="den">' + d1 + '</span></span> × <span class="frac large"><span class="num">' + n2 + '</span><span class="den">' + d2 + '</span></span>',
+      answer: simplified[0] + '/' + simplified[1],
+      inputType: 'fraction',
+      explanation: 'Multiply tops: ' + n1 + ' × ' + n2 + ' = ' + resN + '. Multiply bottoms: ' + d1 + ' × ' + d2 + ' = ' + resD + '. Simplified: ' + simplified[0] + '/' + simplified[1] + '.'
+    };
+  },
+  divide: function() {
+    const d1 = rand(2, 6);
+    const n1 = rand(1, d1 - 1);
+    const d2 = rand(2, 6);
+    const n2 = rand(1, d2 - 1);
+    const resN = n1 * d2;
+    const resD = d1 * n2;
+    const simplified = simplifyFraction(resN, resD);
+    let answer = simplified[0] + '/' + simplified[1];
+    if (simplified[1] === 1) answer = String(simplified[0]);
+    return {
+      promptHTML: 'Solve and simplify: <span class="frac large"><span class="num">' + n1 + '</span><span class="den">' + d1 + '</span></span> ÷ <span class="frac large"><span class="num">' + n2 + '</span><span class="den">' + d2 + '</span></span>',
+      answer: answer,
+      inputType: 'fraction',
+      explanation: 'Keep, change, flip: ' + n1 + '/' + d1 + ' × ' + d2 + '/' + n2 + ' = ' + resN + '/' + resD + '. Simplified: ' + answer + '.'
+    };
+  },
+  compare: function() {
+    const d1 = rand(2, 12);
+    const n1 = rand(1, d1 - 1);
+    const d2 = rand(2, 12);
+    const n2 = rand(1, d2 - 1);
+    const cross1 = n1 * d2;
+    const cross2 = n2 * d1;
+    let answer;
+    if (cross1 > cross2) answer = 'gt';
+    else if (cross1 < cross2) answer = 'lt';
+    else answer = 'eq';
+    const symbol = answer === 'gt' ? '>' : (answer === 'lt' ? '<' : '=');
+    return {
+      promptHTML: 'Compare: <span class="frac large"><span class="num">' + n1 + '</span><span class="den">' + d1 + '</span></span> &nbsp;___&nbsp; <span class="frac large"><span class="num">' + n2 + '</span><span class="den">' + d2 + '</span></span>',
+      answer: answer,
+      inputType: 'compare',
+      explanation: 'Cross multiply: ' + n1 + ' × ' + d2 + ' = ' + cross1 + ' vs ' + n2 + ' × ' + d1 + ' = ' + cross2 + '. So ' + n1 + '/' + d1 + ' ' + symbol + ' ' + n2 + '/' + d2 + '.'
+    };
+  }
+};
+
+function renderLabCard() {
+  if (!labState.current) {
+    labCard.innerHTML = '<div class="lab-placeholder"><p>👉 Pick a topic above to start generating questions.</p></div>';
+    return;
+  }
+  const q = labState.current;
+  let inputHTML;
+  if (q.inputType === 'fraction') {
+    inputHTML = '<div class="lab-fraction-input"><input class="lab-input" type="text" id="lab-num" placeholder="?" /><div class="divider"></div><input class="lab-input" type="text" id="lab-den" placeholder="?" /></div>';
+  } else if (q.inputType === 'mixed') {
+    inputHTML = '<input class="lab-input" type="text" id="lab-whole" placeholder="whole" style="width:80px" /><div class="lab-fraction-input"><input class="lab-input" type="text" id="lab-num" placeholder="?" /><div class="divider"></div><input class="lab-input" type="text" id="lab-den" placeholder="?" /></div>';
+  } else if (q.inputType === 'compare') {
+    inputHTML = '<button class="lab-btn check" data-compare="lt">&lt;</button><button class="lab-btn check" data-compare="eq" style="background: var(--mustard); color: var(--ink);">=</button><button class="lab-btn check" data-compare="gt">&gt;</button>';
+  } else {
+    inputHTML = '<input class="lab-input" type="text" id="lab-single" placeholder="?" style="width:120px;font-size:1.4rem;"/>';
+  }
+  labCard.innerHTML =
+    '<div class="card-header"><span class="card-topic">' + TOPIC_LABELS[labState.topic] + '</span><span class="question-num">Question #' + (labState.attempted + 1) + '</span></div>' +
+    '<div class="lab-question">' + q.promptHTML + '</div>' +
+    '<div class="lab-answer-row" id="lab-answer-row">' + inputHTML + '</div>' +
+    '<div class="lab-controls">' +
+    (q.inputType !== 'compare' ? '<button class="lab-btn check" id="lab-check">Check Answer</button>' : '') +
+    '<button class="lab-btn hint" id="lab-hint">Need a Hint?</button>' +
+    '<button class="lab-btn show" id="lab-show">Show Answer</button>' +
+    '<button class="lab-btn next" id="lab-next">Next Question →</button>' +
+    '</div>' +
+    '<div class="lab-feedback" id="lab-feedback"></div>';
+  if (q.inputType === 'compare') {
+    document.querySelectorAll('[data-compare]').forEach(btn => {
+      btn.addEventListener('click', () => handleLabCheck(btn.dataset.compare));
+    });
+  } else {
+    document.getElementById('lab-check').addEventListener('click', () => handleLabCheck());
+    document.querySelectorAll('.lab-input').forEach(inp => {
+      inp.addEventListener('keypress', e => { if (e.key === 'Enter') handleLabCheck(); });
+    });
+    setTimeout(() => {
+      const first = document.querySelector('#lab-whole') || document.querySelector('#lab-num') || document.querySelector('#lab-single');
+      if (first) first.focus();
+    }, 50);
+  }
+  document.getElementById('lab-hint').addEventListener('click', showHint);
+  document.getElementById('lab-show').addEventListener('click', showAnswer);
+  document.getElementById('lab-next').addEventListener('click', nextQuestion);
+}
+
+function getLabUserAnswer(compareValue) {
+  const q = labState.current;
+  if (compareValue !== undefined) return compareValue;
+  if (q.inputType === 'fraction') {
+    const n = document.getElementById('lab-num') ? document.getElementById('lab-num').value.trim() : '';
+    const d = document.getElementById('lab-den') ? document.getElementById('lab-den').value.trim() : '';
+    if (!n && !d) return null;
+    if (!d || d === '1') return n;
+    return n + '/' + d;
+  }
+  if (q.inputType === 'mixed') {
+    const w = document.getElementById('lab-whole') ? document.getElementById('lab-whole').value.trim() : '';
+    const n = document.getElementById('lab-num') ? document.getElementById('lab-num').value.trim() : '';
+    const d = document.getElementById('lab-den') ? document.getElementById('lab-den').value.trim() : '';
+    if (!w && !n) return null;
+    if (!n || n === '0') return w;
+    if (!w || w === '0') return n + '/' + d;
+    return w + ' ' + n + '/' + d;
+  }
+  return document.getElementById('lab-single') ? document.getElementById('lab-single').value.trim() : '';
+}
+
+function handleLabCheck(compareValue) {
+  const q = labState.current;
+  const userAnswer = getLabUserAnswer(compareValue);
+  if (!userAnswer && userAnswer !== '0') return;
+  const isRight = checkAnswer(userAnswer, q.answer);
+  const fb = document.getElementById('lab-feedback');
+  fb.classList.remove('right', 'wrong', 'hint');
+  fb.classList.add('show');
+  labState.attempted += 1;
+  if (isRight) {
+    fb.classList.add('right');
+    fb.innerHTML = '<strong>✓ Yes!</strong> ' + q.explanation;
+    labState.correct += 1;
+    labState.streak += 1;
+    if (labState.streak > labState.best) labState.best = labState.streak;
+    launchConfetti(10);
+  } else {
+    fb.classList.add('wrong');
+    let displayAnswer = q.answer;
+    if (q.answer === 'gt') displayAnswer = '>';
+    else if (q.answer === 'lt') displayAnswer = '<';
+    else if (q.answer === 'eq') displayAnswer = '=';
+    fb.innerHTML = '<strong>Not quite.</strong> The correct answer is <span class="mono"><strong>' + displayAnswer + '</strong></span>. ' + q.explanation;
+    labState.streak = 0;
+  }
+  updateLabStats();
+}
+
+function showHint() {
+  const fb = document.getElementById('lab-feedback');
+  fb.classList.remove('right', 'wrong');
+  fb.classList.add('show', 'hint');
+  let hint = '';
+  switch (labState.topic) {
+    case 'identify': hint = 'Count the shaded pieces (numerator). Count all the pieces (denominator).'; break;
+    case 'convert': hint = 'Improper to mixed: divide. Mixed to improper: multiply the whole by the bottom, then add the top.'; break;
+    case 'simplify': hint = 'Find the GCF of the top and bottom. Then divide both by it.'; break;
+    case 'equivalent': hint = 'Figure out what the bottom got multiplied by. Multiply the top by the same number.'; break;
+    case 'addLike': case 'subLike': hint = 'Same bottom: just add or subtract the tops. Keep the bottom. Simplify at the end.'; break;
+    case 'addUnlike': case 'subUnlike': hint = 'Find a common denominator first. Rename both fractions. Then add or subtract the tops.'; break;
+    case 'mixed': hint = 'Try converting both to improper fractions first. Then operate. Then convert back.'; break;
+    case 'multiply': hint = 'Multiply straight across. Top × top over bottom × bottom. Then simplify.'; break;
+    case 'divide': hint = 'Keep the first fraction. Change ÷ to ×. Flip the second fraction. Then multiply.'; break;
+    case 'compare': hint = 'Cross multiply: top of one × bottom of the other. Whichever side is bigger wins.'; break;
+  }
+  fb.innerHTML = '<strong>Hint:</strong> ' + hint;
+}
+
+function showAnswer() {
+  const q = labState.current;
+  const fb = document.getElementById('lab-feedback');
+  fb.classList.remove('right', 'wrong');
+  fb.classList.add('show', 'hint');
+  let displayAnswer = q.answer;
+  if (q.answer === 'gt') displayAnswer = '>';
+  else if (q.answer === 'lt') displayAnswer = '<';
+  else if (q.answer === 'eq') displayAnswer = '=';
+  fb.innerHTML = '<strong>Answer:</strong> <span class="mono">' + displayAnswer + '</span>. ' + q.explanation;
+}
+
+function nextQuestion() {
+  labState.current = GENERATORS[labState.topic]();
+  renderLabCard();
+}
+
+function updateLabStats() {
+  document.getElementById('stat-attempted').textContent = labState.attempted;
+  document.getElementById('stat-correct').textContent = labState.correct;
+  document.getElementById('stat-streak').textContent = labState.streak;
+  document.getElementById('stat-best').textContent = labState.best;
+}
+
+document.querySelectorAll('.topic-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.topic-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    labState.topic = btn.dataset.topic;
+    labState.current = GENERATORS[labState.topic]();
+    renderLabCard();
+  });
+});
+
+document.querySelectorAll('.practice-cta .btn-primary[data-topic]').forEach(link => {
+  link.addEventListener('click', () => {
+    const topic = link.dataset.topic;
+    setTimeout(() => {
+      const tBtn = document.querySelector('.topic-btn[data-topic="' + topic + '"]');
+      if (tBtn) tBtn.click();
+    }, 700);
+  });
+});
+
+/* ============ FINAL ASSESSMENT ============ */
+const matchPairs = {
+  numerator: 'top',
+  denominator: 'bottom',
+  reciprocal: 'flipped',
+  equivalent: 'same',
+  mixed: 'whole'
+};
+const matchColors = ['matched-coral', 'matched-sage', 'matched-lavender', 'matched-mustard', 'matched-sky'];
+let matchColorIdx = 0;
+let matchSelected = null;
+
+document.querySelectorAll('.match-item').forEach(item => {
+  item.addEventListener('click', () => {
+    if (item.className.indexOf('matched-') !== -1) return;
+    if (!matchSelected) {
+      matchSelected = item;
+      item.classList.add('selected');
+    } else if (matchSelected === item) {
+      item.classList.remove('selected');
+      matchSelected = null;
+    } else {
+      const a = matchSelected;
+      const b = item;
+      const aMatch = a.dataset.match;
+      const bMatch = b.dataset.match;
+      let isPair = false;
+      if (matchPairs[aMatch] === bMatch || matchPairs[bMatch] === aMatch) isPair = true;
+      if (isPair && a.dataset.side !== b.dataset.side) {
+        const color = matchColors[matchColorIdx % matchColors.length];
+        matchColorIdx++;
+        a.classList.remove('selected');
+        a.classList.add(color);
+        b.classList.add(color);
+        launchConfetti(8);
+      } else {
+        a.classList.remove('selected');
+        a.classList.add('wrong');
+        b.classList.add('wrong');
+        setTimeout(() => { a.classList.remove('wrong'); b.classList.remove('wrong'); }, 600);
+      }
+      matchSelected = null;
+    }
+  });
+});
+
+document.querySelectorAll('[data-final^="tf"] .qc-option, [data-final^="mc"] .qc-option').forEach(opt => {
+  opt.addEventListener('click', () => {
+    const parent = opt.parentElement;
+    parent.querySelectorAll('.qc-option').forEach(o => o.classList.remove('selected'));
+    opt.classList.add('selected');
+  });
+});
+
+document.getElementById('submit-final').addEventListener('click', () => {
+  let score = 0;
+  let totalCount = 0;
+  document.querySelectorAll('[data-final^="fb"]').forEach(input => {
+    totalCount++;
+    const correct = input.dataset.correct;
+    if (checkAnswer(input.value, correct)) score++;
+  });
+  document.querySelectorAll('[data-final^="tf"], [data-final^="mc"]').forEach(group => {
+    totalCount++;
+    const correct = group.dataset.correct;
+    const selected = group.querySelector('.qc-option.selected');
+    if (selected && selected.dataset.answer === correct) score++;
+  });
+  document.getElementById('score-num').textContent = score;
+  const msg = document.getElementById('score-message');
+  if (score >= 11) {
+    msg.textContent = 'Outstanding! You have these locked in.';
+    launchConfetti(80);
+  } else if (score >= 8) {
+    msg.textContent = 'Solid work. Hit the Practice Lab to push past 11.';
+    launchConfetti(30);
+  } else if (score >= 5) {
+    msg.textContent = 'Good start. Review the days you missed and try again.';
+  } else {
+    msg.textContent = 'Take another pass through the lessons, then come back. You got this.';
+  }
+  document.getElementById('final-results').classList.add('show');
+  document.getElementById('final-results').scrollIntoView({ behavior: 'smooth', block: 'center' });
+});
+</script>
+</body>
+</html>
