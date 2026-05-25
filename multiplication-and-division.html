@@ -1,0 +1,2485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Math Lab: Numbers Without the Fog</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&family=Manrope:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg-deep: #0a0f1f;
+  --bg-mid: #121833;
+  --bg-soft: #1a2249;
+  --surface: rgba(26, 34, 73, 0.6);
+  --surface-strong: #1f2a55;
+  --line: rgba(140, 160, 220, 0.15);
+  --line-strong: rgba(140, 160, 220, 0.3);
+  --text: #eef1fb;
+  --text-dim: #a8b1ce;
+  --text-faint: #6e7799;
+  --accent-yellow: #ffd93d;
+  --accent-pink: #ff6b9d;
+  --accent-cyan: #5eead4;
+  --accent-coral: #ffa07a;
+  --accent-violet: #b794f6;
+  --correct: #5eead4;
+  --wrong: #ff6b9d;
+  --display: 'Bricolage Grotesque', serif;
+  --body: 'Manrope', sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--body);
+  background: var(--bg-deep);
+  color: var(--text);
+  line-height: 1.65;
+  font-size: 17px;
+  overflow-x: hidden;
+  background-image:
+    linear-gradient(rgba(140, 160, 220, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(140, 160, 220, 0.04) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 0%, rgba(183, 148, 246, 0.12), transparent 60%),
+    radial-gradient(ellipse 70% 50% at 90% 30%, rgba(255, 107, 157, 0.08), transparent 60%),
+    radial-gradient(ellipse 60% 50% at 50% 100%, rgba(94, 234, 212, 0.08), transparent 60%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* ============ NAV ============ */
+nav.daybar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(10, 15, 31, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--line);
+  padding: 14px 0;
+}
+
+.daybar-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.daybar-inner::-webkit-scrollbar { display: none; }
+
+.daybar-logo {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: -0.02em;
+  color: var(--accent-yellow);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.daybar-logo span { color: var(--text); }
+
+.daybar-links {
+  display: flex;
+  gap: 6px;
+  flex: 1;
+}
+
+.daybtn {
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 500;
+  background: transparent;
+  border: 1px solid var(--line);
+  color: var(--text-dim);
+  padding: 7px 12px;
+  border-radius: 20px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+.daybtn:hover {
+  border-color: var(--accent-cyan);
+  color: var(--accent-cyan);
+}
+.daybtn.active {
+  background: var(--accent-cyan);
+  color: var(--bg-deep);
+  border-color: var(--accent-cyan);
+  font-weight: 700;
+}
+.daybtn.practice {
+  background: linear-gradient(135deg, var(--accent-pink), var(--accent-coral));
+  color: var(--bg-deep);
+  border: none;
+  font-weight: 700;
+}
+
+/* ============ LAYOUT ============ */
+.container {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ============ HERO ============ */
+.hero {
+  padding: 100px 24px 60px;
+  text-align: center;
+  position: relative;
+}
+
+.hero-eyebrow {
+  font-family: var(--mono);
+  font-size: 13px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent-cyan);
+  margin-bottom: 24px;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.1s forwards;
+}
+
+.hero-title {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: clamp(48px, 9vw, 96px);
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  margin-bottom: 28px;
+  opacity: 0;
+  animation: fadeUp 0.9s 0.25s forwards;
+}
+.hero-title .yellow { color: var(--accent-yellow); font-style: italic; }
+.hero-title .pink { color: var(--accent-pink); }
+.hero-title .cyan { color: var(--accent-cyan); }
+
+.hero-sub {
+  font-size: 20px;
+  color: var(--text-dim);
+  max-width: 600px;
+  margin: 0 auto 40px;
+  opacity: 0;
+  animation: fadeUp 0.9s 0.4s forwards;
+}
+
+.hero-stats {
+  display: flex;
+  gap: 32px;
+  justify-content: center;
+  flex-wrap: wrap;
+  opacity: 0;
+  animation: fadeUp 0.9s 0.55s forwards;
+}
+.hero-stat {
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--text-faint);
+}
+.hero-stat strong {
+  color: var(--accent-yellow);
+  font-weight: 700;
+  font-size: 24px;
+  display: block;
+  font-family: var(--display);
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ============ SECTION ============ */
+section.day {
+  padding: 80px 0 60px;
+  border-top: 1px solid var(--line);
+  position: relative;
+}
+
+.day-marker {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.day-num {
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--bg-deep);
+  background: var(--accent-yellow);
+  padding: 4px 12px;
+  border-radius: 4px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+.day-tag {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--text-faint);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+}
+
+.day-title {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: clamp(36px, 5.5vw, 60px);
+  line-height: 1.0;
+  letter-spacing: -0.03em;
+  margin-bottom: 32px;
+}
+
+.day-intro {
+  font-size: 19px;
+  color: var(--text-dim);
+  margin-bottom: 40px;
+  max-width: 700px;
+}
+
+h3.subhead {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 28px;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  margin: 56px 0 20px;
+  color: var(--text);
+}
+h3.subhead .num {
+  color: var(--accent-pink);
+  font-family: var(--mono);
+  font-size: 18px;
+  margin-right: 12px;
+  font-weight: 500;
+}
+
+p.prose {
+  margin-bottom: 18px;
+  color: var(--text-dim);
+}
+p.prose strong { color: var(--text); font-weight: 600; }
+
+.vocab {
+  background: linear-gradient(180deg, rgba(255, 107, 157, 0) 60%, rgba(255, 107, 157, 0.25) 60%, rgba(255, 107, 157, 0.25) 90%, rgba(255, 107, 157, 0) 90%);
+  color: var(--accent-pink);
+  font-weight: 700;
+  cursor: pointer;
+  padding: 0 2px;
+  transition: all 0.15s ease;
+  border-radius: 2px;
+}
+.vocab:hover {
+  background: var(--accent-pink);
+  color: var(--bg-deep);
+}
+
+/* ============ MATH CARDS ============ */
+.eq-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 24px 28px;
+  margin: 24px 0;
+  font-family: var(--mono);
+  font-size: 18px;
+  position: relative;
+  overflow: hidden;
+}
+.eq-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; bottom: 0;
+  width: 4px;
+  background: var(--accent-yellow);
+}
+.eq-card .eq-label {
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+.eq-card .eq-line { color: var(--text); font-weight: 500; }
+.eq-card .eq-line + .eq-line { margin-top: 6px; }
+.eq-card .eq-equals { color: var(--accent-yellow); }
+.eq-card .answer { color: var(--accent-cyan); font-weight: 700; font-size: 22px; margin-top: 8px; }
+
+/* Inline math styling */
+.m { font-family: var(--mono); color: var(--accent-yellow); font-weight: 500; }
+.frac {
+  display: inline-flex;
+  flex-direction: column;
+  vertical-align: middle;
+  text-align: center;
+  font-family: var(--mono);
+  font-size: 0.85em;
+  margin: 0 2px;
+  line-height: 1.0;
+}
+.frac .top {
+  border-bottom: 1.5px solid currentColor;
+  padding: 0 4px 2px;
+}
+.frac .bot { padding: 2px 4px 0; }
+
+/* ============ VISUALS ============ */
+.viz {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 28px;
+  margin: 32px 0;
+}
+.viz-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent-cyan);
+  margin-bottom: 16px;
+  font-weight: 500;
+}
+.viz-title {
+  font-family: var(--display);
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  letter-spacing: -0.01em;
+}
+
+/* ============ INTERACTIVE ELEMENTS ============ */
+.qc {
+  background: linear-gradient(135deg, rgba(94, 234, 212, 0.08), rgba(183, 148, 246, 0.08));
+  border: 1px solid var(--line-strong);
+  border-radius: 16px;
+  padding: 24px;
+  margin: 32px 0;
+}
+.qc-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent-cyan);
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+.qc-question {
+  font-size: 19px;
+  font-weight: 500;
+  color: var(--text);
+  margin-bottom: 18px;
+  font-family: var(--display);
+}
+.qc-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.qc-opt {
+  background: var(--surface-strong);
+  border: 1.5px solid var(--line);
+  color: var(--text);
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-family: var(--mono);
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  flex: 1;
+  min-width: 70px;
+}
+.qc-opt:hover { border-color: var(--accent-cyan); transform: translateY(-1px); }
+.qc-opt.correct { background: var(--correct); color: var(--bg-deep); border-color: var(--correct); font-weight: 700; }
+.qc-opt.wrong { background: var(--wrong); color: var(--bg-deep); border-color: var(--wrong); }
+.qc-feedback {
+  margin-top: 14px;
+  font-size: 14px;
+  color: var(--text-dim);
+  opacity: 0;
+  height: 0;
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+.qc-feedback.show { opacity: 1; height: auto; }
+
+.reflect {
+  background: var(--surface);
+  border-left: 3px solid var(--accent-violet);
+  padding: 20px 24px;
+  margin: 32px 0;
+  border-radius: 0 12px 12px 0;
+}
+.reflect-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent-violet);
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+.reflect-q {
+  font-family: var(--display);
+  font-size: 19px;
+  color: var(--text);
+  font-style: italic;
+}
+
+/* ============ QUIZ BUTTON ============ */
+.quiz-launch {
+  margin: 56px 0;
+  background: linear-gradient(135deg, var(--accent-pink), var(--accent-coral));
+  border: none;
+  color: var(--bg-deep);
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 22px;
+  padding: 24px 32px;
+  border-radius: 16px;
+  width: 100%;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  letter-spacing: -0.01em;
+}
+.quiz-launch:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(255, 107, 157, 0.3);
+}
+.quiz-launch .arrow {
+  font-family: var(--mono);
+  font-size: 28px;
+}
+
+/* ============ MODAL ============ */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(5, 8, 18, 0.85);
+  backdrop-filter: blur(10px);
+  z-index: 1000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+.modal-backdrop.show {
+  display: flex;
+  opacity: 1;
+}
+.modal {
+  background: var(--bg-mid);
+  border: 1px solid var(--line-strong);
+  border-radius: 20px;
+  max-width: 560px;
+  width: 100%;
+  max-height: 85vh;
+  overflow-y: auto;
+  padding: 36px;
+  position: relative;
+}
+.modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  color: var(--text);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.modal-close:hover { background: var(--accent-pink); color: var(--bg-deep); }
+.modal-tag {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent-pink);
+  margin-bottom: 8px;
+}
+.modal-term {
+  font-family: var(--display);
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  letter-spacing: -0.02em;
+}
+.modal-def { color: var(--text-dim); font-size: 16px; margin-bottom: 16px; }
+.modal-ex {
+  background: var(--surface);
+  border-left: 3px solid var(--accent-yellow);
+  padding: 12px 16px;
+  font-family: var(--mono);
+  font-size: 15px;
+  border-radius: 0 8px 8px 0;
+}
+
+/* ============ QUIZ MODAL ============ */
+.quiz-modal {
+  background: var(--bg-mid);
+  border: 1px solid var(--line-strong);
+  border-radius: 20px;
+  max-width: 640px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 32px;
+  position: relative;
+}
+.quiz-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--line);
+}
+.quiz-title {
+  font-family: var(--display);
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+.quiz-progress {
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--text-faint);
+}
+.quiz-q {
+  font-size: 20px;
+  font-weight: 500;
+  margin-bottom: 24px;
+  font-family: var(--display);
+  line-height: 1.4;
+  min-height: 60px;
+}
+.quiz-input-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+.quiz-input {
+  flex: 1;
+  background: var(--surface-strong);
+  border: 2px solid var(--line);
+  color: var(--text);
+  padding: 14px 18px;
+  border-radius: 10px;
+  font-family: var(--mono);
+  font-size: 18px;
+  outline: none;
+}
+.quiz-input:focus { border-color: var(--accent-cyan); }
+.quiz-submit, .quiz-next, .quiz-skip {
+  font-family: var(--display);
+  font-weight: 700;
+  padding: 14px 24px;
+  border-radius: 10px;
+  cursor: pointer;
+  border: none;
+  font-size: 16px;
+}
+.quiz-submit { background: var(--accent-cyan); color: var(--bg-deep); }
+.quiz-next { background: var(--accent-yellow); color: var(--bg-deep); }
+.quiz-skip {
+  background: transparent;
+  color: var(--text-faint);
+  border: 1px solid var(--line);
+}
+.quiz-fb {
+  margin-top: 16px;
+  padding: 16px;
+  border-radius: 10px;
+  font-size: 15px;
+  display: none;
+}
+.quiz-fb.show { display: block; }
+.quiz-fb.right {
+  background: rgba(94, 234, 212, 0.12);
+  border: 1px solid var(--correct);
+  color: var(--correct);
+}
+.quiz-fb.wrong-fb {
+  background: rgba(255, 107, 157, 0.12);
+  border: 1px solid var(--wrong);
+  color: var(--wrong);
+}
+.quiz-fb-detail { color: var(--text-dim); margin-top: 8px; font-family: var(--mono); font-size: 14px; }
+.quiz-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+.quiz-mc {
+  background: var(--surface-strong);
+  border: 2px solid var(--line);
+  color: var(--text);
+  padding: 16px;
+  border-radius: 10px;
+  font-family: var(--mono);
+  font-size: 17px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.quiz-mc:hover { border-color: var(--accent-cyan); }
+.quiz-mc.picked { border-color: var(--accent-yellow); background: rgba(255, 217, 61, 0.1); }
+.quiz-mc.right-pick { background: var(--correct); color: var(--bg-deep); border-color: var(--correct); }
+.quiz-mc.wrong-pick { background: var(--wrong); color: var(--bg-deep); border-color: var(--wrong); }
+.quiz-mc.disabled { pointer-events: none; opacity: 0.7; }
+.quiz-score-row {
+  display: flex;
+  gap: 16px;
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+}
+.quiz-stat {
+  flex: 1;
+  text-align: center;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--text-faint);
+}
+.quiz-stat strong {
+  display: block;
+  font-family: var(--display);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--accent-yellow);
+}
+
+/* ============ PRACTICE ARENA ============ */
+.arena {
+  padding: 100px 0 80px;
+  border-top: 2px solid var(--accent-pink);
+  margin-top: 80px;
+  background:
+    radial-gradient(ellipse 80% 50% at 50% 0%, rgba(255, 107, 157, 0.08), transparent 70%);
+}
+.arena-title {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: clamp(48px, 8vw, 88px);
+  text-align: center;
+  letter-spacing: -0.04em;
+  line-height: 0.95;
+  margin-bottom: 20px;
+}
+.arena-title .pink { color: var(--accent-pink); }
+.arena-title .yellow { color: var(--accent-yellow); }
+.arena-sub {
+  text-align: center;
+  color: var(--text-dim);
+  font-size: 19px;
+  max-width: 580px;
+  margin: 0 auto 56px;
+}
+.arena-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin-bottom: 40px;
+}
+.topic-card {
+  background: var(--surface);
+  border: 1.5px solid var(--line);
+  border-radius: 14px;
+  padding: 24px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+  font-family: var(--body);
+  color: var(--text);
+}
+.topic-card:hover {
+  border-color: var(--accent-cyan);
+  transform: translateY(-3px);
+  background: var(--surface-strong);
+}
+.topic-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--mono);
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 14px;
+  background: var(--bg-deep);
+  color: var(--accent-yellow);
+}
+.topic-name {
+  font-family: var(--display);
+  font-size: 19px;
+  font-weight: 600;
+  margin-bottom: 6px;
+  letter-spacing: -0.01em;
+}
+.topic-desc {
+  font-size: 13px;
+  color: var(--text-faint);
+  font-family: var(--mono);
+}
+
+/* ============ ARENA PLAY ============ */
+.arena-play {
+  display: none;
+  max-width: 720px;
+  margin: 0 auto;
+  background: var(--bg-mid);
+  border: 1px solid var(--line-strong);
+  border-radius: 20px;
+  padding: 36px;
+}
+.arena-play.show { display: block; }
+
+.arena-back {
+  background: transparent;
+  border: 1px solid var(--line);
+  color: var(--text-faint);
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: var(--mono);
+  font-size: 13px;
+  margin-bottom: 20px;
+}
+.arena-back:hover { border-color: var(--accent-pink); color: var(--accent-pink); }
+
+.arena-topic-name {
+  font-family: var(--display);
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 6px;
+  letter-spacing: -0.02em;
+}
+.arena-difficulty {
+  display: flex;
+  gap: 8px;
+  margin: 16px 0 24px;
+}
+.diff-btn {
+  font-family: var(--mono);
+  font-size: 12px;
+  background: var(--surface);
+  border: 1.5px solid var(--line);
+  color: var(--text-dim);
+  padding: 7px 14px;
+  border-radius: 16px;
+  cursor: pointer;
+  letter-spacing: 0.05em;
+}
+.diff-btn:hover { border-color: var(--accent-cyan); }
+.diff-btn.active {
+  background: var(--accent-cyan);
+  color: var(--bg-deep);
+  border-color: var(--accent-cyan);
+  font-weight: 700;
+}
+
+.arena-stats {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+.arena-stat {
+  flex: 1;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 14px;
+  text-align: center;
+}
+.arena-stat-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  margin-bottom: 4px;
+}
+.arena-stat-val {
+  font-family: var(--display);
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--accent-yellow);
+}
+.arena-stat.streak .arena-stat-val { color: var(--accent-pink); }
+.arena-stat.best .arena-stat-val { color: var(--accent-cyan); }
+
+.arena-question {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 28px;
+  margin-bottom: 20px;
+  text-align: center;
+  min-height: 140px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.arena-q-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  margin-bottom: 12px;
+}
+.arena-q-text {
+  font-family: var(--mono);
+  font-size: 36px;
+  font-weight: 500;
+  color: var(--text);
+  line-height: 1.3;
+}
+.arena-q-text .op { color: var(--accent-pink); margin: 0 8px; }
+.arena-q-text .eq { color: var(--accent-yellow); margin: 0 8px; }
+
+.arena-feedback {
+  text-align: center;
+  font-family: var(--mono);
+  font-size: 14px;
+  margin: 12px 0;
+  min-height: 24px;
+}
+.arena-feedback.right { color: var(--correct); font-weight: 700; }
+.arena-feedback.wrong { color: var(--wrong); }
+.arena-feedback .hint {
+  display: block;
+  color: var(--text-dim);
+  margin-top: 4px;
+  font-weight: 400;
+}
+
+.arena-row {
+  display: flex;
+  gap: 10px;
+}
+.arena-row .quiz-input { font-size: 22px; text-align: center; }
+.arena-row button { white-space: nowrap; }
+
+/* ============ FOOTER ============ */
+footer {
+  padding: 60px 24px 80px;
+  text-align: center;
+  border-top: 1px solid var(--line);
+  margin-top: 40px;
+}
+footer p {
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--text-faint);
+}
+footer p + p { margin-top: 8px; }
+
+/* ============ UTIL ============ */
+.tri {
+  display: inline-block;
+  width: 0; height: 0;
+  border-left: 5px solid currentColor;
+  border-top: 4px solid transparent;
+  border-bottom: 4px solid transparent;
+  margin-left: 4px;
+}
+
+.try-it {
+  background: linear-gradient(135deg, rgba(255, 217, 61, 0.05), rgba(255, 107, 157, 0.05));
+  border: 1px dashed var(--line-strong);
+  border-radius: 14px;
+  padding: 24px;
+  margin: 32px 0;
+}
+.try-it-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent-yellow);
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+
+@media (max-width: 600px) {
+  body { font-size: 16px; }
+  .container { padding: 0 18px; }
+  .hero { padding: 60px 18px 40px; }
+  .quiz-options { grid-template-columns: 1fr; }
+  .arena-grid { grid-template-columns: 1fr 1fr; }
+  .topic-card { padding: 18px; }
+  .modal { padding: 28px 24px; }
+  .quiz-modal { padding: 24px; }
+  .arena-q-text { font-size: 28px; }
+}
+</style>
+</head>
+<body>
+
+<nav class="daybar">
+  <div class="daybar-inner">
+    <div class="daybar-logo">MATH<span>LAB</span></div>
+    <div class="daybar-links">
+      <button class="daybtn" data-target="day-1">D1</button>
+      <button class="daybtn" data-target="day-2">D2</button>
+      <button class="daybtn" data-target="day-3">D3</button>
+      <button class="daybtn" data-target="day-4">D4</button>
+      <button class="daybtn" data-target="day-5">D5</button>
+      <button class="daybtn" data-target="day-6">D6</button>
+      <button class="daybtn" data-target="day-7">D7</button>
+      <button class="daybtn" data-target="day-8">D8</button>
+      <button class="daybtn" data-target="day-9">D9</button>
+      <button class="daybtn" data-target="day-10">D10</button>
+      <button class="daybtn practice" data-target="arena">Practice</button>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-eyebrow">A 10-Day Field Manual</div>
+  <h1 class="hero-title">Math<br><span class="yellow">without</span> the<br><span class="pink">fog</span>.</h1>
+  <p class="hero-sub">Multiplication, division, decimals, fractions, ratios, and equations. Not as a pile of rules, but as one connected map of how numbers actually behave.</p>
+  <div class="hero-stats">
+    <div class="hero-stat"><strong>10</strong>Daily Lessons</div>
+    <div class="hero-stat"><strong>50+</strong>Interactive Demos</div>
+    <div class="hero-stat"><strong>∞</strong>Practice Problems</div>
+  </div>
+</header>
+
+<main>
+<!-- =================== DAY 1: MULTIPLICATION =================== -->
+<section class="day" id="day-1">
+<div class="container">
+  <div class="day-marker">
+    <div class="day-num">DAY 01</div>
+    <div class="day-tag">The Builder</div>
+  </div>
+  <h2 class="day-title">Multiplication is a machine that builds bigger things.</h2>
+  <p class="day-intro">Four groups of six is twenty-four. Easy. But by the time you hit two-digit numbers, multiplication stops looking like cute little groups and starts looking like a puzzle. Today is about seeing the structure inside the puzzle.</p>
+
+  <h3 class="subhead"><span class="num">01</span>Start with what it really means</h3>
+  <p class="prose">When you see <span class="m">4 × 6</span>, that means four groups of six. Six plus six plus six plus six. Twenty-four. Easy enough. But what about <span class="m">23 × 14</span>? You cannot just add 23 to itself fourteen times and stay sane. So instead, you break the problem apart.</p>
+  <p class="prose">This trick has a fancy name. It is called the <span class="vocab" data-term="distributive">distributive property</span>, and it is the secret engine behind every multiplication shortcut you have ever been taught. The idea is simple: you can split numbers into friendlier pieces, multiply the pieces, and snap the answer back together.</p>
+
+  <div class="viz">
+    <div class="viz-label">Visual Lab // Area Model</div>
+    <div class="viz-title">23 × 14, broken into a rectangle</div>
+    <svg viewBox="0 0 500 320" xmlns="http://www.w3.org/2000/svg" style="width:100%; max-width:500px; display:block; margin:0 auto;">
+      <text x="120" y="22" fill="#a8b1ce" font-family="JetBrains Mono" font-size="14">20</text>
+      <text x="180" y="22" fill="#a8b1ce" font-family="JetBrains Mono" font-size="14">+</text>
+      <text x="210" y="22" fill="#a8b1ce" font-family="JetBrains Mono" font-size="14">3</text>
+      <text x="10" y="120" fill="#a8b1ce" font-family="JetBrains Mono" font-size="14">10</text>
+      <text x="10" y="155" fill="#a8b1ce" font-family="JetBrains Mono" font-size="14">+</text>
+      <text x="10" y="225" fill="#a8b1ce" font-family="JetBrains Mono" font-size="14">4</text>
+
+      <rect x="50" y="40" width="200" height="140" fill="#ffd93d" opacity="0.85" stroke="#0a0f1f" stroke-width="2"/>
+      <rect x="250" y="40" width="60" height="140" fill="#5eead4" opacity="0.85" stroke="#0a0f1f" stroke-width="2"/>
+      <rect x="50" y="180" width="200" height="80" fill="#ff6b9d" opacity="0.85" stroke="#0a0f1f" stroke-width="2"/>
+      <rect x="250" y="180" width="60" height="80" fill="#b794f6" opacity="0.85" stroke="#0a0f1f" stroke-width="2"/>
+
+      <text x="150" y="105" text-anchor="middle" fill="#0a0f1f" font-family="JetBrains Mono" font-size="22" font-weight="700">20 × 10</text>
+      <text x="150" y="130" text-anchor="middle" fill="#0a0f1f" font-family="JetBrains Mono" font-size="20">= 200</text>
+
+      <text x="280" y="105" text-anchor="middle" fill="#0a0f1f" font-family="JetBrains Mono" font-size="14" font-weight="700">3 × 10</text>
+      <text x="280" y="125" text-anchor="middle" fill="#0a0f1f" font-family="JetBrains Mono" font-size="14">= 30</text>
+
+      <text x="150" y="215" text-anchor="middle" fill="#0a0f1f" font-family="JetBrains Mono" font-size="18" font-weight="700">20 × 4</text>
+      <text x="150" y="240" text-anchor="middle" fill="#0a0f1f" font-family="JetBrains Mono" font-size="18">= 80</text>
+
+      <text x="280" y="215" text-anchor="middle" fill="#0a0f1f" font-family="JetBrains Mono" font-size="14" font-weight="700">3 × 4</text>
+      <text x="280" y="235" text-anchor="middle" fill="#0a0f1f" font-family="JetBrains Mono" font-size="14">= 12</text>
+
+      <text x="360" y="155" fill="#a8b1ce" font-family="JetBrains Mono" font-size="14">200</text>
+      <text x="360" y="180" fill="#a8b1ce" font-family="JetBrains Mono" font-size="14"> + 30</text>
+      <text x="360" y="205" fill="#a8b1ce" font-family="JetBrains Mono" font-size="14"> + 80</text>
+      <text x="360" y="230" fill="#a8b1ce" font-family="JetBrains Mono" font-size="14"> + 12</text>
+      <line x1="355" y1="240" x2="430" y2="240" stroke="#ffd93d" stroke-width="2"/>
+      <text x="360" y="265" fill="#ffd93d" font-family="JetBrains Mono" font-size="22" font-weight="700">322</text>
+    </svg>
+    <p class="prose" style="margin-top:20px; font-size:15px;">Twenty-three times fourteen is 322. You did not memorize a trick. You drew a rectangle, found the area of each piece, and added them up. That is what multiplication actually is.</p>
+  </div>
+
+  <h3 class="subhead"><span class="num">02</span>Partial products are the same idea, written down</h3>
+  <p class="prose">When you write multiplication down on paper using the standard algorithm, every digit has a meaning. That little zero you put underneath when multiplying by the tens digit is not decoration. It is there because you are multiplying by <strong>twenty</strong>, not by two. When that zero disappears, the algorithm turns into a magic spell. When it stays, the spell becomes a tool.</p>
+
+  <div class="eq-card">
+    <div class="eq-label">Worked Example</div>
+    <div class="eq-line">346 × 27 = 346 × (20 + 7)</div>
+    <div class="eq-line">346 × 20 = 6,920</div>
+    <div class="eq-line">346 × 7 = 2,422</div>
+    <div class="eq-line"><span class="eq-equals">+</span> 6,920 + 2,422</div>
+    <div class="answer">= 9,342</div>
+  </div>
+
+  <div class="qc" data-qc="d1q1">
+    <div class="qc-label">Quick Check</div>
+    <div class="qc-question">Which is greater without doing the full algorithm: 25 × 16 or 50 × 8?</div>
+    <div class="qc-options">
+      <button class="qc-opt" data-correct="false" data-fb="Try doubling and halving: 25 × 16 = 50 × 8 because if you double one factor and halve the other, the product stays the same.">25 × 16</button>
+      <button class="qc-opt" data-correct="false" data-fb="Both ways: 25 × 16 = 400 and 50 × 8 = 400. Doubling one factor while halving the other does not change the product.">50 × 8</button>
+      <button class="qc-opt" data-correct="true" data-fb="Correct! Both equal 400. Doubling 25 to get 50 and halving 16 to get 8 keeps the product identical. This is the power of breaking numbers apart.">Equal</button>
+    </div>
+    <div class="qc-feedback"></div>
+  </div>
+
+  <div class="reflect">
+    <div class="reflect-label">Reflect</div>
+    <div class="reflect-q">Why is it useful to think of multi-digit multiplication as a rectangle rather than as a list of digit-by-digit operations?</div>
+  </div>
+
+  <button class="quiz-launch" data-quiz="d1">Take the Day 1 Quiz <span class="arrow">→</span></button>
+</div>
+</section>
+
+<!-- =================== DAY 2: DIVISION =================== -->
+<section class="day" id="day-2">
+<div class="container">
+  <div class="day-marker">
+    <div class="day-num">DAY 02</div>
+    <div class="day-tag">The Splitter</div>
+  </div>
+  <h2 class="day-title">Division asks two questions, not one.</h2>
+  <p class="day-intro">Most people think division is just sharing. It is, but it is also something else. The same problem can mean two different things, and once you see both meanings, long division stops looking like a haunted staircase.</p>
+
+  <h3 class="subhead"><span class="num">01</span>The two meanings of division</h3>
+  <p class="prose">Take <span class="m">24 ÷ 6 = 4</span>. That can mean: twenty-four cookies, shared among six people, gives each person four cookies. That is <strong>sharing division</strong>. But it can also mean: how many groups of six fit inside twenty-four? Four groups. That is <strong>grouping division</strong>. Same equation. Different question.</p>
+  <p class="prose">Sharing helps when you are splitting something fairly. Grouping helps when you are measuring how many chunks fit. Long division usually makes more sense if you think of it as grouping. How many groups of the <span class="vocab" data-term="divisor">divisor</span> fit into each chunk of the <span class="vocab" data-term="dividend">dividend</span>?</p>
+
+  <h3 class="subhead"><span class="num">02</span>Division is multiplication walking backward</h3>
+  <p class="prose">If you know <span class="m">7 × 8 = 56</span>, then you already know <span class="m">56 ÷ 8 = 7</span> and <span class="m">56 ÷ 7 = 8</span>. Division is not a new creature. It is multiplication wearing different clothes. That is why those multiplication facts you drilled in elementary school are not just busywork. They are how you see division faster.</p>
+
+  <div class="viz">
+    <div class="viz-label">Visual Lab // Two Views of 24 ÷ 6</div>
+    <svg viewBox="0 0 500 240" xmlns="http://www.w3.org/2000/svg" style="width:100%; max-width:500px; display:block; margin:0 auto;">
+      <text x="20" y="30" fill="#ffd93d" font-family="Bricolage Grotesque" font-size="16" font-weight="600">SHARING</text>
+      <text x="20" y="50" fill="#a8b1ce" font-family="JetBrains Mono" font-size="11">24 cookies, 6 people</text>
+      <g>
+        <rect x="20" y="65" width="65" height="50" rx="4" fill="#5eead4" opacity="0.2" stroke="#5eead4"/>
+        <text x="52" y="95" text-anchor="middle" fill="#5eead4" font-family="JetBrains Mono" font-size="14">●●●●</text>
+        <rect x="92" y="65" width="65" height="50" rx="4" fill="#5eead4" opacity="0.2" stroke="#5eead4"/>
+        <text x="124" y="95" text-anchor="middle" fill="#5eead4" font-family="JetBrains Mono" font-size="14">●●●●</text>
+        <rect x="164" y="65" width="65" height="50" rx="4" fill="#5eead4" opacity="0.2" stroke="#5eead4"/>
+        <text x="196" y="95" text-anchor="middle" fill="#5eead4" font-family="JetBrains Mono" font-size="14">●●●●</text>
+      </g>
+      <text x="20" y="135" fill="#a8b1ce" font-family="JetBrains Mono" font-size="11">Each gets 4</text>
+
+      <text x="270" y="30" fill="#ff6b9d" font-family="Bricolage Grotesque" font-size="16" font-weight="600">GROUPING</text>
+      <text x="270" y="50" fill="#a8b1ce" font-family="JetBrains Mono" font-size="11">24 cookies in groups of 6</text>
+      <g>
+        <rect x="270" y="65" width="50" height="50" rx="4" fill="#ff6b9d" opacity="0.2" stroke="#ff6b9d"/>
+        <text x="295" y="95" text-anchor="middle" fill="#ff6b9d" font-family="JetBrains Mono" font-size="11">●●● ●●●</text>
+        <rect x="325" y="65" width="50" height="50" rx="4" fill="#ff6b9d" opacity="0.2" stroke="#ff6b9d"/>
+        <text x="350" y="95" text-anchor="middle" fill="#ff6b9d" font-family="JetBrains Mono" font-size="11">●●● ●●●</text>
+        <rect x="380" y="65" width="50" height="50" rx="4" fill="#ff6b9d" opacity="0.2" stroke="#ff6b9d"/>
+        <text x="405" y="95" text-anchor="middle" fill="#ff6b9d" font-family="JetBrains Mono" font-size="11">●●● ●●●</text>
+        <rect x="435" y="65" width="50" height="50" rx="4" fill="#ff6b9d" opacity="0.2" stroke="#ff6b9d"/>
+        <text x="460" y="95" text-anchor="middle" fill="#ff6b9d" font-family="JetBrains Mono" font-size="11">●●● ●●●</text>
+      </g>
+      <text x="270" y="135" fill="#a8b1ce" font-family="JetBrains Mono" font-size="11">4 groups fit</text>
+
+      <line x1="20" y1="170" x2="480" y2="170" stroke="#a8b1ce" stroke-width="0.5" opacity="0.3"/>
+      <text x="250" y="200" text-anchor="middle" fill="#ffd93d" font-family="Bricolage Grotesque" font-size="20" font-weight="700">Same equation. Both correct.</text>
+      <text x="250" y="225" text-anchor="middle" fill="#a8b1ce" font-family="JetBrains Mono" font-size="14">24 ÷ 6 = 4</text>
+    </svg>
+  </div>
+
+  <h3 class="subhead"><span class="num">03</span>Long division: the loop that solves it</h3>
+  <p class="prose">Long division looks like a staircase because that is exactly what it is. You walk down it one step at a time. <strong>Divide. Multiply. Subtract. Bring down. Repeat.</strong> Each step is just asking the same question over and over: how many groups fit here, and how much is left over?</p>
+
+  <div class="eq-card">
+    <div class="eq-label">984 ÷ 6, step by step</div>
+    <div class="eq-line">How many 6s fit in 9? One. Remainder 3.</div>
+    <div class="eq-line">Bring down 8. How many 6s in 38? Six. Remainder 2.</div>
+    <div class="eq-line">Bring down 4. How many 6s in 24? Four. Remainder 0.</div>
+    <div class="answer">= 164</div>
+  </div>
+
+  <p class="prose">When the divisor does not fit perfectly, you get a <span class="vocab" data-term="remainder">remainder</span>. That leftover number is not garbage. It is information. If you are dividing 725 pieces of candy into 4 bags, the remainder of 1 is one candy left over. If you are dividing 725 dollars among 4 people, that remainder becomes 25 cents. If you are dividing people into cars, you cannot chop a person in half to make the math prettier. <strong>The situation decides what the remainder means.</strong></p>
+
+  <div class="qc" data-qc="d2q1">
+    <div class="qc-label">Quick Check</div>
+    <div class="qc-question">A bus holds 30 students. There are 217 students going on a trip. How many buses are needed?</div>
+    <div class="qc-options">
+      <button class="qc-opt" data-correct="false" data-fb="217 ÷ 30 = 7 remainder 7. Seven buses would leave seven students behind on the curb.">7 buses</button>
+      <button class="qc-opt" data-correct="true" data-fb="Correct. The math gives 7 remainder 7. Since you cannot leave seven students behind, you round up. Eight buses.">8 buses</button>
+      <button class="qc-opt" data-correct="false" data-fb="That ignores the remainder entirely. The real answer is 7 remainder 7, which means you need an extra bus for those last seven kids.">7.23 buses</button>
+    </div>
+    <div class="qc-feedback"></div>
+  </div>
+
+  <div class="reflect">
+    <div class="reflect-label">Reflect</div>
+    <div class="reflect-q">Why does the same remainder behave differently in different real-world problems? Give an example where rounding up matters and one where it does not.</div>
+  </div>
+
+  <button class="quiz-launch" data-quiz="d2">Take the Day 2 Quiz <span class="arrow">→</span></button>
+</div>
+</section>
+
+<!-- =================== DAY 3: DECIMALS =================== -->
+<section class="day" id="day-3">
+<div class="container">
+  <div class="day-marker">
+    <div class="day-num">DAY 03</div>
+    <div class="day-tag">The Decimal Trick</div>
+  </div>
+  <h2 class="day-title">Decimals are fractions wearing a disguise.</h2>
+  <p class="day-intro">There is no such thing as a separate species called decimals. They are fractions written in base ten. Once that clicks, the rules stop feeling random and start feeling inevitable.</p>
+
+  <h3 class="subhead"><span class="num">01</span>Every decimal is a place value map</h3>
+  <p class="prose">In the number <span class="m">3.456</span>, every digit has a job. The 3 is three ones. The 4 is four <span class="vocab" data-term="tenths">tenths</span>, or <span class="m">4/10</span>. The 5 is five <span class="vocab" data-term="hundredths">hundredths</span>, or <span class="m">5/100</span>. The 6 is six <span class="vocab" data-term="thousandths">thousandths</span>, or <span class="m">6/1000</span>. Add them up and you get 3.456. The decimal point is not a separator between two different kinds of numbers. It just marks where the whole numbers end and the fractions begin.</p>
+
+  <div class="viz">
+    <div class="viz-label">Visual Lab // Place Value</div>
+    <div class="viz-title">The number 3.456 in pieces</div>
+    <svg viewBox="0 0 500 200" xmlns="http://www.w3.org/2000/svg" style="width:100%; max-width:500px; display:block; margin:0 auto;">
+      <g>
+        <rect x="20" y="20" width="100" height="80" rx="6" fill="#ffd93d" opacity="0.2" stroke="#ffd93d" stroke-width="2"/>
+        <text x="70" y="55" text-anchor="middle" fill="#ffd93d" font-family="Bricolage Grotesque" font-size="32" font-weight="700">3</text>
+        <text x="70" y="80" text-anchor="middle" fill="#a8b1ce" font-family="JetBrains Mono" font-size="11">ones</text>
+        <text x="70" y="120" text-anchor="middle" fill="#5eead4" font-family="JetBrains Mono" font-size="14">= 3</text>
+
+        <text x="135" y="65" text-anchor="middle" fill="#ff6b9d" font-family="Bricolage Grotesque" font-size="36" font-weight="700">.</text>
+
+        <rect x="150" y="20" width="100" height="80" rx="6" fill="#ff6b9d" opacity="0.2" stroke="#ff6b9d" stroke-width="2"/>
+        <text x="200" y="55" text-anchor="middle" fill="#ff6b9d" font-family="Bricolage Grotesque" font-size="32" font-weight="700">4</text>
+        <text x="200" y="80" text-anchor="middle" fill="#a8b1ce" font-family="JetBrains Mono" font-size="11">tenths</text>
+        <text x="200" y="120" text-anchor="middle" fill="#5eead4" font-family="JetBrains Mono" font-size="14">= 4/10</text>
+
+        <rect x="260" y="20" width="100" height="80" rx="6" fill="#5eead4" opacity="0.2" stroke="#5eead4" stroke-width="2"/>
+        <text x="310" y="55" text-anchor="middle" fill="#5eead4" font-family="Bricolage Grotesque" font-size="32" font-weight="700">5</text>
+        <text x="310" y="80" text-anchor="middle" fill="#a8b1ce" font-family="JetBrains Mono" font-size="11">hundredths</text>
+        <text x="310" y="120" text-anchor="middle" fill="#5eead4" font-family="JetBrains Mono" font-size="14">= 5/100</text>
+
+        <rect x="370" y="20" width="110" height="80" rx="6" fill="#b794f6" opacity="0.2" stroke="#b794f6" stroke-width="2"/>
+        <text x="425" y="55" text-anchor="middle" fill="#b794f6" font-family="Bricolage Grotesque" font-size="32" font-weight="700">6</text>
+        <text x="425" y="80" text-anchor="middle" fill="#a8b1ce" font-family="JetBrains Mono" font-size="10">thousandths</text>
+        <text x="425" y="120" text-anchor="middle" fill="#5eead4" font-family="JetBrains Mono" font-size="13">= 6/1000</text>
+
+        <line x1="20" y1="150" x2="480" y2="150" stroke="#a8b1ce" stroke-width="0.5" opacity="0.3"/>
+        <text x="250" y="180" text-anchor="middle" fill="#ffd93d" font-family="JetBrains Mono" font-size="18" font-weight="700">3 + 0.4 + 0.05 + 0.006 = 3.456</text>
+      </g>
+    </svg>
+  </div>
+
+  <h3 class="subhead"><span class="num">02</span>The classic decimal trap</h3>
+  <p class="prose">Here is the question that fools a lot of people. Which is greater, <span class="m">0.7</span> or <span class="m">0.62</span>? Some students see 62 and think it must be bigger than 7. But decimals do not work that way. Write 0.7 as 0.70. Now you are comparing 70 hundredths to 62 hundredths. Seventy is bigger. So 0.7 is bigger. The trailing zero did not change anything. It just made the comparison easier to see.</p>
+
+  <p class="prose"><strong>Trailing zeros are free.</strong> Adding them after the last digit of a decimal never changes the value. It just gives you matching place values to compare.</p>
+
+  <div class="qc" data-qc="d3q1">
+    <div class="qc-label">Quick Check</div>
+    <div class="qc-question">Which number is greatest?</div>
+    <div class="qc-options">
+      <button class="qc-opt" data-correct="false" data-fb="0.506 is 0.5060. Compare to 0.560 (which is 0.56). 0.56 is greater.">0.506</button>
+      <button class="qc-opt" data-correct="true" data-fb="Correct. Line them up: 0.5060, 0.5600, 0.5090, 0.5061. Five thousand six hundred is the biggest count of ten-thousandths.">0.56</button>
+      <button class="qc-opt" data-correct="false" data-fb="Compare 0.5090 to 0.5600. The 6 in the hundredths place beats the 0.">0.509</button>
+      <button class="qc-opt" data-correct="false" data-fb="0.5061 is barely bigger than 0.506, but it is still less than 0.5600.">0.5061</button>
+    </div>
+    <div class="qc-feedback"></div>
+  </div>
+
+  <div class="reflect">
+    <div class="reflect-label">Reflect</div>
+    <div class="reflect-q">Why does adding a zero to the right of a decimal not change its value, while adding a zero to the left of a whole number changes everything?</div>
+  </div>
+
+  <button class="quiz-launch" data-quiz="d3">Take the Day 3 Quiz <span class="arrow">→</span></button>
+</div>
+</section>
+
+<!-- =================== DAY 4: DECIMAL OPERATIONS =================== -->
+<section class="day" id="day-4">
+<div class="container">
+  <div class="day-marker">
+    <div class="day-num">DAY 04</div>
+    <div class="day-tag">Decimal Operations</div>
+  </div>
+  <h2 class="day-title">Add, subtract, multiply, divide. Same rules, smarter eyes.</h2>
+  <p class="day-intro">Once you see decimals as fractions in disguise, every operation has a reason. Lining up the dots is not a ritual. Counting decimal places is not a trick. It is all just place value, doing what place value always does.</p>
+
+  <h3 class="subhead"><span class="num">01</span>Adding and subtracting: line up the dots</h3>
+  <p class="prose">You would not add five dollars to fifty cents by writing 5 + 50 and calling it 55. The 5 and the 50 are in different place values. The same is true for decimals. When you add 12.4 and 3.86, you line up the decimal points so that tenths add to tenths and hundredths add to hundredths.</p>
+
+  <div class="eq-card">
+    <div class="eq-label">12.4 + 3.86</div>
+    <div class="eq-line">&nbsp;&nbsp;12.40</div>
+    <div class="eq-line">+&nbsp;&nbsp;3.86</div>
+    <div class="answer">= 16.26</div>
+  </div>
+
+  <p class="prose">Writing 12.4 as 12.40 does not change the value. It just gives the hundredths place a visible zero so the columns line up. Same trick as before.</p>
+
+  <h3 class="subhead"><span class="num">02</span>Multiplying decimals: count the places</h3>
+  <p class="prose">To multiply 2.4 by 1.3, first ignore the decimals and multiply like whole numbers. <span class="m">24 × 13 = 312</span>. Now stop and ask: what size should the answer actually be? 2.4 is a little more than 2. 1.3 is a little more than 1. So the answer should be a little more than 2. It cannot be 312. It cannot be 31.2. It has to be around 3 point something.</p>
+  <p class="prose">Count the decimal places in the original numbers. 2.4 has one. 1.3 has one. That makes two total. Put two decimal places in your answer. <span class="m">3.12</span>. Done. The rule is not magic. It comes from the fact that 2.4 is really <span class="m">24/10</span> and 1.3 is really <span class="m">13/10</span>. Multiply those and you get <span class="m">312/100</span>, which is 3.12.</p>
+
+  <h3 class="subhead"><span class="num">03</span>Dividing decimals: the size surprise</h3>
+  <p class="prose">Here is a thing nobody tells you up front: division does not always make numbers smaller. <span class="m">12 ÷ 0.5</span> is 24. The answer is bigger than the number you started with. Why? Because you are asking how many halves fit into twelve, and there are two halves in every whole, so the answer is twice as many.</p>
+  <p class="prose">To divide by a decimal, just multiply both numbers by the same power of ten to move the decimals away. <span class="m">6.4 ÷ 0.8</span> becomes <span class="m">64 ÷ 8 = 8</span>. The value did not change. The numbers just got easier to work with.</p>
+
+  <div class="qc" data-qc="d4q1">
+    <div class="qc-label">Quick Check</div>
+    <div class="qc-question">Without calculating, will 4.8 × 2.1 be closest to 1, 10, or 100?</div>
+    <div class="qc-options">
+      <button class="qc-opt" data-correct="false" data-fb="4.8 is close to 5, and 2.1 is close to 2. Five times two is ten, not one.">1</button>
+      <button class="qc-opt" data-correct="true" data-fb="Yes. Round to 5 × 2 = 10. The exact answer is 10.08, which is right where estimation said it would be.">10</button>
+      <button class="qc-opt" data-correct="false" data-fb="That would only happen if one of the numbers was around 20 or 50. Neither is.">100</button>
+    </div>
+    <div class="qc-feedback"></div>
+  </div>
+
+  <div class="reflect">
+    <div class="reflect-label">Reflect</div>
+    <div class="reflect-q">Most operations follow this rule: bigger numbers in, bigger numbers out. Why does dividing by a number smaller than 1 break that rule?</div>
+  </div>
+
+  <button class="quiz-launch" data-quiz="d4">Take the Day 4 Quiz <span class="arrow">→</span></button>
+</div>
+</section>
+
+<!-- =================== DAY 5: FRACTIONS =================== -->
+<section class="day" id="day-5">
+<div class="container">
+  <div class="day-marker">
+    <div class="day-num">DAY 05</div>
+    <div class="day-tag">Fractions, Part One</div>
+  </div>
+  <h2 class="day-title">Fractions are not pizza slices. They are numbers.</h2>
+  <p class="day-intro">The pizza example works fine at first. But if every fraction is a pizza, math gets weird fast. A fraction can be a part of a whole, a division problem, a point on a number line, a ratio, or a scale factor. Same notation, many jobs.</p>
+
+  <h3 class="subhead"><span class="num">01</span>Three things that fraction means at once</h3>
+  <p class="prose">The fraction <span class="frac"><span class="top">3</span><span class="bot">4</span></span> means three parts when something is split into four equal pieces. It also means <span class="m">3 ÷ 4</span>. And it also names a specific number that sits between 0 and 1 on the number line. All three are true at the same time.</p>
+  <p class="prose">The number on top is called the <span class="vocab" data-term="numerator">numerator</span>. The number on the bottom is the <span class="vocab" data-term="denominator">denominator</span>. The denominator tells you how big the pieces are. The numerator tells you how many of those pieces you have.</p>
+
+  <div class="viz">
+    <div class="viz-label">Visual Lab // Same Value, Different Outfits</div>
+    <div class="viz-title">These are all the same number</div>
+    <svg viewBox="0 0 500 220" xmlns="http://www.w3.org/2000/svg" style="width:100%; max-width:500px; display:block; margin:0 auto;">
+      <text x="20" y="25" fill="#a8b1ce" font-family="JetBrains Mono" font-size="12">1/2</text>
+      <rect x="60" y="10" width="200" height="22" fill="#ffd93d" stroke="#0a0f1f" stroke-width="1.5"/>
+      <rect x="260" y="10" width="200" height="22" fill="#1a2249" stroke="#0a0f1f" stroke-width="1.5"/>
+
+      <text x="20" y="65" fill="#a8b1ce" font-family="JetBrains Mono" font-size="12">2/4</text>
+      <rect x="60" y="50" width="100" height="22" fill="#ff6b9d" stroke="#0a0f1f" stroke-width="1.5"/>
+      <rect x="160" y="50" width="100" height="22" fill="#ff6b9d" stroke="#0a0f1f" stroke-width="1.5"/>
+      <rect x="260" y="50" width="100" height="22" fill="#1a2249" stroke="#0a0f1f" stroke-width="1.5"/>
+      <rect x="360" y="50" width="100" height="22" fill="#1a2249" stroke="#0a0f1f" stroke-width="1.5"/>
+
+      <text x="20" y="105" fill="#a8b1ce" font-family="JetBrains Mono" font-size="12">4/8</text>
+      <g>
+        <rect x="60" y="90" width="50" height="22" fill="#5eead4" stroke="#0a0f1f" stroke-width="1.5"/>
+        <rect x="110" y="90" width="50" height="22" fill="#5eead4" stroke="#0a0f1f" stroke-width="1.5"/>
+        <rect x="160" y="90" width="50" height="22" fill="#5eead4" stroke="#0a0f1f" stroke-width="1.5"/>
+        <rect x="210" y="90" width="50" height="22" fill="#5eead4" stroke="#0a0f1f" stroke-width="1.5"/>
+        <rect x="260" y="90" width="50" height="22" fill="#1a2249" stroke="#0a0f1f" stroke-width="1.5"/>
+        <rect x="310" y="90" width="50" height="22" fill="#1a2249" stroke="#0a0f1f" stroke-width="1.5"/>
+        <rect x="360" y="90" width="50" height="22" fill="#1a2249" stroke="#0a0f1f" stroke-width="1.5"/>
+        <rect x="410" y="90" width="50" height="22" fill="#1a2249" stroke="#0a0f1f" stroke-width="1.5"/>
+      </g>
+
+      <text x="20" y="145" fill="#a8b1ce" font-family="JetBrains Mono" font-size="12">5/10</text>
+      <g>
+        <rect x="60" y="130" width="40" height="22" fill="#b794f6" stroke="#0a0f1f" stroke-width="1.5"/>
+        <rect x="100" y="130" width="40" height="22" fill="#b794f6" stroke="#0a0f1f" stroke-width="1.5"/>
+        <rect x="140" y="130" width="40" height="22" fill="#b794f6" stroke="#0a0f1f" stroke-width="1.5"/>
+        <rect x="180" y="130" width="40" height="22" fill="#b794f6" stroke="#0a0f1f" stroke-width="1.5"/>
+        <rect x="220" y="130" width="40" height="22" fill="#b794f6" stroke="#0a0f1f" stroke-width="1.5"/>
+        <rect x="260" y="130" width="40" height="22" fill="#1a2249" stroke="#0a0f1f" stroke-width="1.5"/>
+        <rect x="300" y="130" width="40" height="22" fill="#1a2249" stroke="#0a0f1f" stroke-width="1.5"/>
+        <rect x="340" y="130" width="40" height="22" fill="#1a2249" stroke="#0a0f1f" stroke-width="1.5"/>
+        <rect x="380" y="130" width="40" height="22" fill="#1a2249" stroke="#0a0f1f" stroke-width="1.5"/>
+        <rect x="420" y="130" width="40" height="22" fill="#1a2249" stroke="#0a0f1f" stroke-width="1.5"/>
+      </g>
+
+      <line x1="260" y1="0" x2="260" y2="160" stroke="#ffd93d" stroke-width="1.5" stroke-dasharray="3,3" opacity="0.6"/>
+      <text x="250" y="195" text-anchor="end" fill="#a8b1ce" font-family="Bricolage Grotesque" font-size="16" font-style="italic">filled</text>
+      <text x="270" y="195" fill="#a8b1ce" font-family="Bricolage Grotesque" font-size="16" font-style="italic">empty</text>
+    </svg>
+  </div>
+
+  <h3 class="subhead"><span class="num">02</span>Equivalent fractions are the same number, dressed differently</h3>
+  <p class="prose">The fractions <span class="frac"><span class="top">1</span><span class="bot">2</span></span>, <span class="frac"><span class="top">2</span><span class="bot">4</span></span>, <span class="frac"><span class="top">3</span><span class="bot">6</span></span>, and <span class="frac"><span class="top">4</span><span class="bot">8</span></span> are all <span class="vocab" data-term="equivalent">equivalent fractions</span>. They look different. They name the same number. You make equivalent fractions by multiplying the top and bottom by the same number. Since that is just multiplying by 1 in disguise, the value never changes.</p>
+
+  <h3 class="subhead"><span class="num">03</span>Simplifying is cleaning up the handwriting</h3>
+  <p class="prose">When you simplify <span class="frac"><span class="top">12</span><span class="bot">18</span></span>, you find a number that divides both the top and the bottom. Six works. <span class="m">12 ÷ 6 = 2</span> and <span class="m">18 ÷ 6 = 3</span>. So <span class="frac"><span class="top">12</span><span class="bot">18</span></span> simplifies to <span class="frac"><span class="top">2</span><span class="bot">3</span></span>. The fraction did not shrink. The writing got cleaner.</p>
+
+  <div class="qc" data-qc="d5q1">
+    <div class="qc-label">Quick Check</div>
+    <div class="qc-question">Which fraction is equivalent to 6/8?</div>
+    <div class="qc-options">
+      <button class="qc-opt" data-correct="false" data-fb="3/8 has the same denominator but a smaller numerator. That would be half the value.">3/8</button>
+      <button class="qc-opt" data-correct="true" data-fb="Yes. Divide both 6 and 8 by 2. You get 3 over 4. Same number, simpler writing.">3/4</button>
+      <button class="qc-opt" data-correct="false" data-fb="6/4 would be bigger than 1. But 6/8 is less than 1.">6/4</button>
+      <button class="qc-opt" data-correct="false" data-fb="Close, but multiplying by different numbers top and bottom changes the value.">9/10</button>
+    </div>
+    <div class="qc-feedback"></div>
+  </div>
+
+  <div class="reflect">
+    <div class="reflect-label">Reflect</div>
+    <div class="reflect-q">If 1/2 and 50/100 are the same number, why bother with the simpler form? Are there ever times the bigger form is more useful?</div>
+  </div>
+
+  <button class="quiz-launch" data-quiz="d5">Take the Day 5 Quiz <span class="arrow">→</span></button>
+</div>
+</section>
+
+<!-- =================== DAY 6: ADD/SUBTRACT FRACTIONS =================== -->
+<section class="day" id="day-6">
+<div class="container">
+  <div class="day-marker">
+    <div class="day-num">DAY 06</div>
+    <div class="day-tag">Combining Fractions</div>
+  </div>
+  <h2 class="day-title">To add fractions, the pieces have to match.</h2>
+  <p class="day-intro">You cannot add three apples and two oranges and call it five apples. You also cannot add thirds and fourths until you turn them into the same-sized pieces. That is the whole secret to adding fractions.</p>
+
+  <h3 class="subhead"><span class="num">01</span>Same denominator? Just add the tops</h3>
+  <p class="prose">When the bottoms already match, you are counting same-sized pieces. <span class="frac"><span class="top">3</span><span class="bot">8</span></span> plus <span class="frac"><span class="top">2</span><span class="bot">8</span></span> is just three eighths plus two eighths, which is five eighths. The denominator stays the same because the size of the pieces did not change. You are not adding 8 plus 8. You are adding 3 plus 2 in eighth-sized units.</p>
+
+  <h3 class="subhead"><span class="num">02</span>Different denominators? Find a common one</h3>
+  <p class="prose">To add <span class="frac"><span class="top">2</span><span class="bot">3</span></span> plus <span class="frac"><span class="top">1</span><span class="bot">4</span></span>, you cannot just add 2 + 1 and 3 + 4 and call it <span class="frac"><span class="top">3</span><span class="bot">7</span></span>. Thirds and fourths are not the same size. You need a <span class="vocab" data-term="common-denom">common denominator</span>. The smallest number that both 3 and 4 divide into is 12. So rewrite both fractions over 12.</p>
+
+  <div class="eq-card">
+    <div class="eq-label">2/3 + 1/4</div>
+    <div class="eq-line">2/3 = 8/12  (multiply top and bottom by 4)</div>
+    <div class="eq-line">1/4 = 3/12  (multiply top and bottom by 3)</div>
+    <div class="eq-line">8/12 + 3/12 = 11/12</div>
+    <div class="answer">= 11/12</div>
+  </div>
+
+  <h3 class="subhead"><span class="num">03</span>Mixed numbers and improper fractions are the same animal</h3>
+  <p class="prose">A <span class="vocab" data-term="mixed">mixed number</span> like <span class="m">3 1/2</span> just means three wholes plus half of another. You can also write it as <span class="frac"><span class="top">7</span><span class="bot">2</span></span>, which is called an <span class="vocab" data-term="improper">improper fraction</span>. Three wholes is six halves. Six halves plus one half is seven halves. The name "improper" sounds suspicious, but improper fractions are totally legal math. They are often easier to multiply and divide.</p>
+
+  <div class="qc" data-qc="d6q1">
+    <div class="qc-label">Quick Check</div>
+    <div class="qc-question">What is 1/2 + 1/3?</div>
+    <div class="qc-options">
+      <button class="qc-opt" data-correct="false" data-fb="That would be true if you could just add tops and bottoms. But halves and thirds are different-sized pieces. You need a common denominator first.">2/5</button>
+      <button class="qc-opt" data-correct="true" data-fb="Right. The common denominator is 6. So 1/2 becomes 3/6, and 1/3 becomes 2/6. Add: 5/6.">5/6</button>
+      <button class="qc-opt" data-correct="false" data-fb="That would be 1/2 + 1/3 = 1, which is too big. Half plus a third should be less than a whole.">1</button>
+      <button class="qc-opt" data-correct="false" data-fb="Common denominator is 6, not 6 in the numerator. The pieces are sixths, and you have five of them.">2/6</button>
+    </div>
+    <div class="qc-feedback"></div>
+  </div>
+
+  <div class="reflect">
+    <div class="reflect-label">Reflect</div>
+    <div class="reflect-q">Why does the denominator stay the same when you add fractions with matching denominators, but everything has to be rewritten when they do not match?</div>
+  </div>
+
+  <button class="quiz-launch" data-quiz="d6">Take the Day 6 Quiz <span class="arrow">→</span></button>
+</div>
+</section>
+
+<!-- =================== DAY 7: MULTIPLY FRACTIONS =================== -->
+<section class="day" id="day-7">
+<div class="container">
+  <div class="day-marker">
+    <div class="day-num">DAY 07</div>
+    <div class="day-tag">Part of a Part</div>
+  </div>
+  <h2 class="day-title">Multiplying fractions means taking part of a part.</h2>
+  <p class="day-intro">When you multiply whole numbers, the answer gets bigger. When you multiply by a fraction less than one, the answer often gets smaller. That feels backwards until you see what is actually happening.</p>
+
+  <h3 class="subhead"><span class="num">01</span>The shortcut and why it works</h3>
+  <p class="prose">To multiply two fractions, multiply the tops together and multiply the bottoms together. So <span class="frac"><span class="top">2</span><span class="bot">3</span></span> times <span class="frac"><span class="top">4</span><span class="bot">5</span></span> becomes <span class="frac"><span class="top">8</span><span class="bot">15</span></span>. That is the rule. But the rule by itself is forgettable. The reason behind it is not.</p>
+  <p class="prose">Try <span class="frac"><span class="top">1</span><span class="bot">2</span></span> times <span class="frac"><span class="top">1</span><span class="bot">3</span></span>. In words: half of one third. Draw a rectangle. Split it into thirds going one way. Then split it into halves going the other way. You now have six little equal pieces. The one piece that is both halved and thirded is one out of six. So <span class="m">1/2 × 1/3 = 1/6</span>. The math matches the picture exactly.</p>
+
+  <div class="viz">
+    <div class="viz-label">Visual Lab // 2/3 × 4/5</div>
+    <div class="viz-title">The overlap is the answer</div>
+    <svg viewBox="0 0 400 320" xmlns="http://www.w3.org/2000/svg" style="width:100%; max-width:400px; display:block; margin:0 auto;">
+      <text x="200" y="22" text-anchor="middle" fill="#a8b1ce" font-family="JetBrains Mono" font-size="13">← 2/3 wide →</text>
+      <text x="380" y="160" text-anchor="middle" fill="#a8b1ce" font-family="JetBrains Mono" font-size="13" transform="rotate(90 380 160)">↑ 4/5 tall ↑</text>
+
+      <!-- 3 cols x 5 rows -->
+      <g stroke="#0a0f1f" stroke-width="2">
+        <!-- Row 1 (top, in 4/5 zone) -->
+        <rect x="40" y="40" width="100" height="50" fill="#5eead4"/>
+        <rect x="140" y="40" width="100" height="50" fill="#5eead4"/>
+        <rect x="240" y="40" width="100" height="50" fill="#b794f6" opacity="0.3"/>
+        <!-- Row 2 -->
+        <rect x="40" y="90" width="100" height="50" fill="#5eead4"/>
+        <rect x="140" y="90" width="100" height="50" fill="#5eead4"/>
+        <rect x="240" y="90" width="100" height="50" fill="#b794f6" opacity="0.3"/>
+        <!-- Row 3 -->
+        <rect x="40" y="140" width="100" height="50" fill="#5eead4"/>
+        <rect x="140" y="140" width="100" height="50" fill="#5eead4"/>
+        <rect x="240" y="140" width="100" height="50" fill="#b794f6" opacity="0.3"/>
+        <!-- Row 4 -->
+        <rect x="40" y="190" width="100" height="50" fill="#5eead4"/>
+        <rect x="140" y="190" width="100" height="50" fill="#5eead4"/>
+        <rect x="240" y="190" width="100" height="50" fill="#b794f6" opacity="0.3"/>
+        <!-- Row 5 (bottom, outside 4/5 zone) -->
+        <rect x="40" y="240" width="100" height="50" fill="#ffd93d" opacity="0.3"/>
+        <rect x="140" y="240" width="100" height="50" fill="#ffd93d" opacity="0.3"/>
+        <rect x="240" y="240" width="100" height="50" fill="#1a2249"/>
+      </g>
+
+      <text x="200" y="310" text-anchor="middle" fill="#5eead4" font-family="Bricolage Grotesque" font-size="20" font-weight="700">overlap = 8 of 15 = 8/15</text>
+    </svg>
+  </div>
+
+  <h3 class="subhead"><span class="num">02</span>Why does the answer get smaller?</h3>
+  <p class="prose">When you multiply by a number less than 1, you are taking a piece of something. You are not making it bigger. You are making it shorter. <span class="m">10 × 1/2</span> is just half of 10, which is 5. The "times" sign here is doing exactly what the word "of" does. Ten times one half is the same as one half of ten.</p>
+
+  <div class="qc" data-qc="d7q1">
+    <div class="qc-label">Quick Check</div>
+    <div class="qc-question">What is 3/4 × 2/5?</div>
+    <div class="qc-options">
+      <button class="qc-opt" data-correct="false" data-fb="That is way too big. 3/4 is less than 1, so multiplying it by 2/5 makes the answer smaller, not larger.">5/9</button>
+      <button class="qc-opt" data-correct="true" data-fb="Yes. Multiply tops: 3 × 2 = 6. Multiply bottoms: 4 × 5 = 20. That is 6/20, which simplifies to 3/10.">3/10</button>
+      <button class="qc-opt" data-correct="false" data-fb="You added bottoms instead of multiplying them. Bottoms multiply.">6/9</button>
+      <button class="qc-opt" data-correct="false" data-fb="That is 3/4 times 2/4, not 2/5. Watch the denominators.">3/8</button>
+    </div>
+    <div class="qc-feedback"></div>
+  </div>
+
+  <div class="reflect">
+    <div class="reflect-label">Reflect</div>
+    <div class="reflect-q">Multiplication usually makes numbers bigger. Why is it that multiplying by a fraction less than one makes them smaller? Where else in math does this kind of surprise happen?</div>
+  </div>
+
+  <button class="quiz-launch" data-quiz="d7">Take the Day 7 Quiz <span class="arrow">→</span></button>
+</div>
+</section>
+
+<!-- =================== DAY 8: DIVIDE FRACTIONS =================== -->
+<section class="day" id="day-8">
+<div class="container">
+  <div class="day-marker">
+    <div class="day-num">DAY 08</div>
+    <div class="day-tag">How Many Fit?</div>
+  </div>
+  <h2 class="day-title">Dividing fractions asks: how many of these fit inside that?</h2>
+  <p class="day-intro">You probably learned the rule. Keep, change, flip. It works. But if you only know the rule and not the question behind it, the rule looks like a magic spell. Let us look behind the curtain.</p>
+
+  <h3 class="subhead"><span class="num">01</span>The question is always the same</h3>
+  <p class="prose">When you write <span class="m">3/4 ÷ 1/2</span>, you are not asking some mysterious thing. You are asking: how many halves fit into three fourths? Draw it. One half fits. Then half of another half fits. So the answer is one and one half. The "keep, change, flip" trick gives the same answer: <span class="m">3/4 × 2/1 = 6/4 = 1 1/2</span>. The trick works because flipping a fraction and multiplying is the same as dividing.</p>
+
+  <div class="viz">
+    <div class="viz-label">Visual Lab // 5 ÷ 1/2</div>
+    <div class="viz-title">How many halves fit into 5 whole things?</div>
+    <svg viewBox="0 0 500 160" xmlns="http://www.w3.org/2000/svg" style="width:100%; max-width:500px; display:block; margin:0 auto;">
+      <text x="20" y="30" fill="#ffd93d" font-family="Bricolage Grotesque" font-size="14" font-weight="600">5 whole things</text>
+      <g stroke="#0a0f1f" stroke-width="2">
+        <rect x="20" y="40" width="90" height="40" fill="#ffd93d" opacity="0.7"/>
+        <rect x="115" y="40" width="90" height="40" fill="#ffd93d" opacity="0.7"/>
+        <rect x="210" y="40" width="90" height="40" fill="#ffd93d" opacity="0.7"/>
+        <rect x="305" y="40" width="90" height="40" fill="#ffd93d" opacity="0.7"/>
+        <rect x="400" y="40" width="90" height="40" fill="#ffd93d" opacity="0.7"/>
+      </g>
+
+      <text x="20" y="110" fill="#ff6b9d" font-family="Bricolage Grotesque" font-size="14" font-weight="600">cut into halves</text>
+      <g stroke="#0a0f1f" stroke-width="2">
+        <rect x="20" y="120" width="45" height="30" fill="#ff6b9d" opacity="0.7"/>
+        <rect x="65" y="120" width="45" height="30" fill="#ff6b9d" opacity="0.5"/>
+        <rect x="115" y="120" width="45" height="30" fill="#ff6b9d" opacity="0.7"/>
+        <rect x="160" y="120" width="45" height="30" fill="#ff6b9d" opacity="0.5"/>
+        <rect x="210" y="120" width="45" height="30" fill="#ff6b9d" opacity="0.7"/>
+        <rect x="255" y="120" width="45" height="30" fill="#ff6b9d" opacity="0.5"/>
+        <rect x="305" y="120" width="45" height="30" fill="#ff6b9d" opacity="0.7"/>
+        <rect x="350" y="120" width="45" height="30" fill="#ff6b9d" opacity="0.5"/>
+        <rect x="400" y="120" width="45" height="30" fill="#ff6b9d" opacity="0.7"/>
+        <rect x="445" y="120" width="45" height="30" fill="#ff6b9d" opacity="0.5"/>
+      </g>
+      <text x="250" y="20" text-anchor="middle" fill="#5eead4" font-family="JetBrains Mono" font-size="16" font-weight="700">5 ÷ 1/2 = 10 halves</text>
+    </svg>
+  </div>
+
+  <h3 class="subhead"><span class="num">02</span>Keep, change, flip, in plain English</h3>
+  <p class="prose">"Keep" means leave the first fraction alone. "Change" means turn division into multiplication. "Flip" means use the <span class="vocab" data-term="reciprocal">reciprocal</span> of the second fraction. The reciprocal of <span class="m">2/3</span> is <span class="m">3/2</span>. Flip them upside down. Then multiply like normal.</p>
+
+  <div class="eq-card">
+    <div class="eq-label">4/7 ÷ 2/3</div>
+    <div class="eq-line">Keep: 4/7</div>
+    <div class="eq-line">Change ÷ to ×</div>
+    <div class="eq-line">Flip: 2/3 becomes 3/2</div>
+    <div class="eq-line">4/7 × 3/2 = 12/14 = 6/7</div>
+    <div class="answer">= 6/7</div>
+  </div>
+
+  <h3 class="subhead"><span class="num">03</span>Why dividing by a small fraction makes a big answer</h3>
+  <p class="prose">If you divide 10 by 2, you get 5. If you divide 10 by 1, you get 10. If you divide 10 by 1/2, you get 20. As the divisor gets smaller, the answer gets bigger. That is because you are asking how many of the divisor fit, and smaller pieces fit more times. It feels weird, but it is the same rule applied consistently.</p>
+
+  <div class="qc" data-qc="d8q1">
+    <div class="qc-label">Quick Check</div>
+    <div class="qc-question">What is 1/2 ÷ 1/4?</div>
+    <div class="qc-options">
+      <button class="qc-opt" data-correct="false" data-fb="If you multiplied straight across without flipping, you would get 1/8. But division requires the flip.">1/8</button>
+      <button class="qc-opt" data-correct="false" data-fb="Try the question version: how many fourths fit in a half? Two. The answer is bigger than 1, not 1/2.">1/2</button>
+      <button class="qc-opt" data-correct="true" data-fb="Yes. Keep 1/2, change to multiply, flip 1/4 to 4/1. Now 1/2 × 4 = 4/2 = 2. Two fourths fit in a half.">2</button>
+      <button class="qc-opt" data-correct="false" data-fb="That would be 1/2 + 1/4 worked out wrong. The answer to dividing is 2.">3/4</button>
+    </div>
+    <div class="qc-feedback"></div>
+  </div>
+
+  <div class="reflect">
+    <div class="reflect-label">Reflect</div>
+    <div class="reflect-q">If "keep, change, flip" is just a trick that gives the right answer, why teach the question first? What does the question tell you that the rule does not?</div>
+  </div>
+
+  <button class="quiz-launch" data-quiz="d8">Take the Day 8 Quiz <span class="arrow">→</span></button>
+</div>
+</section>
+
+<!-- =================== DAY 9: RATIOS + ORDER OF OPS =================== -->
+<section class="day" id="day-9">
+<div class="container">
+  <div class="day-marker">
+    <div class="day-num">DAY 09</div>
+    <div class="day-tag">Rules of the Road</div>
+  </div>
+  <h2 class="day-title">Ratios compare. Order of operations keeps order.</h2>
+  <p class="day-intro">Today is about structure. How to compare two things using ratios, and how to read an expression with multiple operations without getting tangled up in your own arithmetic.</p>
+
+  <h3 class="subhead"><span class="num">01</span>Ratios compare quantities</h3>
+  <p class="prose">A <span class="vocab" data-term="ratio">ratio</span> compares two amounts. If a recipe uses 2 cups of flour and 3 cups of oats, the ratio of flour to oats is <span class="m">2:3</span>, which can also be written 2 to 3 or <span class="frac"><span class="top">2</span><span class="bot">3</span></span>. That means for every 2 cups of flour, there are 3 cups of oats. The ratio holds even if you scale the whole recipe up. Double everything and the ratio is now 4:6, which is still 2:3.</p>
+
+  <h3 class="subhead"><span class="num">02</span>Unit rates: how much per one?</h3>
+  <p class="prose">A <span class="vocab" data-term="unitrate">unit rate</span> is a ratio with the second part equal to 1. If a car travels 180 miles in 3 hours, divide 180 by 3 to get 60. That is the unit rate: 60 miles per hour. The car travels 60 miles in 1 hour. Unit rates are how you compare different deals at the grocery store, different cars on the highway, and different running paces on a track.</p>
+
+  <div class="viz">
+    <div class="viz-label">Visual Lab // Ratio Table</div>
+    <div class="viz-title">60 miles per hour</div>
+    <svg viewBox="0 0 500 200" xmlns="http://www.w3.org/2000/svg" style="width:100%; max-width:500px; display:block; margin:0 auto;">
+      <g font-family="JetBrains Mono" font-size="16">
+        <rect x="40" y="20" width="200" height="40" fill="#1a2249" stroke="#5eead4" stroke-width="1.5"/>
+        <rect x="240" y="20" width="200" height="40" fill="#1a2249" stroke="#5eead4" stroke-width="1.5"/>
+        <text x="140" y="46" text-anchor="middle" fill="#5eead4">HOURS</text>
+        <text x="340" y="46" text-anchor="middle" fill="#ffd93d">MILES</text>
+
+        <rect x="40" y="60" width="200" height="32" fill="#0a0f1f" stroke="#1a2249"/>
+        <rect x="240" y="60" width="200" height="32" fill="#0a0f1f" stroke="#1a2249"/>
+        <text x="140" y="82" text-anchor="middle" fill="#a8b1ce">1</text>
+        <text x="340" y="82" text-anchor="middle" fill="#ffd93d">60</text>
+
+        <rect x="40" y="92" width="200" height="32" fill="#0a0f1f" stroke="#1a2249"/>
+        <rect x="240" y="92" width="200" height="32" fill="#0a0f1f" stroke="#1a2249"/>
+        <text x="140" y="114" text-anchor="middle" fill="#a8b1ce">2</text>
+        <text x="340" y="114" text-anchor="middle" fill="#ffd93d">120</text>
+
+        <rect x="40" y="124" width="200" height="32" fill="#0a0f1f" stroke="#1a2249"/>
+        <rect x="240" y="124" width="200" height="32" fill="#0a0f1f" stroke="#1a2249"/>
+        <text x="140" y="146" text-anchor="middle" fill="#a8b1ce">3</text>
+        <text x="340" y="146" text-anchor="middle" fill="#ffd93d">180</text>
+
+        <rect x="40" y="156" width="200" height="32" fill="#0a0f1f" stroke="#1a2249"/>
+        <rect x="240" y="156" width="200" height="32" fill="#0a0f1f" stroke="#1a2249"/>
+        <text x="140" y="178" text-anchor="middle" fill="#a8b1ce">4</text>
+        <text x="340" y="178" text-anchor="middle" fill="#ffd93d">240</text>
+      </g>
+    </svg>
+  </div>
+
+  <h3 class="subhead"><span class="num">03</span>Order of operations: math needs traffic rules</h3>
+  <p class="prose">If everyone solved expressions in their own order, the same problem would have different answers depending on who was holding the pencil. That would be chaos. So math has rules. <span class="vocab" data-term="pemdas">PEMDAS</span> is the standard acronym. Parentheses first. Then exponents. Then multiplication and division, working left to right. Then addition and subtraction, also left to right.</p>
+  <p class="prose"><strong>The left-to-right part matters.</strong> Multiplication does not always happen before division. They are partners. Same with addition and subtraction. They go in the order they appear.</p>
+
+  <div class="eq-card">
+    <div class="eq-label">18 ÷ 3 × 2 + 5</div>
+    <div class="eq-line">Division and multiplication first, left to right:</div>
+    <div class="eq-line">18 ÷ 3 = 6</div>
+    <div class="eq-line">6 × 2 = 12</div>
+    <div class="eq-line">Then addition:</div>
+    <div class="eq-line">12 + 5</div>
+    <div class="answer">= 17</div>
+  </div>
+
+  <p class="prose">Parentheses change everything. <span class="m">4 + 3 × 2</span> equals 10 because the multiplication happens first. But <span class="m">(4 + 3) × 2</span> equals 14 because the parentheses force the addition to go first. Same numbers, different structure, different answer. Parentheses are not decoration. They are commands.</p>
+
+  <div class="qc" data-qc="d9q1">
+    <div class="qc-label">Quick Check</div>
+    <div class="qc-question">What is 6 + 4 × 3?</div>
+    <div class="qc-options">
+      <button class="qc-opt" data-correct="false" data-fb="That happens if you add first and then multiply. But multiplication comes before addition in the order.">30</button>
+      <button class="qc-opt" data-correct="true" data-fb="Yes. Multiplication first: 4 × 3 = 12. Then add: 6 + 12 = 18.">18</button>
+      <button class="qc-opt" data-correct="false" data-fb="That is 6 plus 4 plus 3. You skipped the multiplication.">13</button>
+      <button class="qc-opt" data-correct="false" data-fb="That is roughly the answer if you had parentheses around (6 + 4). With no parentheses, multiply first.">24</button>
+    </div>
+    <div class="qc-feedback"></div>
+  </div>
+
+  <div class="reflect">
+    <div class="reflect-label">Reflect</div>
+    <div class="reflect-q">Why is left-to-right ordering for multiplication and division so important? Try working out 12 ÷ 4 × 3 both ways and see what you get.</div>
+  </div>
+
+  <button class="quiz-launch" data-quiz="d9">Take the Day 9 Quiz <span class="arrow">→</span></button>
+</div>
+</section>
+
+<!-- =================== DAY 10: EQUATIONS =================== -->
+<section class="day" id="day-10">
+<div class="container">
+  <div class="day-marker">
+    <div class="day-num">DAY 10</div>
+    <div class="day-tag">The Mystery Number</div>
+  </div>
+  <h2 class="day-title">Algebra is just arithmetic with a question mark in it.</h2>
+  <p class="day-intro">Algebra is not some new alien math that begins later. It is the math you already know, written with one number missing. Your job is to find the missing number. Everything else stays the same.</p>
+
+  <h3 class="subhead"><span class="num">01</span>An equation is a balance scale</h3>
+  <p class="prose">When you see <span class="m">x + 7 = 19</span>, picture a balance scale. On one side: some unknown number plus 7. On the other side: 19. The two sides are equal. Whatever you do to one side, you have to do to the other, or the scale tips. To find the mystery number, undo the +7 by subtracting 7 from both sides. Now you have <span class="m">x = 12</span>. Mystery solved.</p>
+
+  <div class="viz">
+    <div class="viz-label">Visual Lab // The Balance</div>
+    <div class="viz-title">Whatever you do to one side, do to the other</div>
+    <svg viewBox="0 0 500 220" xmlns="http://www.w3.org/2000/svg" style="width:100%; max-width:500px; display:block; margin:0 auto;">
+      <!-- Base -->
+      <rect x="220" y="180" width="60" height="20" fill="#a8b1ce"/>
+      <rect x="240" y="100" width="20" height="80" fill="#a8b1ce"/>
+      <!-- Bar -->
+      <rect x="50" y="95" width="400" height="10" fill="#ffd93d"/>
+      <!-- Left pan -->
+      <line x1="100" y1="105" x2="100" y2="135" stroke="#a8b1ce" stroke-width="2"/>
+      <rect x="40" y="135" width="120" height="40" rx="4" fill="#1a2249" stroke="#5eead4" stroke-width="2"/>
+      <text x="100" y="160" text-anchor="middle" fill="#5eead4" font-family="JetBrains Mono" font-size="20" font-weight="700">x + 7</text>
+      <!-- Right pan -->
+      <line x1="400" y1="105" x2="400" y2="135" stroke="#a8b1ce" stroke-width="2"/>
+      <rect x="340" y="135" width="120" height="40" rx="4" fill="#1a2249" stroke="#ff6b9d" stroke-width="2"/>
+      <text x="400" y="160" text-anchor="middle" fill="#ff6b9d" font-family="JetBrains Mono" font-size="20" font-weight="700">19</text>
+
+      <text x="250" y="40" text-anchor="middle" fill="#ffd93d" font-family="Bricolage Grotesque" font-size="22" font-weight="700">balanced</text>
+      <text x="250" y="65" text-anchor="middle" fill="#a8b1ce" font-family="JetBrains Mono" font-size="13">subtract 7 from both sides → x = 12</text>
+    </svg>
+  </div>
+
+  <h3 class="subhead"><span class="num">02</span>Use the opposite operation</h3>
+  <p class="prose">Every operation has an opposite. Addition and subtraction are opposites. Multiplication and division are opposites. To find the mystery number, do the opposite of whatever is happening to it.</p>
+
+  <div class="eq-card">
+    <div class="eq-label">Solve 5x = 40</div>
+    <div class="eq-line">x is being multiplied by 5. Do the opposite: divide.</div>
+    <div class="eq-line">5x ÷ 5 = 40 ÷ 5</div>
+    <div class="answer">x = 8</div>
+  </div>
+
+  <div class="eq-card">
+    <div class="eq-label">Solve x ÷ 3 = 9</div>
+    <div class="eq-line">x is being divided by 3. Do the opposite: multiply.</div>
+    <div class="eq-line">x ÷ 3 × 3 = 9 × 3</div>
+    <div class="answer">x = 27</div>
+  </div>
+
+  <h3 class="subhead"><span class="num">03</span>Two-step equations work the same way</h3>
+  <p class="prose">For <span class="m">3x + 4 = 19</span>, peel the operations off in reverse order. The mystery number got multiplied by 3, and then 4 got added. Reverse that. First, subtract 4 from both sides to get <span class="m">3x = 15</span>. Then divide both sides by 3 to get <span class="m">x = 5</span>. It is just the balance scale, two steps at a time.</p>
+
+  <div class="qc" data-qc="d10q1">
+    <div class="qc-label">Quick Check</div>
+    <div class="qc-question">Solve x + 9 = 22</div>
+    <div class="qc-options">
+      <button class="qc-opt" data-correct="false" data-fb="That would mean x + 9 = 22 has the answer 31, which makes the left side 40. Not balanced.">x = 31</button>
+      <button class="qc-opt" data-correct="true" data-fb="Yes. Subtract 9 from both sides: x = 22 minus 9 = 13. Check: 13 + 9 = 22. Balanced.">x = 13</button>
+      <button class="qc-opt" data-correct="false" data-fb="That would mean adding 9 gives you 14, not 22.">x = 5</button>
+      <button class="qc-opt" data-correct="false" data-fb="That would mean x + 9 = 33, not 22.">x = 24</button>
+    </div>
+    <div class="qc-feedback"></div>
+  </div>
+
+  <div class="reflect">
+    <div class="reflect-label">Reflect</div>
+    <div class="reflect-q">Look back at everything from Day 1 to Day 10. Where do you see multiplication, division, fractions, decimals, ratios, and equations all touching each other? Math is not separate islands. Where are the bridges?</div>
+  </div>
+
+  <button class="quiz-launch" data-quiz="d10">Take the Day 10 Quiz <span class="arrow">→</span></button>
+</div>
+</section>
+
+<!-- =================== PRACTICE ARENA =================== -->
+<section class="arena" id="arena">
+<div class="container">
+  <h2 class="arena-title">PRACTICE<br><span class="pink">ARENA</span></h2>
+  <p class="arena-sub">Pick a topic. Pick a difficulty. Solve as many as you can. Build a streak. Track your accuracy. Come back every day.</p>
+
+  <div class="arena-grid" id="arena-topic-grid">
+    <button class="topic-card" data-topic="multiply"><div class="topic-icon">×</div><div class="topic-name">Multiplication</div><div class="topic-desc">2-digit × 2-digit</div></button>
+    <button class="topic-card" data-topic="divide"><div class="topic-icon">÷</div><div class="topic-name">Long Division</div><div class="topic-desc">With remainders</div></button>
+    <button class="topic-card" data-topic="dec-compare"><div class="topic-icon">≷</div><div class="topic-name">Compare Decimals</div><div class="topic-desc">Greater or less</div></button>
+    <button class="topic-card" data-topic="dec-add"><div class="topic-icon">+.</div><div class="topic-name">Decimal Add/Sub</div><div class="topic-desc">Line up the dots</div></button>
+    <button class="topic-card" data-topic="dec-mult"><div class="topic-icon">×.</div><div class="topic-name">Decimal Multiply</div><div class="topic-desc">Count the places</div></button>
+    <button class="topic-card" data-topic="dec-div"><div class="topic-icon">÷.</div><div class="topic-name">Decimal Divide</div><div class="topic-desc">Shift and divide</div></button>
+    <button class="topic-card" data-topic="frac-add"><div class="topic-icon">⅓+</div><div class="topic-name">Fraction Add/Sub</div><div class="topic-desc">Common denominators</div></button>
+    <button class="topic-card" data-topic="frac-mult"><div class="topic-icon">⅓×</div><div class="topic-name">Fraction Multiply</div><div class="topic-desc">Top times top</div></button>
+    <button class="topic-card" data-topic="frac-div"><div class="topic-icon">⅓÷</div><div class="topic-name">Fraction Divide</div><div class="topic-desc">Keep change flip</div></button>
+    <button class="topic-card" data-topic="ratio"><div class="topic-icon">:</div><div class="topic-name">Ratios</div><div class="topic-desc">Simplify and scale</div></button>
+    <button class="topic-card" data-topic="order"><div class="topic-icon">()</div><div class="topic-name">Order of Ops</div><div class="topic-desc">PEMDAS</div></button>
+    <button class="topic-card" data-topic="equation"><div class="topic-icon">x=</div><div class="topic-name">Equations</div><div class="topic-desc">Find the mystery</div></button>
+  </div>
+
+  <div class="arena-play" id="arena-play">
+    <button class="arena-back" onclick="backToArenaMenu()">← Back to topics</button>
+    <div class="arena-topic-name" id="arena-topic-name">Topic</div>
+    <div class="arena-difficulty">
+      <button class="diff-btn active" data-diff="easy">Easy</button>
+      <button class="diff-btn" data-diff="medium">Medium</button>
+      <button class="diff-btn" data-diff="hard">Hard</button>
+    </div>
+
+    <div class="arena-stats">
+      <div class="arena-stat"><div class="arena-stat-label">Score</div><div class="arena-stat-val" id="arena-score">0</div></div>
+      <div class="arena-stat streak"><div class="arena-stat-label">Streak</div><div class="arena-stat-val" id="arena-streak">0</div></div>
+      <div class="arena-stat best"><div class="arena-stat-label">Best</div><div class="arena-stat-val" id="arena-best">0</div></div>
+    </div>
+
+    <div class="arena-question">
+      <div class="arena-q-label">SOLVE</div>
+      <div class="arena-q-text" id="arena-q-text">Loading...</div>
+    </div>
+
+    <div class="arena-feedback" id="arena-feedback"></div>
+
+    <div class="arena-row">
+      <input class="quiz-input" id="arena-answer" placeholder="Your answer" autocomplete="off">
+      <button class="quiz-submit" onclick="arenaSubmit()">Submit</button>
+      <button class="quiz-skip" onclick="arenaSkip()">Skip</button>
+    </div>
+  </div>
+</div>
+</section>
+
+</main>
+
+<!-- VOCAB MODAL -->
+<div class="modal-backdrop" id="vocab-modal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('vocab-modal')">×</button>
+    <div class="modal-tag">Vocabulary</div>
+    <div class="modal-term" id="vocab-term"></div>
+    <div class="modal-def" id="vocab-def"></div>
+    <div class="modal-ex" id="vocab-ex"></div>
+  </div>
+</div>
+
+<!-- QUIZ MODAL -->
+<div class="modal-backdrop" id="quiz-modal">
+  <div class="quiz-modal">
+    <button class="modal-close" onclick="closeQuiz()">×</button>
+    <div class="quiz-head">
+      <div class="quiz-title" id="quiz-title">Quiz</div>
+      <div class="quiz-progress" id="quiz-progress">1 / 5</div>
+    </div>
+    <div class="quiz-q" id="quiz-q"></div>
+    <div id="quiz-input-area"></div>
+    <div class="quiz-fb" id="quiz-fb"></div>
+    <div class="quiz-score-row">
+      <div class="quiz-stat"><strong id="quiz-score">0</strong>Correct</div>
+      <div class="quiz-stat"><strong id="quiz-total">0</strong>Answered</div>
+      <div class="quiz-stat"><strong id="quiz-pct">0%</strong>Accuracy</div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>Math Lab. Built for curious minds.</p>
+  <p>Numbers are not a junk drawer of tricks. They are a city. Once you know the map, it gets harder to get lost.</p>
+</footer>
+
+<script>
+// =====================================================
+// VOCABULARY DATABASE
+// =====================================================
+const vocab = {
+  'distributive': { term: 'Distributive Property', def: 'A rule that says you can break a number apart, multiply each piece, and add the results together. The answer stays the same.', ex: '4 × 23 = 4 × (20 + 3) = 80 + 12 = 92' },
+  'divisor': { term: 'Divisor', def: 'The number you are dividing BY. It tells you the size of each group or how many groups to make.', ex: 'In 24 ÷ 6 = 4, the divisor is 6.' },
+  'dividend': { term: 'Dividend', def: 'The number being divided. The whole amount you are splitting up.', ex: 'In 24 ÷ 6 = 4, the dividend is 24.' },
+  'remainder': { term: 'Remainder', def: 'The amount left over after division when the divisor does not fit perfectly. Its meaning depends on the real-world situation.', ex: '17 ÷ 5 = 3 remainder 2. Two are left over.' },
+  'tenths': { term: 'Tenths Place', def: 'The first digit after the decimal point. Each tenth is 1/10 or 0.1.', ex: 'In 3.456, the 4 is in the tenths place. It means 4/10 or 0.4.' },
+  'hundredths': { term: 'Hundredths Place', def: 'The second digit after the decimal point. Each hundredth is 1/100 or 0.01.', ex: 'In 3.456, the 5 is in the hundredths place. It means 5/100 or 0.05.' },
+  'thousandths': { term: 'Thousandths Place', def: 'The third digit after the decimal point. Each thousandth is 1/1000 or 0.001.', ex: 'In 3.456, the 6 is in the thousandths place. It means 6/1000 or 0.006.' },
+  'numerator': { term: 'Numerator', def: 'The top number in a fraction. It tells you how many of the pieces you have.', ex: 'In 3/4, the numerator is 3. You have three of the four pieces.' },
+  'denominator': { term: 'Denominator', def: 'The bottom number in a fraction. It tells you how many equal pieces the whole has been divided into.', ex: 'In 3/4, the denominator is 4. The whole is split into four equal parts.' },
+  'equivalent': { term: 'Equivalent Fractions', def: 'Fractions that look different but name the same number. You make them by multiplying or dividing the top and bottom by the same number.', ex: '1/2, 2/4, and 5/10 are all equivalent. Same value, different writing.' },
+  'common-denom': { term: 'Common Denominator', def: 'A denominator shared by two or more fractions, so that the pieces are the same size. The smallest one is called the LCD.', ex: 'For 1/3 and 1/4, the common denominator is 12. Rewrite them as 4/12 and 3/12.' },
+  'mixed': { term: 'Mixed Number', def: 'A whole number combined with a fraction. It is a way to write a value greater than 1.', ex: '3 1/2 means 3 wholes plus one half.' },
+  'improper': { term: 'Improper Fraction', def: 'A fraction where the numerator is bigger than or equal to the denominator. Improper fractions are completely valid math.', ex: '7/2 is improper. It equals 3 1/2.' },
+  'reciprocal': { term: 'Reciprocal', def: 'The fraction you get when you flip the numerator and denominator. Any number times its reciprocal equals 1.', ex: 'The reciprocal of 2/3 is 3/2. The reciprocal of 5 is 1/5.' },
+  'ratio': { term: 'Ratio', def: 'A comparison of two quantities. Can be written as a:b, a to b, or a/b.', ex: 'If a recipe uses 2 cups flour to 3 cups oats, the ratio is 2:3.' },
+  'unitrate': { term: 'Unit Rate', def: 'A rate that compares a quantity to 1 of something. Useful for comparing prices, speeds, and other rates.', ex: '$3 for 6 apples is a unit rate of $0.50 per apple.' },
+  'pemdas': { term: 'Order of Operations (PEMDAS)', def: 'The agreed-upon order for solving expressions: Parentheses, Exponents, Multiplication and Division left to right, Addition and Subtraction left to right.', ex: '4 + 3 × 2 = 10, not 14. Multiply first.' }
+};
+
+// =====================================================
+// MODAL SYSTEM
+// =====================================================
+document.querySelectorAll('.vocab').forEach(el => {
+  el.addEventListener('click', () => {
+    const data = vocab[el.dataset.term];
+    if (!data) return;
+    document.getElementById('vocab-term').textContent = data.term;
+    document.getElementById('vocab-def').textContent = data.def;
+    document.getElementById('vocab-ex').textContent = data.ex;
+    openModal('vocab-modal');
+  });
+});
+
+function openModal(id) {
+  document.getElementById(id).classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal(id) {
+  document.getElementById(id).classList.remove('show');
+  document.body.style.overflow = '';
+}
+function closeQuiz() { closeModal('quiz-modal'); }
+
+document.querySelectorAll('.modal-backdrop').forEach(bd => {
+  bd.addEventListener('click', e => {
+    if (e.target === bd) {
+      bd.classList.remove('show');
+      document.body.style.overflow = '';
+    }
+  });
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    document.querySelectorAll('.modal-backdrop.show').forEach(b => b.classList.remove('show'));
+    document.body.style.overflow = '';
+  }
+});
+
+// =====================================================
+// SMOOTH SCROLL FROM NAV
+// =====================================================
+document.querySelectorAll('.daybtn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const t = document.getElementById(btn.dataset.target);
+    if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+
+// =====================================================
+// SCROLL SPY FOR NAV HIGHLIGHTING
+// =====================================================
+const sections = document.querySelectorAll('section[id]');
+const navBtns = document.querySelectorAll('.daybtn');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => {
+    const top = s.getBoundingClientRect().top;
+    if (top < window.innerHeight * 0.4) current = s.id;
+  });
+  navBtns.forEach(b => {
+    b.classList.toggle('active', b.dataset.target === current && !b.classList.contains('practice'));
+  });
+}, { passive: true });
+
+// =====================================================
+// QUICK CHECK HANDLERS
+// =====================================================
+document.querySelectorAll('.qc').forEach(qc => {
+  const opts = qc.querySelectorAll('.qc-opt');
+  const fb = qc.querySelector('.qc-feedback');
+  opts.forEach(opt => {
+    opt.addEventListener('click', () => {
+      if (qc.dataset.answered) return;
+      qc.dataset.answered = 'true';
+      const correct = opt.dataset.correct === 'true';
+      opts.forEach(o => {
+        o.style.pointerEvents = 'none';
+        if (o.dataset.correct === 'true') o.classList.add('correct');
+      });
+      if (!correct) opt.classList.add('wrong');
+      fb.textContent = opt.dataset.fb;
+      fb.classList.add('show');
+    });
+  });
+});
+
+// =====================================================
+// SECTION QUIZZES (5 questions per day)
+// =====================================================
+const quizzes = {
+  d1: { title: 'Day 1: Multiplication', questions: [
+    { q: 'What is 23 × 14?', type: 'input', a: '322', hint: 'Break it apart: (20+3)(10+4). Add the four pieces: 200, 80, 30, 12.' },
+    { q: 'What is 42 × 18?', type: 'input', a: '756', hint: '(40+2)(10+8). Pieces: 400, 320, 20, 16.' },
+    { q: 'When you multiply by 30, why do you put a zero in the ones place?', type: 'mc', opts: ['It looks better', 'You are multiplying by 30, not 3', 'It is a tradition', 'To save space'], a: 1, hint: 'Place value matters. The 3 in 30 is in the tens place.' },
+    { q: 'Which is greater: 25 × 16 or 50 × 8?', type: 'mc', opts: ['25 × 16', '50 × 8', 'They are equal', 'Cannot tell'], a: 2, hint: 'Doubling one factor while halving the other keeps the product the same. Both equal 400.' },
+    { q: 'What is 346 × 27?', type: 'input', a: '9342', hint: '346 × 20 = 6,920. 346 × 7 = 2,422. Add them.' }
+  ]},
+  d2: { title: 'Day 2: Division', questions: [
+    { q: 'What is 984 ÷ 6?', type: 'input', a: '164', hint: 'How many 6s in 9? In 38? In 24? Walk the staircase.' },
+    { q: 'What is 725 ÷ 4? Choose the answer with remainder.', type: 'mc', opts: ['181 R1', '180 R5', '181', '182 R3'], a: 0, hint: '4 × 181 = 724. One is left over.' },
+    { q: 'A bus holds 30 students. There are 217 students. How many buses are needed?', type: 'mc', opts: ['7', '7.2', '8', '9'], a: 2, hint: '7 buses would leave 7 kids on the curb. You need an 8th bus.' },
+    { q: 'What is 1,248 ÷ 6?', type: 'input', a: '208', hint: 'How many 6s in 12? In 4 (zero, with carryover)? In 48?' },
+    { q: 'In 56 ÷ 8 = 7, which number is the divisor?', type: 'mc', opts: ['56', '8', '7', 'None'], a: 1, hint: 'The divisor is what you divide BY.' }
+  ]},
+  d3: { title: 'Day 3: Decimals', questions: [
+    { q: 'Which is greater: 0.7 or 0.62?', type: 'mc', opts: ['0.7', '0.62', 'Equal', 'Cannot tell'], a: 0, hint: 'Rewrite as 0.70 vs 0.62.' },
+    { q: 'In 5.407, which place is the 7 in?', type: 'mc', opts: ['Tenths', 'Hundredths', 'Thousandths', 'Ten-thousandths'], a: 2, hint: 'Count places after the decimal: tenths, hundredths, thousandths.' },
+    { q: 'Largest: 0.506, 0.56, 0.509, or 0.5061?', type: 'mc', opts: ['0.506', '0.56', '0.509', '0.5061'], a: 1, hint: 'Pad with zeros and compare: 0.5060, 0.5600, 0.5090, 0.5061.' },
+    { q: 'Write 0.8 as a fraction with denominator 10. (Use format like 8/10)', type: 'input', a: '8/10', hint: 'Eight tenths.' },
+    { q: 'True or False: Adding a zero to the right of a decimal changes its value. (T or F)', type: 'input', a: 'f', hint: 'Trailing zeros are free. They never change the value.' }
+  ]},
+  d4: { title: 'Day 4: Decimal Operations', questions: [
+    { q: 'What is 12.4 + 3.86?', type: 'input', a: '16.26', hint: 'Line up the decimals. 12.40 + 3.86.' },
+    { q: 'What is 8.2 - 3.47?', type: 'input', a: '4.73', hint: 'Line up the dots. 8.20 - 3.47.' },
+    { q: 'What is 2.4 × 1.3?', type: 'input', a: '3.12', hint: '24 × 13 = 312. Two decimal places.' },
+    { q: 'What is 6.4 ÷ 0.8?', type: 'input', a: '8', hint: 'Multiply both by 10. Now 64 ÷ 8 = 8.' },
+    { q: 'Estimate 4.8 × 2.1. About how much?', type: 'mc', opts: ['About 1', 'About 10', 'About 100', 'About 1000'], a: 1, hint: 'Round to 5 × 2 = 10.' }
+  ]},
+  d5: { title: 'Day 5: Fractions', questions: [
+    { q: 'Which fraction is equivalent to 6/8?', type: 'mc', opts: ['3/8', '3/4', '6/4', '9/10'], a: 1, hint: 'Divide top and bottom by 2.' },
+    { q: 'Simplify 12/18.', type: 'input', a: '2/3', hint: 'Both divisible by 6.' },
+    { q: 'The fraction 3/4 is also a division problem: 3 ÷ ? (answer the missing number)', type: 'input', a: '4', hint: 'A fraction is just division written sideways.' },
+    { q: 'Which is bigger: 2/3 or 3/4?', type: 'mc', opts: ['2/3', '3/4', 'Equal', 'Cannot compare'], a: 1, hint: 'Common denominator 12: 8/12 vs 9/12.' },
+    { q: 'Simplify 15/25.', type: 'input', a: '3/5', hint: 'Both divisible by 5.' }
+  ]},
+  d6: { title: 'Day 6: Adding & Subtracting Fractions', questions: [
+    { q: 'What is 3/8 + 2/8?', type: 'input', a: '5/8', hint: 'Same denominator. Just add the tops.' },
+    { q: 'What is 2/3 + 1/4?', type: 'input', a: '11/12', hint: 'Common denominator 12. 8/12 + 3/12.' },
+    { q: 'What is 5/6 - 1/4?', type: 'input', a: '7/12', hint: 'Common denominator 12. 10/12 - 3/12.' },
+    { q: 'Write 3 1/2 as an improper fraction. (Use format like 7/2)', type: 'input', a: '7/2', hint: 'Three wholes is six halves. Add one more half.' },
+    { q: 'What is 1/2 + 1/3?', type: 'mc', opts: ['2/5', '5/6', '1', '2/6'], a: 1, hint: 'Common denominator 6. 3/6 + 2/6.' }
+  ]},
+  d7: { title: 'Day 7: Multiplying Fractions', questions: [
+    { q: 'What is 2/3 × 4/5?', type: 'input', a: '8/15', hint: 'Multiply tops. Multiply bottoms.' },
+    { q: 'What is 1/2 × 1/3?', type: 'input', a: '1/6', hint: 'Half of a third. Six little pieces in the picture.' },
+    { q: 'What is 3 × 2/5? (Improper fraction is fine, like 6/5)', type: 'input', a: '6/5', hint: 'Three groups of two-fifths.' },
+    { q: 'Is 1/2 × 1/2 bigger or smaller than 1/2?', type: 'mc', opts: ['Bigger', 'Smaller', 'Equal', 'Depends'], a: 1, hint: 'Half of a half is a quarter. Smaller.' },
+    { q: 'What is 3/4 × 2/5?', type: 'input', a: '3/10', hint: '6/20 simplifies to 3/10.' }
+  ]},
+  d8: { title: 'Day 8: Dividing Fractions', questions: [
+    { q: 'What is 1/2 ÷ 1/4?', type: 'input', a: '2', hint: 'How many fourths fit in a half?' },
+    { q: 'What is 3/4 ÷ 1/2? (Improper fraction form, like 3/2)', type: 'input', a: '3/2', hint: 'Keep, change, flip: 3/4 × 2/1 = 6/4 = 3/2.' },
+    { q: 'What is the reciprocal of 5/8?', type: 'input', a: '8/5', hint: 'Flip it upside down.' },
+    { q: 'What is 5 ÷ 1/2?', type: 'input', a: '10', hint: 'How many halves are in 5?' },
+    { q: 'What is 4/7 ÷ 2/3?', type: 'input', a: '6/7', hint: 'Flip and multiply: 4/7 × 3/2 = 12/14.' }
+  ]},
+  d9: { title: 'Day 9: Ratios & Order of Operations', questions: [
+    { q: 'A car travels 150 miles in 3 hours. What is the speed in miles per hour?', type: 'input', a: '50', hint: 'Divide 150 by 3.' },
+    { q: 'Simplify the ratio 12:15. (Use format like 4:5)', type: 'input', a: '4:5', hint: 'Divide both by 3.' },
+    { q: 'What is 6 + 4 × 3?', type: 'input', a: '18', hint: 'Multiplication first.' },
+    { q: 'What is (6 + 4) × 3?', type: 'input', a: '30', hint: 'Parentheses first.' },
+    { q: 'What is 18 ÷ 3 × 2 + 5?', type: 'input', a: '17', hint: 'Division then multiplication, left to right. Then addition.' }
+  ]},
+  d10: { title: 'Day 10: Equations', questions: [
+    { q: 'Solve: x + 7 = 22 (answer with just the number)', type: 'input', a: '15', hint: 'Subtract 7 from both sides.' },
+    { q: 'Solve: 5x = 45', type: 'input', a: '9', hint: 'Divide both sides by 5.' },
+    { q: 'Solve: x ÷ 3 = 9', type: 'input', a: '27', hint: 'Multiply both sides by 3.' },
+    { q: 'Solve: 3x + 4 = 19', type: 'input', a: '5', hint: 'Subtract 4. Then divide by 3.' },
+    { q: 'Solve: x - 3.4 = 8.6', type: 'input', a: '12', hint: 'Add 3.4 to both sides.' }
+  ]}
+};
+
+// =====================================================
+// QUIZ ENGINE
+// =====================================================
+let currentQuiz = null;
+let currentQ = 0;
+let quizScore = 0;
+let quizTotal = 0;
+
+document.querySelectorAll('.quiz-launch').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const id = btn.dataset.quiz;
+    if (!quizzes[id]) return;
+    currentQuiz = quizzes[id];
+    currentQ = 0;
+    quizScore = 0;
+    quizTotal = 0;
+    document.getElementById('quiz-title').textContent = currentQuiz.title;
+    renderQuizQuestion();
+    openModal('quiz-modal');
+  });
+});
+
+function renderQuizQuestion() {
+  if (currentQ >= currentQuiz.questions.length) {
+    renderQuizComplete();
+    return;
+  }
+  const q = currentQuiz.questions[currentQ];
+  document.getElementById('quiz-progress').textContent = (currentQ + 1) + ' / ' + currentQuiz.questions.length;
+  document.getElementById('quiz-q').textContent = q.q;
+  const fbEl = document.getElementById('quiz-fb');
+  fbEl.classList.remove('show', 'right', 'wrong-fb');
+  fbEl.innerHTML = '';
+
+  const area = document.getElementById('quiz-input-area');
+  if (q.type === 'mc') {
+    area.innerHTML = '<div class="quiz-options">' + q.opts.map(function(o, i) {
+      return '<button class="quiz-mc" data-idx="' + i + '">' + o + '</button>';
+    }).join('') + '</div>';
+    area.querySelectorAll('.quiz-mc').forEach(btn => {
+      btn.addEventListener('click', () => quizSubmitMC(parseInt(btn.dataset.idx), btn));
+    });
+  } else {
+    area.innerHTML = '<div class="quiz-input-row"><input class="quiz-input" id="quiz-text" placeholder="Type your answer" autocomplete="off"><button class="quiz-submit" onclick="quizSubmitText()">Check</button></div>';
+    setTimeout(() => {
+      const inp = document.getElementById('quiz-text');
+      if (inp) {
+        inp.focus();
+        inp.addEventListener('keydown', e => { if (e.key === 'Enter') quizSubmitText(); });
+      }
+    }, 50);
+  }
+  updateQuizStats();
+}
+
+function normalizeAns(s) {
+  return String(s).trim().toLowerCase().replace(/\s+/g, '').replace(/,/g, '');
+}
+// Check if user answer matches expected. Handles numeric equivalence (8 == 8.0).
+function answersMatch(userRaw, expectedRaw) {
+  const u = normalizeAns(userRaw);
+  const e = normalizeAns(expectedRaw);
+  if (u === e) return true;
+  // If both parse as plain numbers, compare numerically
+  const uNum = Number(u);
+  const eNum = Number(e);
+  if (!isNaN(uNum) && !isNaN(eNum) && u !== '' && e !== '' && /^-?\d*\.?\d+$/.test(u) && /^-?\d*\.?\d+$/.test(e)) {
+    return Math.abs(uNum - eNum) < 0.0001;
+  }
+  return false;
+}
+
+function quizSubmitText() {
+  const inp = document.getElementById('quiz-text');
+  if (!inp) return;
+  showQuizFB(answersMatch(inp.value, currentQuiz.questions[currentQ].a));
+}
+
+function quizSubmitMC(idx, btn) {
+  const correctIdx = currentQuiz.questions[currentQ].a;
+  document.querySelectorAll('#quiz-input-area .quiz-mc').forEach(b => {
+    b.classList.add('disabled');
+    if (parseInt(b.dataset.idx) === correctIdx) b.classList.add('right-pick');
+  });
+  if (idx !== correctIdx) btn.classList.add('wrong-pick');
+  showQuizFB(idx === correctIdx);
+}
+
+function showQuizFB(right) {
+  const fb = document.getElementById('quiz-fb');
+  quizTotal++;
+  if (right) {
+    quizScore++;
+    fb.classList.add('show', 'right');
+    fb.innerHTML = '<strong>Correct.</strong><div class="quiz-fb-detail">' + currentQuiz.questions[currentQ].hint + '</div>';
+  } else {
+    fb.classList.add('show', 'wrong-fb');
+    fb.innerHTML = '<strong>Not quite.</strong> Answer: <strong>' + currentQuiz.questions[currentQ].a + '</strong><div class="quiz-fb-detail">' + currentQuiz.questions[currentQ].hint + '</div>';
+  }
+  updateQuizStats();
+  const area = document.getElementById('quiz-input-area');
+  const last = currentQ === currentQuiz.questions.length - 1;
+  area.insertAdjacentHTML('beforeend', '<button class="quiz-next" onclick="quizNext()" style="width:100%; margin-top:14px;">' + (last ? 'See Final Score →' : 'Next Question →') + '</button>');
+}
+
+function quizNext() {
+  currentQ++;
+  renderQuizQuestion();
+}
+
+function updateQuizStats() {
+  document.getElementById('quiz-score').textContent = quizScore;
+  document.getElementById('quiz-total').textContent = quizTotal;
+  document.getElementById('quiz-pct').textContent = quizTotal === 0 ? '0%' : Math.round(100 * quizScore / quizTotal) + '%';
+}
+
+function renderQuizComplete() {
+  const pct = quizTotal === 0 ? 0 : Math.round(100 * quizScore / quizTotal);
+  let message = '';
+  if (pct === 100) message = 'Perfect run. Every question correct.';
+  else if (pct >= 80) message = 'Strong work. You have the shape of this.';
+  else if (pct >= 60) message = 'Solid foundation. Re-read the section and try again to lock it in.';
+  else message = 'Worth another pass. Review the section and the worked examples, then come back.';
+
+  document.getElementById('quiz-progress').textContent = 'Complete';
+  document.getElementById('quiz-q').innerHTML = '<span style="font-family:Bricolage Grotesque; font-size:32px; font-weight:800; color:var(--accent-yellow);">' + pct + '%</span><br><span style="font-size:16px; color:var(--text-dim);">' + message + '</span>';
+  document.getElementById('quiz-fb').classList.remove('show');
+  document.getElementById('quiz-input-area').innerHTML =
+    '<button class="quiz-next" onclick="closeQuiz()" style="width:100%; margin-top:14px;">Done</button>' +
+    '<button class="quiz-skip" onclick="restartQuiz()" style="width:100%; margin-top:10px;">Retake This Quiz</button>';
+
+  // Save best score
+  const id = Object.keys(quizzes).find(k => quizzes[k] === currentQuiz);
+  try {
+    const prev = parseInt(localStorage.getItem('mathlab-quiz-' + id) || '0');
+    if (pct > prev) localStorage.setItem('mathlab-quiz-' + id, String(pct));
+  } catch(e) {}
+}
+
+function restartQuiz() {
+  currentQ = 0;
+  quizScore = 0;
+  quizTotal = 0;
+  renderQuizQuestion();
+}
+
+// =====================================================
+// PRACTICE ARENA - RANDOM PROBLEM GENERATORS
+// =====================================================
+function rint(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
+function gcd(a, b) { a = Math.abs(a); b = Math.abs(b); while (b) { [a, b] = [b, a % b]; } return a; }
+function simplifyFrac(n, d) { const g = gcd(n, d); return [n / g, d / g]; }
+function fracStr(n, d) { return n + '/' + d; }
+// Smart answer formatter: returns "1" for 1/1, "5" for 5/1, otherwise "n/d"
+function fracAns(n, d) {
+  const [sn, sd] = simplifyFrac(n, d);
+  return sd === 1 ? String(sn) : sn + '/' + sd;
+}
+
+const arenaGen = {
+  multiply: {
+    name: 'Multiplication',
+    easy: () => { const a = rint(2, 9), b = rint(2, 9); return { q: a + ' × ' + b, a: String(a * b), hint: 'Just times tables. ' + a + ' groups of ' + b + '.' }; },
+    medium: () => { const a = rint(10, 30), b = rint(10, 20); return { q: a + ' × ' + b, a: String(a * b), hint: 'Break apart and use partial products.' }; },
+    hard: () => { const a = rint(20, 99), b = rint(20, 99); return { q: a + ' × ' + b, a: String(a * b), hint: 'Break into tens and ones. Four pieces total.' }; }
+  },
+  divide: {
+    name: 'Long Division',
+    easy: () => { const d = rint(2, 9), q = rint(2, 12); const r = rint(0, d - 1); return { q: (d * q + r) + ' ÷ ' + d + (r > 0 ? ' (write as Q R remainder, like 5R2)' : ''), a: r === 0 ? String(q) : q + 'r' + r, hint: 'How many ' + d + 's fit? Leftover is the remainder.' }; },
+    medium: () => { const d = rint(3, 9), q = rint(20, 99); const r = rint(0, d - 1); return { q: (d * q + r) + ' ÷ ' + d + (r > 0 ? ' (format: Q R, like 23R4)' : ''), a: r === 0 ? String(q) : q + 'r' + r, hint: 'Divide step by step. Bring down each digit.' }; },
+    hard: () => { const d = rint(4, 12), q = rint(50, 250); const r = rint(0, d - 1); return { q: (d * q + r) + ' ÷ ' + d + (r > 0 ? ' (format: Q R)' : ''), a: r === 0 ? String(q) : q + 'r' + r, hint: 'Walk the staircase. Divide, multiply, subtract, bring down.' }; }
+  },
+  'dec-compare': {
+    name: 'Comparing Decimals',
+    easy: () => {
+      const a = (rint(1, 9) / 10).toFixed(1), b = (rint(1, 9) / 10).toFixed(1);
+      if (a === b) return arenaGen['dec-compare'].easy();
+      const ans = parseFloat(a) > parseFloat(b) ? '>' : '<';
+      return { q: a + ' ? ' + b + ' (answer with > or <)', a: ans, hint: 'Both are tenths. Just compare the numerators.' };
+    },
+    medium: () => {
+      const a = (rint(10, 99) / 100).toFixed(2), b = (rint(1, 9) / 10).toFixed(1);
+      if (parseFloat(a) === parseFloat(b)) return arenaGen['dec-compare'].medium();
+      const ans = parseFloat(a) > parseFloat(b) ? '>' : '<';
+      return { q: a + ' ? ' + b + ' (answer with > or <)', a: ans, hint: 'Pad to the same place value. Compare ' + a + ' to ' + b + '0.' };
+    },
+    hard: () => {
+      const a = (rint(100, 999) / 1000).toFixed(3), b = (rint(10, 99) / 100).toFixed(2);
+      if (parseFloat(a) === parseFloat(b)) return arenaGen['dec-compare'].hard();
+      const ans = parseFloat(a) > parseFloat(b) ? '>' : '<';
+      return { q: a + ' ? ' + b + ' (answer with > or <)', a: ans, hint: 'Trailing zeros help. Pad ' + b + ' to ' + b + '0.' };
+    }
+  },
+  'dec-add': {
+    name: 'Adding/Subtracting Decimals',
+    easy: () => {
+      const a = rint(10, 99) / 10, b = rint(10, 99) / 10;
+      const op = Math.random() > 0.5 ? '+' : '-';
+      let res = op === '+' ? a + b : a - b;
+      if (res < 0) { return arenaGen['dec-add'].easy(); }
+      return { q: a.toFixed(1) + ' ' + op + ' ' + b.toFixed(1), a: res.toFixed(1).replace(/\.0$/, ''), hint: 'Line up the decimal points before you add or subtract.' };
+    },
+    medium: () => {
+      const a = rint(100, 999) / 100, b = rint(10, 99) / 10;
+      const op = Math.random() > 0.5 ? '+' : '-';
+      let res = op === '+' ? a + b : a - b;
+      if (res < 0) { return arenaGen['dec-add'].medium(); }
+      return { q: a.toFixed(2) + ' ' + op + ' ' + b.toFixed(1), a: Number(res.toFixed(2)).toString(), hint: 'Pad to two decimal places: ' + b.toFixed(2) + '. Then line up.' };
+    },
+    hard: () => {
+      const a = rint(100, 999) / 100, b = rint(100, 999) / 100;
+      const op = Math.random() > 0.5 ? '+' : '-';
+      let res = op === '+' ? a + b : a - b;
+      if (res < 0) { return arenaGen['dec-add'].hard(); }
+      return { q: a.toFixed(2) + ' ' + op + ' ' + b.toFixed(2), a: Number(res.toFixed(2)).toString(), hint: 'Both have hundredths. Line up the dots.' };
+    }
+  },
+  'dec-mult': {
+    name: 'Multiplying Decimals',
+    easy: () => {
+      const a = rint(2, 9) / 10, b = rint(2, 9);
+      const res = +(a * b).toFixed(2);
+      return { q: a.toFixed(1) + ' × ' + b, a: Number(res).toString(), hint: 'Multiply as whole numbers, then one decimal place.' };
+    },
+    medium: () => {
+      const a = rint(11, 49) / 10, b = rint(11, 29) / 10;
+      const res = +(a * b).toFixed(2);
+      return { q: a.toFixed(1) + ' × ' + b.toFixed(1), a: Number(res).toString(), hint: 'Multiply whole numbers, then 2 decimal places (one from each).' };
+    },
+    hard: () => {
+      const a = rint(11, 99) / 10, b = rint(11, 99) / 100;
+      const res = +(a * b).toFixed(3);
+      return { q: a.toFixed(1) + ' × ' + b.toFixed(2), a: Number(res).toString(), hint: 'Count decimal places: 1 + 2 = 3. Multiply as whole numbers, then place 3 decimals.' };
+    }
+  },
+  'dec-div': {
+    name: 'Dividing Decimals',
+    easy: () => {
+      const d = rint(2, 5), q = rint(2, 9);
+      const dividend = (d * q) / 10;
+      return { q: dividend.toFixed(1) + ' ÷ ' + d, a: (q / 10).toFixed(1).replace(/\.0$/, ''), hint: 'Whole divisor. Carry the decimal up.' };
+    },
+    medium: () => {
+      const div = rint(2, 9) / 10, q = rint(2, 12);
+      const dividend = +(div * q).toFixed(1);
+      return { q: dividend + ' ÷ ' + div.toFixed(1), a: String(q), hint: 'Multiply both numbers by 10. Now divide whole numbers.' };
+    },
+    hard: () => {
+      const div = rint(2, 9) / 100, q = rint(2, 25);
+      const dividend = +(div * q).toFixed(2);
+      return { q: dividend + ' ÷ ' + div.toFixed(2), a: String(q), hint: 'Multiply both numbers by 100. Then divide.' };
+    }
+  },
+  'frac-add': {
+    name: 'Fraction Add/Subtract',
+    easy: () => {
+      const d = rint(3, 8), n1 = rint(1, d - 1), n2 = rint(1, d - n1);
+      return { q: fracStr(n1, d) + ' + ' + fracStr(n2, d), a: fracAns(n1 + n2, d), hint: 'Same denominator. Add the tops.' };
+    },
+    medium: () => {
+      const d1 = rint(2, 6), d2 = rint(2, 6);
+      if (d1 === d2) return arenaGen['frac-add'].medium();
+      const n1 = rint(1, d1 - 1), n2 = rint(1, d2 - 1);
+      const ld = d1 * d2;
+      const num = n1 * d2 + n2 * d1;
+      return { q: fracStr(n1, d1) + ' + ' + fracStr(n2, d2), a: fracAns(num, ld), hint: 'Common denominator ' + ld + '. Convert each, then add.' };
+    },
+    hard: () => {
+      const d1 = rint(3, 9), d2 = rint(3, 9);
+      if (d1 === d2) return arenaGen['frac-add'].hard();
+      const n1 = rint(1, d1 - 1), n2 = rint(1, d2 - 1);
+      const op = Math.random() > 0.5 ? '+' : '-';
+      const ld = d1 * d2;
+      const num = op === '+' ? n1 * d2 + n2 * d1 : n1 * d2 - n2 * d1;
+      if (num <= 0) return arenaGen['frac-add'].hard();
+      return { q: fracStr(n1, d1) + ' ' + op + ' ' + fracStr(n2, d2), a: fracAns(num, ld), hint: 'Common denominator is ' + ld + '. Convert both, then ' + (op === '+' ? 'add' : 'subtract') + '. Simplify.' };
+    }
+  },
+  'frac-mult': {
+    name: 'Fraction Multiplication',
+    easy: () => {
+      const n1 = rint(1, 4), d1 = rint(2, 6), n2 = rint(1, 4), d2 = rint(2, 6);
+      if (n1 >= d1 || n2 >= d2) return arenaGen['frac-mult'].easy();
+      return { q: fracStr(n1, d1) + ' × ' + fracStr(n2, d2), a: fracAns(n1 * n2, d1 * d2), hint: 'Multiply tops. Multiply bottoms. Then simplify.' };
+    },
+    medium: () => {
+      const n1 = rint(1, 8), d1 = rint(2, 10), n2 = rint(1, 8), d2 = rint(2, 10);
+      if (n1 >= d1 || n2 >= d2) return arenaGen['frac-mult'].medium();
+      const [sn, sd] = simplifyFrac(n1 * n2, d1 * d2);
+      const ans = sd === 1 ? String(sn) : fracStr(sn, sd);
+      return { q: fracStr(n1, d1) + ' × ' + fracStr(n2, d2), a: ans, hint: 'Tops × Tops. Bottoms × Bottoms. Simplify if possible.' };
+    },
+    hard: () => {
+      const w = rint(2, 9), n = rint(1, 7), d = rint(2, 10);
+      if (n >= d) return arenaGen['frac-mult'].hard();
+      const [sn, sd] = simplifyFrac(w * n, d);
+      const ans = sd === 1 ? String(sn) : fracStr(sn, sd);
+      return { q: w + ' × ' + fracStr(n, d), a: ans, hint: w + ' groups of ' + fracStr(n, d) + '. Multiply ' + w + ' by the top: ' + (w * n) + '/' + d + '.' };
+    }
+  },
+  'frac-div': {
+    name: 'Fraction Division',
+    easy: () => {
+      const n1 = rint(1, 5), d1 = rint(2, 7), n2 = rint(1, 5), d2 = rint(2, 7);
+      if (n1 >= d1 || n2 >= d2) return arenaGen['frac-div'].easy();
+      return { q: fracStr(n1, d1) + ' ÷ ' + fracStr(n2, d2), a: fracAns(n1 * d2, d1 * n2), hint: 'Keep, change, flip. ' + fracStr(n1, d1) + ' × ' + fracStr(d2, n2) + '. Simplify.' };
+    },
+    medium: () => {
+      const w = rint(2, 9), n = rint(1, 5), d = rint(2, 6);
+      if (n >= d) return arenaGen['frac-div'].medium();
+      const [sn, sd] = simplifyFrac(w * d, n);
+      const ans = sd === 1 ? String(sn) : fracStr(sn, sd);
+      return { q: w + ' ÷ ' + fracStr(n, d), a: ans, hint: 'How many ' + fracStr(n, d) + 's fit in ' + w + '? Keep, change, flip: ' + w + ' × ' + fracStr(d, n) + '.' };
+    },
+    hard: () => {
+      const n1 = rint(2, 9), d1 = rint(3, 11), n2 = rint(2, 9), d2 = rint(3, 11);
+      if (n1 >= d1 || n2 >= d2) return arenaGen['frac-div'].hard();
+      const [sn, sd] = simplifyFrac(n1 * d2, d1 * n2);
+      const ans = sd === 1 ? String(sn) : fracStr(sn, sd);
+      return { q: fracStr(n1, d1) + ' ÷ ' + fracStr(n2, d2), a: ans, hint: 'Flip the second. Then multiply: ' + fracStr(n1, d1) + ' × ' + fracStr(d2, n2) + '.' };
+    }
+  },
+  ratio: {
+    name: 'Ratios',
+    easy: () => {
+      const m = rint(2, 6), a = rint(1, 5), b = rint(1, 5);
+      if (a === b) return arenaGen.ratio.easy();
+      return { q: 'Simplify the ratio ' + (a * m) + ':' + (b * m) + ' (format like 3:5)', a: a + ':' + b, hint: 'Both sides share a factor of ' + m + '. Divide both by ' + m + '.' };
+    },
+    medium: () => {
+      const total = rint(60, 240), hours = rint(2, 6);
+      const rate = Math.floor(total / hours);
+      const realTotal = rate * hours;
+      return { q: 'A car travels ' + realTotal + ' miles in ' + hours + ' hours. What is the unit rate in mph?', a: String(rate), hint: 'Unit rate = total ÷ hours. ' + realTotal + ' ÷ ' + hours + '.' };
+    },
+    hard: () => {
+      const a = rint(2, 8), b = rint(2, 8), m = rint(3, 9);
+      if (a === b) return arenaGen.ratio.hard();
+      return { q: 'If the ratio is ' + a + ':' + b + ' and the first quantity is ' + (a * m) + ', what is the second?', a: String(b * m), hint: 'You scaled the first part by ' + m + '. Scale the second the same way: ' + b + ' × ' + m + '.' };
+    }
+  },
+  order: {
+    name: 'Order of Operations',
+    easy: () => {
+      const a = rint(2, 9), b = rint(2, 9), c = rint(2, 9);
+      const ans = a + b * c;
+      return { q: a + ' + ' + b + ' × ' + c, a: String(ans), hint: 'Multiplication first: ' + b + ' × ' + c + ' = ' + (b * c) + '. Then add ' + a + '.' };
+    },
+    medium: () => {
+      const a = rint(2, 9), b = rint(2, 9), c = rint(2, 6);
+      const ans = (a + b) * c;
+      return { q: '(' + a + ' + ' + b + ') × ' + c, a: String(ans), hint: 'Parentheses first: ' + (a + b) + '. Then × ' + c + '.' };
+    },
+    hard: () => {
+      const a = rint(12, 36), b = rint(2, 6), c = rint(2, 5), d = rint(2, 9);
+      while (a % b !== 0) { return arenaGen.order.hard(); }
+      const ans = a / b * c + d;
+      return { q: a + ' ÷ ' + b + ' × ' + c + ' + ' + d, a: String(ans), hint: 'Division and multiplication left to right: ' + (a / b) + ' × ' + c + ' = ' + (a / b * c) + '. Then + ' + d + '.' };
+    }
+  },
+  equation: {
+    name: 'Equations',
+    easy: () => {
+      const x = rint(2, 20), c = rint(1, 15);
+      const op = Math.random() > 0.5 ? '+' : '-';
+      const right = op === '+' ? x + c : x - c;
+      return { q: 'Solve: x ' + op + ' ' + c + ' = ' + right + ' (number only)', a: String(x), hint: 'Do the opposite of ' + op + ' ' + c + '. ' + (op === '+' ? 'Subtract' : 'Add') + ' ' + c + ' from both sides.' };
+    },
+    medium: () => {
+      const x = rint(2, 12), m = rint(2, 9);
+      return { q: 'Solve: ' + m + 'x = ' + (m * x), a: String(x), hint: 'Divide both sides by ' + m + '.' };
+    },
+    hard: () => {
+      const x = rint(2, 12), m = rint(2, 7), c = rint(1, 10);
+      const op = Math.random() > 0.5 ? '+' : '-';
+      const right = op === '+' ? m * x + c : m * x - c;
+      return { q: 'Solve: ' + m + 'x ' + op + ' ' + c + ' = ' + right, a: String(x), hint: (op === '+' ? 'Subtract' : 'Add') + ' ' + c + ' first. Then divide by ' + m + '.' };
+    }
+  }
+};
+
+// =====================================================
+// ARENA STATE
+// =====================================================
+let arenaTopic = null;
+let arenaDiff = 'easy';
+let arenaCurrent = null;
+let arenaScore = 0;
+let arenaStreak = 0;
+let arenaBest = 0;
+
+document.querySelectorAll('.topic-card').forEach(card => {
+  card.addEventListener('click', () => {
+    arenaTopic = card.dataset.topic;
+    arenaDiff = 'easy';
+    arenaScore = 0;
+    arenaStreak = 0;
+    try { arenaBest = parseInt(localStorage.getItem('mathlab-arena-best-' + arenaTopic) || '0'); } catch(e) { arenaBest = 0; }
+    document.getElementById('arena-topic-name').textContent = arenaGen[arenaTopic].name;
+    document.getElementById('arena-topic-grid').style.display = 'none';
+    document.getElementById('arena-play').classList.add('show');
+    document.querySelectorAll('.diff-btn').forEach(b => b.classList.toggle('active', b.dataset.diff === 'easy'));
+    updateArenaStats();
+    nextArenaProblem();
+    document.getElementById('arena').scrollIntoView({ behavior: 'smooth' });
+  });
+});
+
+document.querySelectorAll('.diff-btn').forEach(b => {
+  b.addEventListener('click', () => {
+    document.querySelectorAll('.diff-btn').forEach(x => x.classList.remove('active'));
+    b.classList.add('active');
+    arenaDiff = b.dataset.diff;
+    nextArenaProblem();
+  });
+});
+
+function backToArenaMenu() {
+  document.getElementById('arena-play').classList.remove('show');
+  document.getElementById('arena-topic-grid').style.display = '';
+}
+
+function nextArenaProblem() {
+  arenaCurrent = arenaGen[arenaTopic][arenaDiff]();
+  document.getElementById('arena-q-text').textContent = arenaCurrent.q;
+  document.getElementById('arena-feedback').className = 'arena-feedback';
+  document.getElementById('arena-feedback').innerHTML = '';
+  const inp = document.getElementById('arena-answer');
+  inp.value = '';
+  inp.disabled = false;
+  inp.focus();
+}
+
+function arenaSubmit() {
+  if (!arenaCurrent) return;
+  const inp = document.getElementById('arena-answer');
+  if (!inp.value.trim()) return;
+  const fb = document.getElementById('arena-feedback');
+
+  if (answersMatch(inp.value, arenaCurrent.a)) {
+    arenaScore++;
+    arenaStreak++;
+    if (arenaStreak > arenaBest) {
+      arenaBest = arenaStreak;
+      try { localStorage.setItem('mathlab-arena-best-' + arenaTopic, String(arenaBest)); } catch(e) {}
+    }
+    fb.className = 'arena-feedback right';
+    fb.innerHTML = '✓ Correct!' + (arenaStreak >= 3 ? ' Streak: ' + arenaStreak + ' 🔥' : '');
+    updateArenaStats();
+    inp.disabled = true;
+    setTimeout(nextArenaProblem, 1200);
+  } else {
+    arenaStreak = 0;
+    fb.className = 'arena-feedback wrong';
+    fb.innerHTML = '✗ Answer: <strong>' + arenaCurrent.a + '</strong><span class="hint">' + arenaCurrent.hint + '</span>';
+    updateArenaStats();
+    inp.disabled = true;
+    setTimeout(() => { nextArenaProblem(); }, 2800);
+  }
+}
+
+function arenaSkip() {
+  if (!arenaCurrent) return;
+  arenaStreak = 0;
+  const fb = document.getElementById('arena-feedback');
+  fb.className = 'arena-feedback wrong';
+  fb.innerHTML = 'Skipped. Answer: <strong>' + arenaCurrent.a + '</strong><span class="hint">' + arenaCurrent.hint + '</span>';
+  updateArenaStats();
+  setTimeout(nextArenaProblem, 1800);
+}
+
+function updateArenaStats() {
+  document.getElementById('arena-score').textContent = arenaScore;
+  document.getElementById('arena-streak').textContent = arenaStreak;
+  document.getElementById('arena-best').textContent = arenaBest;
+}
+
+// Enter to submit in arena
+document.getElementById('arena-answer').addEventListener('keydown', e => {
+  if (e.key === 'Enter' && !document.getElementById('arena-answer').disabled) arenaSubmit();
+});
+
+// Trigger initial scroll spy
+window.dispatchEvent(new Event('scroll'));
+</script>
+
+</body>
+</html>
