@@ -891,6 +891,696 @@ p.prose strong { color: var(--text); font-weight: 600; }
 .arena-row .quiz-input { font-size: 22px; text-align: center; }
 .arena-row button { white-space: nowrap; }
 
+/* ============ WALKTHROUGH ============ */
+.walk-section {
+  padding: 100px 0 80px;
+  border-top: 2px solid var(--accent-cyan);
+  background: radial-gradient(ellipse 80% 50% at 50% 0%, rgba(94, 234, 212, 0.08), transparent 70%);
+}
+.walk-title {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: clamp(48px, 8vw, 88px);
+  text-align: center;
+  letter-spacing: -0.04em;
+  line-height: 0.95;
+  margin-bottom: 20px;
+}
+.walk-title .cyan { color: var(--accent-cyan); }
+.walk-title .violet { color: var(--accent-violet); }
+.walk-sub {
+  text-align: center;
+  color: var(--text-dim);
+  font-size: 19px;
+  max-width: 580px;
+  margin: 0 auto 56px;
+}
+.walk-shell {
+  max-width: 720px;
+  margin: 0 auto;
+  background: var(--bg-mid);
+  border: 1px solid var(--line-strong);
+  border-radius: 20px;
+  padding: 36px;
+}
+.walk-input-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+.walk-input {
+  flex: 1;
+  background: var(--surface-strong);
+  border: 2px solid var(--line);
+  color: var(--text);
+  padding: 16px 20px;
+  border-radius: 12px;
+  font-family: var(--mono);
+  font-size: 22px;
+  outline: none;
+  text-align: center;
+}
+.walk-input:focus { border-color: var(--accent-cyan); }
+.walk-input::placeholder { color: var(--text-faint); font-size: 17px; }
+.walk-start {
+  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-violet));
+  color: var(--bg-deep);
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 17px;
+  padding: 0 28px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  white-space: nowrap;
+  letter-spacing: -0.01em;
+}
+.walk-start:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(94, 234, 212, 0.3); }
+.walk-examples {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+.walk-ex-btn {
+  background: transparent;
+  border: 1px solid var(--line);
+  color: var(--text-faint);
+  padding: 6px 12px;
+  border-radius: 16px;
+  font-family: var(--mono);
+  font-size: 12px;
+  cursor: pointer;
+}
+.walk-ex-btn:hover { border-color: var(--accent-cyan); color: var(--accent-cyan); }
+.walk-error {
+  background: rgba(255, 107, 157, 0.12);
+  border: 1px solid var(--wrong);
+  color: var(--wrong);
+  padding: 14px 18px;
+  border-radius: 10px;
+  font-size: 15px;
+  margin-bottom: 16px;
+  display: none;
+}
+.walk-error.show { display: block; }
+
+.walk-progress-bar {
+  display: none;
+  margin-bottom: 24px;
+}
+.walk-progress-bar.show { display: block; }
+.walk-progress-text {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent-cyan);
+  margin-bottom: 8px;
+}
+.walk-progress-track {
+  height: 6px;
+  background: var(--surface-strong);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.walk-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent-cyan), var(--accent-violet));
+  border-radius: 3px;
+  width: 0%;
+  transition: width 0.4s ease;
+}
+
+.walk-problem-header {
+  display: none;
+  text-align: center;
+  margin-bottom: 24px;
+  padding: 20px;
+  background: var(--surface);
+  border-radius: 12px;
+  border: 1px solid var(--line);
+}
+.walk-problem-header.show { display: block; }
+.walk-problem-header-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  margin-bottom: 8px;
+}
+.walk-problem-header-text {
+  font-family: var(--mono);
+  font-size: 32px;
+  font-weight: 600;
+  color: var(--accent-yellow);
+}
+
+.walk-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+.walk-step {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 22px;
+  opacity: 0;
+  transform: translateY(15px);
+  animation: stepIn 0.4s forwards;
+}
+@keyframes stepIn {
+  to { opacity: 1; transform: translateY(0); }
+}
+.walk-step.final {
+  background: linear-gradient(135deg, rgba(94, 234, 212, 0.15), rgba(255, 217, 61, 0.1));
+  border: 2px solid var(--accent-yellow);
+}
+.walk-step-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent-cyan);
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+.walk-step.final .walk-step-label { color: var(--accent-yellow); }
+.walk-step-explain {
+  color: var(--text-dim);
+  font-size: 16px;
+  margin-bottom: 12px;
+  line-height: 1.55;
+}
+.walk-step-explain strong { color: var(--text); font-weight: 600; }
+.walk-step-math {
+  font-family: var(--mono);
+  font-size: 22px;
+  color: var(--text);
+  background: var(--bg-deep);
+  padding: 14px 18px;
+  border-radius: 8px;
+  border-left: 3px solid var(--accent-cyan);
+  font-weight: 500;
+}
+.walk-step.final .walk-step-math {
+  border-left-color: var(--accent-yellow);
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--accent-yellow);
+  text-align: center;
+}
+.walk-step-summary {
+  font-style: italic;
+  color: var(--text-dim);
+  font-size: 14px;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px dashed var(--line);
+}
+
+.walk-actions {
+  display: none;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.walk-actions.show { display: flex; }
+.walk-more {
+  flex: 1;
+  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-violet));
+  color: var(--bg-deep);
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 17px;
+  padding: 16px 24px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  letter-spacing: -0.01em;
+  min-width: 200px;
+}
+.walk-more:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(94, 234, 212, 0.3); }
+.walk-reset {
+  background: transparent;
+  color: var(--text-faint);
+  border: 1px solid var(--line);
+  font-family: var(--mono);
+  font-size: 13px;
+  padding: 16px 20px;
+  border-radius: 12px;
+  cursor: pointer;
+}
+.walk-reset:hover { border-color: var(--accent-pink); color: var(--accent-pink); }
+
+@media (max-width: 600px) {
+  .walk-shell { padding: 24px 20px; }
+  .walk-input { font-size: 18px; padding: 14px; }
+  .walk-input-row { flex-direction: column; }
+  .walk-start { padding: 14px; }
+  .walk-problem-header-text { font-size: 24px; }
+  .walk-step-math { font-size: 18px; }
+}
+
+/* ============ WALKTHROUGH CALCULATOR ============ */
+.walk {
+  padding: 100px 0 80px;
+  border-top: 2px solid var(--accent-cyan);
+  background: radial-gradient(ellipse 80% 50% at 50% 0%, rgba(94, 234, 212, 0.08), transparent 70%);
+}
+
+/* Predict mode toggle */
+.walk-mode-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin-bottom: 24px;
+  padding: 14px 20px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
+.walk-mode-label {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+.walk-mode-toggle {
+  position: relative;
+  width: 52px;
+  height: 28px;
+  background: var(--surface-strong);
+  border: 1.5px solid var(--line);
+  border-radius: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.walk-mode-toggle::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 20px;
+  height: 20px;
+  background: var(--text-faint);
+  border-radius: 50%;
+  transition: all 0.2s ease;
+}
+.walk-mode-toggle.active {
+  background: var(--accent-yellow);
+  border-color: var(--accent-yellow);
+}
+.walk-mode-toggle.active::after {
+  left: 28px;
+  background: var(--bg-deep);
+}
+.walk-mode-hint {
+  font-family: var(--body);
+  font-size: 13px;
+  color: var(--text-faint);
+  text-align: center;
+  max-width: 320px;
+}
+
+/* Predict prompt card */
+.walk-predict {
+  background: linear-gradient(135deg, rgba(255, 217, 61, 0.1), rgba(255, 107, 157, 0.08));
+  border: 2px dashed var(--accent-yellow);
+  border-radius: 14px;
+  padding: 22px 24px;
+  opacity: 0;
+  transform: translateY(12px);
+  animation: stepIn 0.45s forwards ease-out;
+}
+.walk-predict-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent-yellow);
+  margin-bottom: 8px;
+  font-weight: 700;
+}
+.walk-predict-q {
+  font-family: var(--display);
+  font-size: 18px;
+  color: var(--text);
+  margin-bottom: 14px;
+}
+.walk-predict-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.walk-predict-input {
+  flex: 1;
+  background: var(--surface-strong);
+  border: 2px solid var(--line);
+  color: var(--text);
+  padding: 12px 16px;
+  border-radius: 10px;
+  font-family: var(--mono);
+  font-size: 18px;
+  outline: none;
+  min-width: 120px;
+  text-align: center;
+}
+.walk-predict-input:focus { border-color: var(--accent-yellow); }
+.walk-predict-check {
+  background: var(--accent-yellow);
+  color: var(--bg-deep);
+  border: none;
+  padding: 12px 22px;
+  border-radius: 10px;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+}
+.walk-predict-skip {
+  background: transparent;
+  border: 1px solid var(--line);
+  color: var(--text-faint);
+  padding: 12px 18px;
+  border-radius: 10px;
+  font-family: var(--mono);
+  font-size: 13px;
+  cursor: pointer;
+}
+.walk-predict-skip:hover { color: var(--text); }
+.walk-predict-fb {
+  margin-top: 12px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: var(--mono);
+  display: none;
+}
+.walk-predict-fb.right {
+  background: rgba(94, 234, 212, 0.12);
+  border: 1px solid var(--correct);
+  color: var(--correct);
+  display: block;
+}
+.walk-predict-fb.wrong {
+  background: rgba(255, 107, 157, 0.12);
+  border: 1px solid var(--wrong);
+  color: var(--wrong);
+  display: block;
+}
+.walk-predict-continue {
+  margin-top: 12px;
+  background: var(--accent-cyan);
+  color: var(--bg-deep);
+  border: none;
+  padding: 12px 22px;
+  border-radius: 10px;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+  width: 100%;
+}
+
+/* Step visual (area model) */
+.walk-step-visual {
+  margin-top: 14px;
+  padding: 14px;
+  background: var(--bg-deep);
+  border-radius: 10px;
+}
+
+/* Miss review cards (quiz) */
+.miss-review {
+  margin: 24px 0 16px;
+  text-align: left;
+}
+.miss-review-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--wrong);
+  margin-bottom: 14px;
+  font-weight: 700;
+}
+.miss-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--wrong);
+  border-radius: 10px;
+  padding: 16px 18px;
+  margin-bottom: 12px;
+}
+.miss-q {
+  font-family: var(--display);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 10px;
+  letter-spacing: -0.005em;
+}
+.miss-row {
+  font-family: var(--mono);
+  font-size: 13px;
+  margin-bottom: 4px;
+  color: var(--text-dim);
+}
+.miss-label {
+  color: var(--text-faint);
+  font-weight: 500;
+}
+.miss-wrong { color: var(--wrong); text-decoration: line-through; opacity: 0.85; }
+.miss-right { color: var(--correct); font-weight: 700; }
+.miss-hint {
+  font-family: var(--body);
+  font-size: 13px;
+  color: var(--text-dim);
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid var(--line);
+  font-style: italic;
+}
+.quiz-retry-misses {
+  background: var(--accent-pink);
+  color: var(--bg-deep);
+  border: none;
+  padding: 14px 20px;
+  border-radius: 10px;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 8px;
+}
+.walk-title {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: clamp(48px, 8vw, 88px);
+  text-align: center;
+  letter-spacing: -0.04em;
+  line-height: 0.95;
+  margin-bottom: 20px;
+}
+.walk-title .cyan { color: var(--accent-cyan); }
+.walk-title .violet { color: var(--accent-violet); }
+.walk-sub {
+  text-align: center;
+  color: var(--text-dim);
+  font-size: 19px;
+  max-width: 580px;
+  margin: 0 auto 56px;
+}
+.walk-box {
+  max-width: 720px;
+  margin: 0 auto;
+  background: var(--bg-mid);
+  border: 1px solid var(--line-strong);
+  border-radius: 20px;
+  padding: 36px;
+}
+.walk-input-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+.walk-input {
+  flex: 1;
+  background: var(--surface-strong);
+  border: 2px solid var(--line);
+  color: var(--text);
+  padding: 16px 20px;
+  border-radius: 12px;
+  font-family: var(--mono);
+  font-size: 22px;
+  outline: none;
+  text-align: center;
+}
+.walk-input:focus { border-color: var(--accent-cyan); }
+.walk-start {
+  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-violet));
+  color: var(--bg-deep);
+  border: none;
+  padding: 16px 28px;
+  border-radius: 12px;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 17px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: transform 0.15s;
+}
+.walk-start:hover { transform: translateY(-2px); }
+.walk-examples {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 24px;
+  justify-content: center;
+}
+.walk-ex {
+  background: transparent;
+  border: 1px solid var(--line);
+  color: var(--text-faint);
+  padding: 6px 14px;
+  border-radius: 16px;
+  font-family: var(--mono);
+  font-size: 13px;
+  cursor: pointer;
+}
+.walk-ex:hover { border-color: var(--accent-cyan); color: var(--accent-cyan); }
+.walk-error {
+  background: rgba(255, 107, 157, 0.1);
+  border: 1px solid var(--wrong);
+  color: var(--wrong);
+  padding: 14px 18px;
+  border-radius: 10px;
+  margin-bottom: 16px;
+  font-size: 15px;
+  display: none;
+}
+.walk-error.show { display: block; }
+.walk-progress {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent-cyan);
+  margin: 8px 0 16px;
+  text-align: center;
+}
+.walk-progress-bar {
+  height: 4px;
+  background: var(--surface);
+  border-radius: 2px;
+  margin: 8px 0 24px;
+  overflow: hidden;
+}
+.walk-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent-cyan), var(--accent-violet));
+  border-radius: 2px;
+  width: 0%;
+  transition: width 0.4s ease;
+}
+.walk-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+.walk-step {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--accent-cyan);
+  border-radius: 12px;
+  padding: 22px 24px;
+  opacity: 0;
+  transform: translateY(12px);
+  animation: stepIn 0.45s forwards ease-out;
+}
+.walk-step.current { border-left-color: var(--accent-yellow); }
+.walk-step.final { border-left-color: var(--accent-pink); background: linear-gradient(135deg, rgba(255, 107, 157, 0.08), rgba(255, 217, 61, 0.08)); }
+@keyframes stepIn {
+  to { opacity: 1; transform: translateY(0); }
+}
+.walk-step-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+.walk-step.final .walk-step-label { color: var(--accent-pink); }
+.walk-step-title {
+  font-family: var(--display);
+  font-size: 19px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: var(--text);
+  letter-spacing: -0.01em;
+}
+.walk-step-explain {
+  color: var(--text-dim);
+  font-size: 16px;
+  margin-bottom: 14px;
+  line-height: 1.55;
+}
+.walk-step-math {
+  font-family: var(--mono);
+  font-size: 20px;
+  color: var(--accent-yellow);
+  background: var(--bg-deep);
+  padding: 14px 18px;
+  border-radius: 8px;
+  white-space: pre-wrap;
+  line-height: 1.5;
+}
+.walk-step.final .walk-step-math {
+  color: var(--accent-cyan);
+  font-size: 24px;
+  font-weight: 700;
+}
+.walk-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.walk-more {
+  flex: 1;
+  background: var(--accent-yellow);
+  color: var(--bg-deep);
+  border: none;
+  padding: 16px 24px;
+  border-radius: 12px;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 17px;
+  cursor: pointer;
+  transition: transform 0.15s;
+  min-width: 180px;
+}
+.walk-more:hover { transform: translateY(-2px); }
+.walk-restart {
+  background: transparent;
+  color: var(--text-faint);
+  border: 1px solid var(--line);
+  padding: 16px 20px;
+  border-radius: 12px;
+  font-family: var(--mono);
+  font-size: 14px;
+  cursor: pointer;
+}
+.walk-restart:hover { border-color: var(--accent-pink); color: var(--accent-pink); }
+
 /* ============ FOOTER ============ */
 footer {
   padding: 60px 24px 80px;
@@ -962,6 +1652,8 @@ footer p + p { margin-top: 8px; }
       <button class="daybtn" data-target="day-9">D9</button>
       <button class="daybtn" data-target="day-10">D10</button>
       <button class="daybtn practice" data-target="arena">Practice</button>
+      <button class="daybtn practice" data-target="walk" style="background:linear-gradient(135deg, #5eead4, #b794f6);">Walkthrough</button>
+      <button class="daybtn practice" data-target="walkthrough" style="background:linear-gradient(135deg,var(--accent-cyan),var(--accent-violet));">Walkthrough</button>
     </div>
   </div>
 </nav>
@@ -1771,6 +2463,46 @@ footer p + p { margin-top: 8px; }
 </div>
 </section>
 
+<!-- =================== WALKTHROUGH CALCULATOR =================== -->
+<section class="walk" id="walk">
+<div class="container">
+  <h2 class="walk-title">WALKTHROUGH<br><span class="cyan">CALCULATOR</span></h2>
+  <p class="walk-sub">Enter a multiplication or division problem. We will solve it one step at a time. No shortcuts, no skipping ahead.</p>
+
+  <div class="walk-box">
+    <div class="walk-mode-row">
+      <span class="walk-mode-label">Predict Mode</span>
+      <div class="walk-mode-toggle" id="walk-predict-toggle" onclick="togglePredictMode()"></div>
+      <span class="walk-mode-hint" id="walk-predict-hint">Off. The app reveals each step when you click.</span>
+    </div>
+    <div class="walk-input-row">
+      <input class="walk-input" id="walk-input" placeholder="48 × 23  or  156 ÷ 12" autocomplete="off">
+      <button class="walk-start" onclick="walkStart()">Start</button>
+    </div>
+    <div class="walk-examples">
+      <button class="walk-ex" data-ex="48 × 23">48 × 23</button>
+      <button class="walk-ex" data-ex="156 ÷ 12">156 ÷ 12</button>
+      <button class="walk-ex" data-ex="346 × 27">346 × 27</button>
+      <button class="walk-ex" data-ex="725 ÷ 4">725 ÷ 4</button>
+      <button class="walk-ex" data-ex="84 × 56">84 × 56</button>
+      <button class="walk-ex" data-ex="432 ÷ 12">432 ÷ 12</button>
+    </div>
+
+    <div class="walk-error" id="walk-error"></div>
+
+    <div id="walk-active" style="display:none;">
+      <div class="walk-progress" id="walk-progress">Step 1 of 7</div>
+      <div class="walk-progress-bar"><div class="walk-progress-fill" id="walk-progress-fill"></div></div>
+      <div class="walk-steps" id="walk-steps"></div>
+      <div class="walk-actions">
+        <button class="walk-more" id="walk-more" onclick="walkMore()">Get more →</button>
+        <button class="walk-restart" onclick="walkReset()">New problem</button>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
 </main>
 
 <!-- VOCAB MODAL -->
@@ -2002,6 +2734,7 @@ let currentQuiz = null;
 let currentQ = 0;
 let quizScore = 0;
 let quizTotal = 0;
+let quizMisses = []; // { q, correct, userAns, hint }
 
 document.querySelectorAll('.quiz-launch').forEach(btn => {
   btn.addEventListener('click', () => {
@@ -2011,6 +2744,7 @@ document.querySelectorAll('.quiz-launch').forEach(btn => {
     currentQ = 0;
     quizScore = 0;
     quizTotal = 0;
+    quizMisses = [];
     document.getElementById('quiz-title').textContent = currentQuiz.title;
     renderQuizQuestion();
     openModal('quiz-modal');
@@ -2070,7 +2804,8 @@ function answersMatch(userRaw, expectedRaw) {
 function quizSubmitText() {
   const inp = document.getElementById('quiz-text');
   if (!inp) return;
-  showQuizFB(answersMatch(inp.value, currentQuiz.questions[currentQ].a));
+  const userAns = inp.value.trim();
+  showQuizFB(answersMatch(userAns, currentQuiz.questions[currentQ].a), userAns);
 }
 
 function quizSubmitMC(idx, btn) {
@@ -2080,19 +2815,29 @@ function quizSubmitMC(idx, btn) {
     if (parseInt(b.dataset.idx) === correctIdx) b.classList.add('right-pick');
   });
   if (idx !== correctIdx) btn.classList.add('wrong-pick');
-  showQuizFB(idx === correctIdx);
+  showQuizFB(idx === correctIdx, btn.textContent);
 }
 
-function showQuizFB(right) {
+function showQuizFB(right, userAns) {
   const fb = document.getElementById('quiz-fb');
   quizTotal++;
+  const qData = currentQuiz.questions[currentQ];
   if (right) {
     quizScore++;
     fb.classList.add('show', 'right');
-    fb.innerHTML = '<strong>Correct.</strong><div class="quiz-fb-detail">' + currentQuiz.questions[currentQ].hint + '</div>';
+    fb.innerHTML = '<strong>Correct.</strong><div class="quiz-fb-detail">' + qData.hint + '</div>';
   } else {
     fb.classList.add('show', 'wrong-fb');
-    fb.innerHTML = '<strong>Not quite.</strong> Answer: <strong>' + currentQuiz.questions[currentQ].a + '</strong><div class="quiz-fb-detail">' + currentQuiz.questions[currentQ].hint + '</div>';
+    fb.innerHTML = '<strong>Not quite.</strong> Answer: <strong>' + qData.a + '</strong><div class="quiz-fb-detail">' + qData.hint + '</div>';
+    // Track this miss for review
+    const correctAnsDisplay = qData.type === 'mc' ? qData.opts[qData.a] : qData.a;
+    quizMisses.push({
+      q: qData.q,
+      correct: correctAnsDisplay,
+      userAns: userAns || '(no answer)',
+      hint: qData.hint,
+      originalIdx: currentQ
+    });
   }
   updateQuizStats();
   const area = document.getElementById('quiz-input-area');
@@ -2122,9 +2867,31 @@ function renderQuizComplete() {
   document.getElementById('quiz-progress').textContent = 'Complete';
   document.getElementById('quiz-q').innerHTML = '<span style="font-family:Bricolage Grotesque; font-size:32px; font-weight:800; color:var(--accent-yellow);">' + pct + '%</span><br><span style="font-size:16px; color:var(--text-dim);">' + message + '</span>';
   document.getElementById('quiz-fb').classList.remove('show');
-  document.getElementById('quiz-input-area').innerHTML =
-    '<button class="quiz-next" onclick="closeQuiz()" style="width:100%; margin-top:14px;">Done</button>' +
-    '<button class="quiz-skip" onclick="restartQuiz()" style="width:100%; margin-top:10px;">Retake This Quiz</button>';
+
+  // Build miss review if there were any
+  let missHtml = '';
+  if (quizMisses.length > 0) {
+    missHtml = '<div class="miss-review">';
+    missHtml += '<div class="miss-review-label">Review ▸ ' + quizMisses.length + ' missed</div>';
+    quizMisses.forEach(miss => {
+      missHtml += '<div class="miss-card">';
+      missHtml += '<div class="miss-q">' + miss.q + '</div>';
+      missHtml += '<div class="miss-row"><span class="miss-label">You said: </span><span class="miss-wrong">' + miss.userAns + '</span></div>';
+      missHtml += '<div class="miss-row"><span class="miss-label">Answer: </span><span class="miss-right">' + miss.correct + '</span></div>';
+      missHtml += '<div class="miss-hint">' + miss.hint + '</div>';
+      missHtml += '</div>';
+    });
+    missHtml += '</div>';
+  }
+
+  let buttonsHtml = '';
+  if (quizMisses.length > 0) {
+    buttonsHtml += '<button class="quiz-retry-misses" onclick="retryMisses()">Retry just the misses (' + quizMisses.length + ')</button>';
+  }
+  buttonsHtml += '<button class="quiz-next" onclick="restartQuiz()" style="width:100%; margin-top:8px;">Retake whole quiz</button>';
+  buttonsHtml += '<button class="quiz-skip" onclick="closeQuiz()" style="width:100%; margin-top:8px;">Done</button>';
+
+  document.getElementById('quiz-input-area').innerHTML = missHtml + buttonsHtml;
 
   // Save best score
   const id = Object.keys(quizzes).find(k => quizzes[k] === currentQuiz);
@@ -2134,10 +2901,26 @@ function renderQuizComplete() {
   } catch(e) {}
 }
 
+function retryMisses() {
+  // Build a temporary quiz with only the missed questions
+  const missedQs = quizMisses.map(m => currentQuiz.questions[m.originalIdx]);
+  currentQuiz = {
+    title: currentQuiz.title + ' (retry)',
+    questions: missedQs
+  };
+  document.getElementById('quiz-title').textContent = currentQuiz.title;
+  currentQ = 0;
+  quizScore = 0;
+  quizTotal = 0;
+  quizMisses = [];
+  renderQuizQuestion();
+}
+
 function restartQuiz() {
   currentQ = 0;
   quizScore = 0;
   quizTotal = 0;
+  quizMisses = [];
   renderQuizQuestion();
 }
 
@@ -2475,6 +3258,550 @@ function updateArenaStats() {
 // Enter to submit in arena
 document.getElementById('arena-answer').addEventListener('keydown', e => {
   if (e.key === 'Enter' && !document.getElementById('arena-answer').disabled) arenaSubmit();
+});
+
+// =====================================================
+// WALKTHROUGH CALCULATOR
+// =====================================================
+let walkSteps = [];
+let walkRevealed = 0;
+
+function walkParse(raw) {
+  // Normalize: lowercase, strip spaces, unify operators
+  const s = String(raw).trim().toLowerCase()
+    .replace(/×/g, '*')
+    .replace(/x/g, '*')
+    .replace(/÷/g, '/');
+  // Reject letters (after operator substitution)
+  if (/[a-z]/.test(s)) return { error: 'Please enter a multiplication or division problem using numbers.' };
+  // Reject + or -
+  if (/[+\-]/.test(s)) return { error: 'This walkthrough currently supports multiplication and division.' };
+  // Match number op number
+  const m = s.match(/^(\d+(?:\.\d+)?)\s*([*/])\s*(\d+(?:\.\d+)?)$/);
+  if (!m) return { error: 'Please enter a problem like 48 × 23 or 156 ÷ 12.' };
+  const a = parseFloat(m[1]);
+  const op = m[2];
+  const b = parseFloat(m[3]);
+  if (!Number.isInteger(a) || !Number.isInteger(b)) return { error: 'For now, this walkthrough only supports whole numbers. Decimals are coming soon.' };
+  if (op === '/' && b === 0) return { error: 'You cannot divide by zero. Try another division problem.' };
+  if (op === '*' && (a > 999 || b > 999)) return { error: 'That problem is a little too large for this walkthrough. Try 3-digit numbers or smaller.' };
+  if (op === '/' && (a > 9999 || b > 99)) return { error: 'That problem is a little too large for this walkthrough. Try a 4-digit number divided by a 2-digit number.' };
+  return { a, b, op };
+}
+
+function fmt(n) { return n.toLocaleString('en-US'); }
+
+// Break a number into place-value pieces. 23 -> [20, 3]. 346 -> [300, 40, 6].
+function placeValueBreakdown(n) {
+  const pieces = [];
+  const digits = String(n).split('').reverse();
+  digits.forEach((d, i) => {
+    const val = parseInt(d) * Math.pow(10, i);
+    if (val > 0) pieces.unshift(val);
+  });
+  return pieces;
+}
+
+// Build a times-table string for n × 1 through n × upTo
+function buildTimesTable(n, upTo) {
+  const lines = [];
+  for (let i = 1; i <= upTo; i++) {
+    lines.push(fmt(n) + ' × ' + i + ' = ' + fmt(n * i));
+  }
+  return lines.join('\n');
+}
+
+// Build an SVG area model showing pieces of `broken` (height) × pieces of `kept` (width)
+function buildAreaModelSVG(broken, kept) {
+  const brokenPieces = placeValueBreakdown(broken);
+  const keptPieces = placeValueBreakdown(kept);
+  const W = 500, H = 320;
+  const PAD_L = 60, PAD_T = 45, PAD_R = 20, PAD_B = 50;
+  const innerW = W - PAD_L - PAD_R;
+  const innerH = H - PAD_T - PAD_B;
+  const minRatio = 0.18; // boost tiny pieces so labels fit
+
+  function scaledSizes(pieces, total, dim) {
+    const raw = pieces.map(p => p / total);
+    const adj = raw.map(r => Math.max(r, minRatio));
+    const sum = adj.reduce((a, b) => a + b, 0);
+    return adj.map(r => (r / sum) * dim);
+  }
+
+  const widths = scaledSizes(keptPieces, kept, innerW);
+  const heights = scaledSizes(brokenPieces, broken, innerH);
+  const colors = ['#ffd93d', '#5eead4', '#ff6b9d', '#b794f6', '#ffa07a', '#a8b1ce'];
+
+  let svg = '<svg viewBox="0 0 ' + W + ' ' + H + '" xmlns="http://www.w3.org/2000/svg" style="width:100%; max-width:500px; display:block; margin:0 auto;">';
+
+  // Top labels: kept pieces
+  let xCum = PAD_L;
+  keptPieces.forEach((kp, i) => {
+    svg += '<text x="' + (xCum + widths[i] / 2) + '" y="28" text-anchor="middle" fill="#ffd93d" font-family="JetBrains Mono" font-size="15" font-weight="700">' + fmt(kp) + '</text>';
+    if (i < keptPieces.length - 1) {
+      svg += '<text x="' + (xCum + widths[i] - 2) + '" y="28" text-anchor="middle" fill="#a8b1ce" font-family="JetBrains Mono" font-size="14">+</text>';
+    }
+    xCum += widths[i];
+  });
+
+  // Left labels: broken pieces
+  let yCum = PAD_T;
+  brokenPieces.forEach((bp, i) => {
+    svg += '<text x="' + (PAD_L - 12) + '" y="' + (yCum + heights[i] / 2 + 5) + '" text-anchor="end" fill="#ffd93d" font-family="JetBrains Mono" font-size="15" font-weight="700">' + fmt(bp) + '</text>';
+    if (i < brokenPieces.length - 1) {
+      svg += '<text x="' + (PAD_L - 12) + '" y="' + (yCum + heights[i] + 12) + '" text-anchor="end" fill="#a8b1ce" font-family="JetBrains Mono" font-size="14">+</text>';
+    }
+    yCum += heights[i];
+  });
+
+  // Rectangles with labels and sum
+  let totalSum = 0;
+  yCum = PAD_T;
+  brokenPieces.forEach((bp, bi) => {
+    xCum = PAD_L;
+    keptPieces.forEach((kp, ki) => {
+      const product = bp * kp;
+      totalSum += product;
+      const colorIdx = (bi * keptPieces.length + ki) % colors.length;
+      svg += '<rect x="' + xCum + '" y="' + yCum + '" width="' + widths[ki] + '" height="' + heights[bi] + '" fill="' + colors[colorIdx] + '" opacity="0.85" stroke="#0a0f1f" stroke-width="2"/>';
+      const cx = xCum + widths[ki] / 2;
+      const cy = yCum + heights[bi] / 2;
+      if (widths[ki] > 70 && heights[bi] > 50) {
+        svg += '<text x="' + cx + '" y="' + (cy - 4) + '" text-anchor="middle" fill="#0a0f1f" font-family="JetBrains Mono" font-size="13" font-weight="700">' + fmt(kp) + '×' + fmt(bp) + '</text>';
+        svg += '<text x="' + cx + '" y="' + (cy + 14) + '" text-anchor="middle" fill="#0a0f1f" font-family="JetBrains Mono" font-size="13" font-weight="700">=' + fmt(product) + '</text>';
+      } else if (widths[ki] > 40 && heights[bi] > 30) {
+        svg += '<text x="' + cx + '" y="' + (cy + 5) + '" text-anchor="middle" fill="#0a0f1f" font-family="JetBrains Mono" font-size="12" font-weight="700">' + fmt(product) + '</text>';
+      }
+      xCum += widths[ki];
+    });
+    yCum += heights[bi];
+  });
+
+  // Total below the rectangle
+  svg += '<text x="' + (W / 2) + '" y="' + (H - 18) + '" text-anchor="middle" fill="#5eead4" font-family="Bricolage Grotesque" font-size="17" font-weight="700">Total area = ' + fmt(totalSum) + '</text>';
+  svg += '</svg>';
+  return svg;
+}
+
+// For a multi-digit × single-digit, build sub-steps showing the place-value trick
+function describeMultiBySingle(big, smallDigit) {
+  const pieces = placeValueBreakdown(big);
+  if (pieces.length === 1) {
+    const lo = Math.min(big, smallDigit);
+    const hi = Math.max(big, smallDigit);
+    return {
+      math: 'Skip-count by ' + hi + 's, ' + lo + ' times:\n' + buildTimesTable(hi, lo),
+      finalLine: fmt(big) + ' × ' + smallDigit + ' = ' + fmt(big * smallDigit)
+    };
+  }
+  const lines = [fmt(big) + ' = ' + pieces.map(fmt).join(' + ')];
+  const subProducts = [];
+  pieces.forEach(piece => {
+    const sub = piece * smallDigit;
+    subProducts.push(sub);
+    if (piece < 10) {
+      lines.push(fmt(piece) + ' × ' + smallDigit + ' = ' + fmt(sub));
+    } else {
+      const pStr = String(piece);
+      const zeros = pStr.length - 1;
+      const base = parseInt(pStr.replace(/0+$/, ''));
+      const baseProd = base * smallDigit;
+      lines.push(base + ' × ' + smallDigit + ' = ' + baseProd + ', then add ' + zeros + ' zero' + (zeros > 1 ? 's' : '') + ' → ' + fmt(piece) + ' × ' + smallDigit + ' = ' + fmt(sub));
+    }
+  });
+  lines.push('Add them: ' + subProducts.map(fmt).join(' + ') + ' = ' + fmt(big * smallDigit));
+  return {
+    math: lines.join('\n'),
+    finalLine: fmt(big) + ' × ' + smallDigit + ' = ' + fmt(big * smallDigit)
+  };
+}
+
+function buildMultiplicationSteps(a, b) {
+  const steps = [];
+
+  steps.push({
+    title: 'Set up the problem',
+    explain: 'We are multiplying ' + fmt(a) + ' by ' + fmt(b) + '. That means we want ' + fmt(b) + ' group' + (b > 1 ? 's' : '') + ' of ' + fmt(a) + '.',
+    math: fmt(a) + ' × ' + fmt(b)
+  });
+
+  // CASE 1: Both single digit
+  if (a < 10 && b < 10) {
+    const lo = Math.min(a, b);
+    const hi = Math.max(a, b);
+    steps.push({
+      title: 'Skip-count by ' + hi + 's',
+      explain: 'When both numbers are small, the cleanest trick is to count by the bigger one. Count by ' + hi + 's a total of ' + lo + ' times. The last number in the count is the answer.',
+      math: buildTimesTable(hi, lo)
+    });
+    if (a === 9 || b === 9) {
+      const other = (a === 9) ? b : a;
+      steps.push({
+        title: 'Nine-times trick',
+        explain: 'Anything times 9 has a pattern. The tens digit is one less than what you multiplied by, and the two digits add up to 9.',
+        math: '9 × ' + other + ' = ' + (9 * other) + '\n(' + (other - 1) + ' is one less than ' + other + ', and ' + (other - 1) + ' + ' + (9 * other - (other - 1) * 10) + ' = 9)'
+      });
+    } else if (a === 5 || b === 5) {
+      const other = (a === 5) ? b : a;
+      steps.push({
+        title: 'Five-times trick',
+        explain: 'Multiplying by 5 always ends in 0 or 5. If the other number is even, the answer ends in 0. If odd, the answer ends in 5.',
+        math: '5 × ' + other + ' = ' + (5 * other) + ' (' + (other % 2 === 0 ? 'ends in 0 since ' + other + ' is even' : 'ends in 5 since ' + other + ' is odd') + ')'
+      });
+    }
+    steps.push({
+      title: 'Final answer',
+      explain: 'The last number in our skip-count is the answer.',
+      math: fmt(a) + ' × ' + fmt(b) + ' = ' + fmt(a * b),
+      predict: a * b,
+      final: true
+    });
+    return steps;
+  }
+
+  // CASE 2: At least one multi-digit
+  let kept = a, broken = b;
+  if (String(b).length > String(a).length) { kept = b; broken = a; }
+  if (broken < 10 && kept >= 10) { [kept, broken] = [broken, kept]; }
+
+  const pieces = placeValueBreakdown(broken);
+
+  steps.push({
+    title: 'Break ' + fmt(broken) + ' into place values',
+    explain: 'Split ' + fmt(broken) + ' apart based on the value of each digit. Smaller pieces are easier to multiply.',
+    math: fmt(broken) + ' = ' + pieces.map(fmt).join(' + ')
+  });
+
+  steps.push({
+    title: 'Set up the partial products',
+    explain: 'Now we multiply ' + fmt(kept) + ' by each piece of ' + fmt(broken) + '. Each result is called a partial product.',
+    math: pieces.map(p => fmt(kept) + ' × ' + fmt(p)).join('\n')
+  });
+
+  // Visual area model step
+  steps.push({
+    title: 'See it as a rectangle',
+    explain: 'Multiplication is the area of a rectangle. ' + fmt(a) + ' × ' + fmt(b) + ' is a rectangle ' + fmt(kept) + ' wide and ' + fmt(broken) + ' tall. Breaking the sides into place values splits it into smaller rectangles. Each one is a partial product. Add them together to get the total area.',
+    math: 'Length × Width = Area\n' + fmt(kept) + ' × ' + fmt(broken) + ' = total area',
+    visual: buildAreaModelSVG(broken, kept)
+  });
+
+  // Walk through each partial product with predict field
+  const partials = [];
+  const productsInOrder = pieces.slice().reverse();
+  productsInOrder.forEach((piece, idx) => {
+    const product = kept * piece;
+    if (piece < 10) {
+      const sub = describeMultiBySingle(kept, piece);
+      steps.push({
+        title: 'Partial product: ' + fmt(kept) + ' × ' + fmt(piece),
+        explain: kept < 10 ? 'Both numbers are small. Skip-count to find the answer.' : 'Break ' + fmt(kept) + ' into place values, multiply each piece by ' + piece + ', then add them up.',
+        math: sub.math,
+        predict: product
+      });
+    } else {
+      const pStr = String(piece);
+      const zeros = pStr.length - 1;
+      const base = parseInt(pStr.replace(/0+$/, ''));
+      const baseProduct = kept * base;
+      const baseDetail = describeMultiBySingle(kept, base);
+      const explainStr = 'To multiply by ' + fmt(piece) + ', first find ' + fmt(kept) + ' × ' + base + '. Then add ' + zeros + ' zero' + (zeros > 1 ? 's' : '') + ' because ' + fmt(piece) + ' is ' + base + ' with ' + zeros + ' zero' + (zeros > 1 ? 's' : '') + ' tacked on.';
+      const mathStr = 'Find ' + fmt(kept) + ' × ' + base + ':\n' + baseDetail.math + '\n\nNow scale up:\n' + fmt(kept) + ' × ' + base + ' = ' + fmt(baseProduct) + '\nAdd ' + zeros + ' zero' + (zeros > 1 ? 's' : '') + ' → ' + fmt(kept) + ' × ' + fmt(piece) + ' = ' + fmt(product);
+      steps.push({
+        title: 'Partial product: ' + fmt(kept) + ' × ' + fmt(piece),
+        explain: explainStr,
+        math: mathStr,
+        predict: product
+      });
+    }
+    partials.push(product);
+  });
+
+  const total = a * b;
+  steps.push({
+    title: 'Add the partial products',
+    explain: 'Stack the partials and add them up. Each one filled in a piece of the answer, and now we combine them.',
+    math: partials.map(fmt).join(' + ') + ' = ' + fmt(total),
+    predict: total
+  });
+
+  steps.push({
+    title: 'Final answer',
+    explain: 'Break apart, multiply the pieces, add them back. That is the whole strategy.',
+    math: fmt(a) + ' × ' + fmt(b) + ' = ' + fmt(total),
+    predict: total,
+    final: true
+  });
+  return steps;
+}
+
+function buildDivisionSteps(a, b) {
+  const steps = [];
+
+  steps.push({
+    title: 'Set up the problem',
+    explain: 'We are dividing ' + fmt(a) + ' by ' + fmt(b) + '. We are looking for how many group' + (b > 1 ? 's' : '') + ' of ' + fmt(b) + ' fit inside ' + fmt(a) + '.',
+    math: fmt(a) + ' ÷ ' + fmt(b)
+  });
+
+  steps.push({
+    title: 'Ask the key question',
+    explain: 'Instead of guessing, we will build a reference table first. Then we will pull out chunks of ' + fmt(b) + ' until nothing big enough is left.',
+    math: 'How many ' + fmt(b) + 's fit into ' + fmt(a) + '?'
+  });
+
+  const tableUpTo = 10;
+  steps.push({
+    title: 'Build the ' + fmt(b) + ' times table',
+    explain: 'Write out the first ten multiples of ' + fmt(b) + '. This is our cheat sheet. For bigger chunks, we just add zeros to one of these.',
+    math: buildTimesTable(b, tableUpTo)
+  });
+
+  let remaining = a;
+  let totalGroups = 0;
+  const friendlyMultipliers = [1000, 500, 200, 100, 50, 20, 10, 5, 2, 1];
+  const chunks = [];
+
+  while (remaining >= b) {
+    let chosen = null;
+    for (const m of friendlyMultipliers) {
+      if (b * m <= remaining) { chosen = m; break; }
+    }
+    if (!chosen) chosen = 1;
+    const product = b * chosen;
+    chunks.push({ groups: chosen, product, before: remaining, after: remaining - product });
+    remaining -= product;
+    totalGroups += chosen;
+    if (chunks.length > 8) break;
+  }
+
+  chunks.forEach((chunk, idx) => {
+    const ordinal = idx === 0 ? 'First' : (idx === chunks.length - 1 ? 'Last' : (idx === 1 ? 'Next' : 'Then'));
+    let explainStr, mathStr;
+    if (chunk.groups <= tableUpTo) {
+      explainStr = 'Look at the table. ' + fmt(b) + ' × ' + chunk.groups + ' = ' + fmt(chunk.product) + ', and that fits inside ' + fmt(chunk.before) + '. The next one up would be too big, so this is our chunk.';
+      mathStr = 'From the table: ' + fmt(b) + ' × ' + chunk.groups + ' = ' + fmt(chunk.product) + '\nSubtract: ' + fmt(chunk.before) + ' - ' + fmt(chunk.product) + ' = ' + fmt(chunk.after);
+    } else {
+      const gStr = String(chunk.groups);
+      const gZeros = gStr.length - 1;
+      const gBase = parseInt(gStr.replace(/0+$/, ''));
+      const baseProduct = b * gBase;
+      explainStr = 'We need a bigger chunk than the table shows. From the table, ' + fmt(b) + ' × ' + gBase + ' = ' + fmt(baseProduct) + '. Tack on ' + gZeros + ' zero' + (gZeros > 1 ? 's' : '') + ' to scale that up to ' + fmt(b) + ' × ' + fmt(chunk.groups) + '.';
+      mathStr = 'From the table: ' + fmt(b) + ' × ' + gBase + ' = ' + fmt(baseProduct) + '\nAdd ' + gZeros + ' zero' + (gZeros > 1 ? 's' : '') + ': ' + fmt(b) + ' × ' + fmt(chunk.groups) + ' = ' + fmt(chunk.product) + '\nSubtract: ' + fmt(chunk.before) + ' - ' + fmt(chunk.product) + ' = ' + fmt(chunk.after);
+    }
+    steps.push({
+      title: ordinal + ' chunk: ' + fmt(chunk.groups) + ' group' + (chunk.groups > 1 ? 's' : ''),
+      explain: explainStr,
+      math: mathStr,
+      predict: chunk.after
+    });
+  });
+
+  if (chunks.length > 1) {
+    steps.push({
+      title: 'Add up all the groups',
+      explain: 'Each chunk pulled out some number of groups of ' + fmt(b) + '. Add them up to get the total quotient.',
+      math: chunks.map(c => fmt(c.groups)).join(' + ') + ' = ' + fmt(totalGroups),
+      predict: totalGroups
+    });
+  }
+
+  if (remaining > 0) {
+    steps.push({
+      title: 'Identify the remainder',
+      explain: 'We have ' + fmt(remaining) + ' left over, and it is smaller than ' + fmt(b) + '. That leftover is the remainder. It cannot make another full group.',
+      math: fmt(remaining) + ' < ' + fmt(b) + ', so remainder = ' + fmt(remaining)
+    });
+    steps.push({
+      title: 'Final answer',
+      explain: fmt(b) + ' fits inside ' + fmt(a) + ' a total of ' + fmt(totalGroups) + ' time' + (totalGroups > 1 ? 's' : '') + ', with ' + fmt(remaining) + ' left over.',
+      math: fmt(a) + ' ÷ ' + fmt(b) + ' = ' + fmt(totalGroups) + ' remainder ' + fmt(remaining),
+      final: true
+    });
+  } else {
+    steps.push({
+      title: 'Final answer',
+      explain: 'Nothing was left over, so there is no remainder. ' + fmt(b) + ' fits inside ' + fmt(a) + ' exactly ' + fmt(totalGroups) + ' time' + (totalGroups > 1 ? 's' : '') + '.',
+      math: fmt(a) + ' ÷ ' + fmt(b) + ' = ' + fmt(totalGroups),
+      predict: totalGroups,
+      final: true
+    });
+  }
+
+  return steps;
+}
+
+let walkPredictMode = false;
+
+function togglePredictMode() {
+  walkPredictMode = !walkPredictMode;
+  document.getElementById('walk-predict-toggle').classList.toggle('active', walkPredictMode);
+  document.getElementById('walk-predict-hint').textContent = walkPredictMode
+    ? 'On. You will try each answer before the explanation reveals.'
+    : 'Off. The app reveals each step when you click.';
+}
+
+function walkRevealNext() {
+  if (walkRevealed >= walkSteps.length) return;
+  const step = walkSteps[walkRevealed];
+
+  // Predict mode: show prediction prompt first if step is predictable
+  if (walkPredictMode && step.predict !== undefined && !step._predicted) {
+    showPredictPrompt(step);
+    return;
+  }
+  walkActualReveal(step);
+}
+
+function walkActualReveal(step) {
+  const total = walkSteps.length;
+  walkRevealed++;
+
+  document.querySelectorAll('.walk-step.current').forEach(s => s.classList.remove('current'));
+
+  const stepEl = document.createElement('div');
+  stepEl.className = 'walk-step' + (step.final ? ' final' : ' current');
+  let html =
+    '<div class="walk-step-label">' + (step.final ? 'Final Answer' : 'Step ' + walkRevealed + ' of ' + total) + '</div>' +
+    '<div class="walk-step-title">' + step.title + '</div>' +
+    '<div class="walk-step-explain">' + step.explain + '</div>' +
+    '<div class="walk-step-math">' + step.math + '</div>';
+  if (step.visual) {
+    html += '<div class="walk-step-visual">' + step.visual + '</div>';
+  }
+  stepEl.innerHTML = html;
+  document.getElementById('walk-steps').appendChild(stepEl);
+
+  document.getElementById('walk-progress').textContent = 'Step ' + walkRevealed + ' of ' + total;
+  document.getElementById('walk-progress-fill').style.width = (100 * walkRevealed / total) + '%';
+
+  const moreBtn = document.getElementById('walk-more');
+  if (walkRevealed >= walkSteps.length) {
+    moreBtn.style.display = 'none';
+  } else {
+    moreBtn.style.display = '';
+    moreBtn.textContent = walkRevealed === walkSteps.length - 1 ? 'Reveal final answer →' : 'Get more →';
+  }
+
+  setTimeout(() => stepEl.scrollIntoView({ behavior: 'smooth', block: 'center' }), 100);
+}
+
+function showPredictPrompt(step) {
+  const predictEl = document.createElement('div');
+  predictEl.className = 'walk-predict';
+  predictEl.id = 'predict-active';
+  predictEl.innerHTML =
+    '<div class="walk-predict-label">YOUR TURN ▸ ' + step.title + '</div>' +
+    '<div class="walk-predict-q">Try it first. We will show the work after.</div>' +
+    '<div class="walk-predict-row">' +
+      '<input class="walk-predict-input" id="walk-predict-input" placeholder="Your guess" autocomplete="off">' +
+      '<button class="walk-predict-check" onclick="checkPrediction()">Check</button>' +
+      '<button class="walk-predict-skip" onclick="skipPrediction()">Skip</button>' +
+    '</div>' +
+    '<div class="walk-predict-fb" id="walk-predict-fb"></div>';
+  document.getElementById('walk-steps').appendChild(predictEl);
+
+  document.getElementById('walk-more').style.display = 'none';
+
+  setTimeout(() => {
+    const inp = document.getElementById('walk-predict-input');
+    if (inp) {
+      inp.focus();
+      inp.addEventListener('keydown', e => { if (e.key === 'Enter') checkPrediction(); });
+    }
+    predictEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }, 100);
+}
+
+function checkPrediction() {
+  const step = walkSteps[walkRevealed];
+  const inp = document.getElementById('walk-predict-input');
+  if (!inp || !inp.value.trim()) return;
+
+  const userAns = inp.value;
+  const correct = String(step.predict);
+  const fb = document.getElementById('walk-predict-fb');
+
+  if (answersMatch(userAns, correct)) {
+    fb.className = 'walk-predict-fb right';
+    fb.innerHTML = '✓ Yes! ' + fmt(step.predict) + ' is correct. Nice prediction.';
+  } else {
+    fb.className = 'walk-predict-fb wrong';
+    fb.innerHTML = '✗ Not quite. The answer is <strong>' + fmt(step.predict) + '</strong>. Read the work below to see how we got there.';
+  }
+
+  inp.disabled = true;
+  document.querySelector('#predict-active .walk-predict-row').innerHTML =
+    '<button class="walk-predict-continue" onclick="continueAfterPredict()">See the work →</button>';
+  step._predicted = true;
+}
+
+function skipPrediction() {
+  walkSteps[walkRevealed]._predicted = true;
+  const predictEl = document.getElementById('predict-active');
+  if (predictEl) {
+    predictEl.id = '';
+    predictEl.style.opacity = '0.5';
+  }
+  document.getElementById('walk-more').style.display = '';
+  walkActualReveal(walkSteps[walkRevealed]);
+}
+
+function continueAfterPredict() {
+  const predictEl = document.getElementById('predict-active');
+  if (predictEl) predictEl.id = '';
+  document.getElementById('walk-more').style.display = '';
+  walkActualReveal(walkSteps[walkRevealed]);
+}
+
+function walkMore() { walkRevealNext(); }
+
+function walkReset() {
+  walkSteps = [];
+  walkRevealed = 0;
+  document.getElementById('walk-steps').innerHTML = '';
+  document.getElementById('walk-active').style.display = 'none';
+  document.getElementById('walk-error').classList.remove('show');
+  document.getElementById('walk-input').value = '';
+  document.getElementById('walk-more').style.display = '';
+  document.getElementById('walk-input').focus();
+}
+
+function walkStart() {
+  const raw = document.getElementById('walk-input').value;
+  const errEl = document.getElementById('walk-error');
+  const activeEl = document.getElementById('walk-active');
+
+  const parsed = walkParse(raw);
+  if (parsed.error) {
+    errEl.textContent = parsed.error;
+    errEl.classList.add('show');
+    activeEl.style.display = 'none';
+    return;
+  }
+  errEl.classList.remove('show');
+
+  walkSteps = parsed.op === '*' ? buildMultiplicationSteps(parsed.a, parsed.b) : buildDivisionSteps(parsed.a, parsed.b);
+  // Reset prediction flags on all steps
+  walkSteps.forEach(s => delete s._predicted);
+  walkRevealed = 0;
+  document.getElementById('walk-steps').innerHTML = '';
+  document.getElementById('walk-more').style.display = '';
+  activeEl.style.display = 'block';
+  walkRevealNext();
+}
+
+// Example buttons
+document.querySelectorAll('.walk-ex').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.getElementById('walk-input').value = btn.dataset.ex;
+    walkStart();
+  });
+});
+
+// Enter to start
+document.getElementById('walk-input').addEventListener('keydown', e => {
+  if (e.key === 'Enter') walkStart();
 });
 
 // Trigger initial scroll spy
