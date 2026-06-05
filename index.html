@@ -112,6 +112,74 @@
     --arch-2: #5a4a3a;
     --arch-3: #b8852a;
     --arch-4: #4a5a6a;
+
+    /* Civics palette */
+    --civ-1: #1e3a5f;
+    --civ-2: #8e2a3e;
+    --civ-3: #6b4a8a;
+    --civ-4: #3a5e7a;
+
+    /* Media Literacy palette */
+    --med-1: #5a5046;
+    --med-2: #7a3b2e;
+    --med-3: #4a5e6a;
+    --med-4: #8b6a3a;
+
+    /* Language Arts palette */
+    --lang-1: #5a4030;
+    --lang-2: #3a5e3a;
+    --lang-3: #6a4a3a;
+    --lang-4: #8b3a4a;
+    --lang-5: #4a5a7a;
+
+    /* Logic palette */
+    --log-1: #2a3a5e;
+    --log-2: #6a4a8e;
+    --log-3: #3a6a7a;
+    --log-4: #5a3a6a;
+
+    /* Technology palette */
+    --tech-1: #2a6b8a;
+    --tech-2: #3a8a8a;
+    --tech-3: #5e4a7e;
+    --tech-4: #4a6b8a;
+
+    /* Computer Science palette */
+    --cs-1: #2c5e3e;
+    --cs-2: #4a3a7e;
+    --cs-3: #6a4a3a;
+    --cs-4: #3a4a6a;
+
+    /* Financial Literacy palette */
+    --fin-1: #2e6b4e;
+    --fin-2: #4a7a3a;
+    --fin-3: #8b6a3a;
+    --fin-4: #6b4a3a;
+    --fin-5: #2e7a6a;
+
+    /* Human Body palette */
+    --body-1: #8b3a4a;
+    --body-2: #c14a3d;
+    --body-3: #6a4a8a;
+    --body-4: #b85a3a;
+    --body-5: #8b5a3a;
+    --body-6: #5a6b7e;
+    --body-7: #c87a5a;
+    --body-8: #6a3a3a;
+
+    /* Art palette */
+    --art-1: #8b6a3a;
+    --art-2: #5e3a8e;
+    --art-3: #b8523a;
+    --art-4: #2c5e8a;
+    --art-5: #8b3a6a;
+    --art-6: #4a7a5a;
+
+    /* Philosophy palette */
+    --phil-1: #5e3a5a;
+    --phil-2: #4a4a6b;
+    --phil-3: #7a5a3a;
+    --phil-4: #3a5e5a;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -424,9 +492,19 @@
   <nav class="tabs" role="tablist">
     <button class="tab active" data-tab="history" role="tab">History</button>
     <button class="tab" data-tab="geography" role="tab">Geography</button>
+    <button class="tab" data-tab="civics" role="tab">Civics &amp; Government</button>
     <button class="tab" data-tab="economics" role="tab">Economics</button>
-    <button class="tab" data-tab="science" role="tab">Science</button>
+    <button class="tab" data-tab="finlit" role="tab">Financial Literacy</button>
+    <button class="tab" data-tab="medialit" role="tab">Media Literacy</button>
+    <button class="tab" data-tab="langarts" role="tab">Language Arts</button>
+    <button class="tab" data-tab="logic" role="tab">Logic</button>
+    <button class="tab" data-tab="philosophy" role="tab">Philosophy &amp; Ethics</button>
     <button class="tab" data-tab="math" role="tab">Math</button>
+    <button class="tab" data-tab="science" role="tab">Science</button>
+    <button class="tab" data-tab="body" role="tab">The Human Body</button>
+    <button class="tab" data-tab="tech" role="tab">Technology</button>
+    <button class="tab" data-tab="cs" role="tab">Computer Science</button>
+    <button class="tab" data-tab="art" role="tab">Art &amp; Art History</button>
     <button class="tab" data-tab="other" role="tab">Other Topics</button>
   </nav>
 
@@ -2192,6 +2270,1019 @@
           <h3>Percents</h3>
           <div class="years">Pre-Algebra</div>
           <div class="tagline">Parts per hundred and how we use them</div>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       CIVICS & GOVERNMENT
+       ============================================================ -->
+  <section id="civics" class="panel" role="tabpanel">
+    <p class="section-intro">Four modules on how government is organized, how it protects rights, and how citizens take part in it.</p>
+
+    <div class="grid">
+
+      <a href="branches-of-government.html" class="card" style="--card-color: var(--civ-1);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="12" y="22" width="6" height="28"/>
+            <rect x="29" y="22" width="6" height="28"/>
+            <rect x="46" y="22" width="6" height="28"/>
+            <line x1="8" y1="22" x2="56" y2="22"/>
+            <line x1="6" y1="18" x2="58" y2="18"/>
+            <path d="M14 18 L32 8 L50 18"/>
+            <line x1="8" y1="54" x2="56" y2="54"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Branches of Government</h3>
+          <div class="years">Civics</div>
+          <div class="tagline">Executive, legislative, and judicial in balance</div>
+        </div>
+      </a>
+
+      <a href="rights-and-responsibilities.html" class="card" style="--card-color: var(--civ-2);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="14" y="12" width="36" height="40"/>
+            <path d="M14 12 Q10 12 10 18 Q10 24 14 24"/>
+            <path d="M50 12 Q54 12 54 18 Q54 24 50 24"/>
+            <path d="M14 52 Q14 56 18 56 L46 56 Q50 56 50 52"/>
+            <line x1="22" y1="22" x2="42" y2="22"/>
+            <line x1="22" y1="28" x2="42" y2="28"/>
+            <line x1="22" y1="34" x2="36" y2="34"/>
+            <line x1="22" y1="40" x2="42" y2="40"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Rights &amp; Responsibilities</h3>
+          <div class="years">Civics</div>
+          <div class="tagline">What citizens are owed, and what they owe</div>
+        </div>
+      </a>
+
+      <a href="elections-and-voting.html" class="card" style="--card-color: var(--civ-3);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="10" y="22" width="44" height="32"/>
+            <rect x="22" y="18" width="20" height="6"/>
+            <line x1="22" y1="20" x2="42" y2="20"/>
+            <path d="M22 36 L28 42 L42 28"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Elections &amp; Voting</h3>
+          <div class="years">Civics</div>
+          <div class="tagline">How a democracy chooses its leaders</div>
+        </div>
+      </a>
+
+      <a href="courts-and-laws.html" class="card" style="--card-color: var(--civ-4);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="32" y1="10" x2="32" y2="50"/>
+            <line x1="24" y1="50" x2="40" y2="50"/>
+            <line x1="14" y1="20" x2="50" y2="20"/>
+            <path d="M14 20 L8 32 L20 32 Z"/>
+            <path d="M50 20 L44 32 L56 32 Z"/>
+            <circle cx="32" cy="10" r="2" fill="currentColor"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Courts &amp; Laws</h3>
+          <div class="years">Civics</div>
+          <div class="tagline">The judicial system and the rule of law</div>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FINANCIAL LITERACY
+       ============================================================ -->
+  <section id="finlit" class="panel" role="tabpanel">
+    <p class="section-intro">Five modules on managing money: making it stretch, growing it over time, and avoiding common traps.</p>
+
+    <div class="grid">
+
+      <a href="budgeting.html" class="card" style="--card-color: var(--fin-1);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="14" y="8" width="36" height="48" rx="2"/>
+            <rect x="18" y="14" width="28" height="10" fill="currentColor" fill-opacity="0.15" stroke="none"/>
+            <text x="42" y="22" text-anchor="end" font-size="8" font-family="monospace" fill="currentColor" stroke="none">$</text>
+            <circle cx="22" cy="32" r="1.8" fill="currentColor"/>
+            <circle cx="32" cy="32" r="1.8" fill="currentColor"/>
+            <circle cx="42" cy="32" r="1.8" fill="currentColor"/>
+            <circle cx="22" cy="40" r="1.8" fill="currentColor"/>
+            <circle cx="32" cy="40" r="1.8" fill="currentColor"/>
+            <circle cx="42" cy="40" r="1.8" fill="currentColor"/>
+            <circle cx="22" cy="48" r="1.8" fill="currentColor"/>
+            <circle cx="32" cy="48" r="1.8" fill="currentColor"/>
+            <circle cx="42" cy="48" r="1.8" fill="currentColor"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Budgeting</h3>
+          <div class="years">Financial Literacy</div>
+          <div class="tagline">Planning what comes in and what goes out</div>
+        </div>
+      </a>
+
+      <a href="saving-and-interest.html" class="card" style="--card-color: var(--fin-2);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 30 Q14 20 28 20 L36 20 Q50 20 50 30 L50 44 Q50 50 44 50 L20 50 Q14 50 14 44 Z"/>
+            <circle cx="42" cy="34" r="2" fill="currentColor"/>
+            <path d="M28 14 Q28 18 30 20 M36 14 Q36 18 34 20"/>
+            <rect x="28" y="20" width="8" height="3" rx="1"/>
+            <path d="M14 38 L10 38 Q8 40 10 42 L14 42"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Saving &amp; Interest</h3>
+          <div class="years">Financial Literacy</div>
+          <div class="tagline">How money grows when you let it sit</div>
+        </div>
+      </a>
+
+      <a href="debt-and-credit.html" class="card" style="--card-color: var(--fin-3);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="8" y="16" width="48" height="32" rx="3"/>
+            <line x1="8" y1="24" x2="56" y2="24" stroke-width="4"/>
+            <line x1="14" y1="32" x2="22" y2="32"/>
+            <line x1="14" y1="38" x2="32" y2="38"/>
+            <circle cx="44" cy="42" r="3" opacity="0.5"/>
+            <circle cx="48" cy="42" r="3" opacity="0.5"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Debt &amp; Credit</h3>
+          <div class="years">Financial Literacy</div>
+          <div class="tagline">Borrowing well, and the cost of not</div>
+        </div>
+      </a>
+
+      <a href="taxes.html" class="card" style="--card-color: var(--fin-4);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="12" y="8" width="40" height="48"/>
+            <line x1="18" y1="16" x2="46" y2="16"/>
+            <text x="32" y="34" text-anchor="middle" font-size="13" font-family="serif" font-weight="600" fill="currentColor" stroke="none">1040</text>
+            <line x1="18" y1="42" x2="40" y2="42"/>
+            <line x1="18" y1="48" x2="46" y2="48"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Taxes</h3>
+          <div class="years">Financial Literacy</div>
+          <div class="tagline">What we owe and what it pays for</div>
+        </div>
+      </a>
+
+      <a href="investing.html" class="card" style="--card-color: var(--fin-5);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="10" y1="52" x2="56" y2="52"/>
+            <line x1="10" y1="52" x2="10" y2="10"/>
+            <path d="M14 44 L24 36 L32 40 L40 28 L50 16"/>
+            <path d="M42 16 L50 16 L50 24"/>
+            <circle cx="14" cy="44" r="2" fill="currentColor"/>
+            <circle cx="24" cy="36" r="2" fill="currentColor"/>
+            <circle cx="32" cy="40" r="2" fill="currentColor"/>
+            <circle cx="40" cy="28" r="2" fill="currentColor"/>
+            <circle cx="50" cy="16" r="2" fill="currentColor"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Investing</h3>
+          <div class="years">Financial Literacy</div>
+          <div class="tagline">Putting money to work over the long run</div>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       MEDIA LITERACY
+       ============================================================ -->
+  <section id="medialit" class="panel" role="tabpanel">
+    <p class="section-intro">Four modules for reading the information landscape: telling fact from opinion, weighing sources, and recognizing what's been left out.</p>
+
+    <div class="grid">
+
+      <a href="fact-vs-opinion.html" class="card" style="--card-color: var(--med-1);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="20" cy="20" r="10"/>
+            <path d="M14 20 L18 24 L26 16"/>
+            <circle cx="44" cy="44" r="10"/>
+            <line x1="38" y1="38" x2="50" y2="50"/>
+            <line x1="50" y1="38" x2="38" y2="50"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Fact vs Opinion</h3>
+          <div class="years">Media Literacy</div>
+          <div class="tagline">What can be verified, and what is asserted</div>
+        </div>
+      </a>
+
+      <a href="source-credibility.html" class="card" style="--card-color: var(--med-2);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="10" y="8" width="32" height="40"/>
+            <line x1="16" y1="18" x2="36" y2="18"/>
+            <line x1="16" y1="24" x2="36" y2="24"/>
+            <line x1="16" y1="30" x2="32" y2="30"/>
+            <circle cx="42" cy="42" r="10"/>
+            <line x1="49" y1="49" x2="56" y2="56"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Source Credibility</h3>
+          <div class="years">Media Literacy</div>
+          <div class="tagline">Who is telling you this, and why</div>
+        </div>
+      </a>
+
+      <a href="bias-and-framing.html" class="card" style="--card-color: var(--med-3);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="10" y="14" width="44" height="36"/>
+            <rect x="16" y="20" width="32" height="24"/>
+            <path d="M22 32 Q32 24 42 32 Q32 40 22 32 Z"/>
+            <circle cx="32" cy="32" r="3" fill="currentColor"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Bias &amp; Framing</h3>
+          <div class="years">Media Literacy</div>
+          <div class="tagline">How the angle shapes the story</div>
+        </div>
+      </a>
+
+      <a href="misinformation-verification.html" class="card" style="--card-color: var(--med-4);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="8" y="14" width="44" height="36"/>
+            <line x1="14" y1="20" x2="46" y2="20"/>
+            <line x1="14" y1="26" x2="32" y2="26"/>
+            <line x1="14" y1="32" x2="32" y2="32"/>
+            <rect x="36" y="26" width="12" height="10"/>
+            <path d="M40 50 L52 50 L46 38 Z"/>
+            <line x1="46" y1="42" x2="46" y2="46"/>
+            <circle cx="46" cy="48.5" r="0.8" fill="currentColor"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Misinformation &amp; Verification</h3>
+          <div class="years">Media Literacy</div>
+          <div class="tagline">Spotting the false and checking what's true</div>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       LANGUAGE ARTS
+       ============================================================ -->
+  <section id="langarts" class="panel" role="tabpanel">
+    <p class="section-intro">Five modules on reading, writing, and the literary forms that carry meaning across centuries.</p>
+
+    <div class="grid">
+
+      <a href="reading-comprehension.html" class="card" style="--card-color: var(--lang-1);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M8 14 L32 18 L56 14 L56 50 L32 54 L8 50 Z"/>
+            <line x1="32" y1="18" x2="32" y2="54"/>
+            <line x1="14" y1="22" x2="26" y2="22"/>
+            <line x1="14" y1="28" x2="26" y2="28"/>
+            <line x1="38" y1="22" x2="50" y2="22"/>
+            <line x1="38" y1="28" x2="50" y2="28"/>
+            <circle cx="40" cy="40" r="6"/>
+            <line x1="44" y1="44" x2="50" y2="50"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Reading Comprehension</h3>
+          <div class="years">Language Arts</div>
+          <div class="tagline">Following the thread and grasping the meaning</div>
+        </div>
+      </a>
+
+      <a href="grammar-and-vocabulary.html" class="card" style="--card-color: var(--lang-2);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round">
+            <rect x="8" y="18" width="16" height="16"/>
+            <rect x="24" y="22" width="16" height="16"/>
+            <rect x="40" y="18" width="16" height="16"/>
+            <text x="16" y="30.5" text-anchor="middle" font-size="11" font-family="serif" font-weight="600" fill="currentColor" stroke="none">A</text>
+            <text x="32" y="34.5" text-anchor="middle" font-size="11" font-family="serif" font-weight="600" fill="currentColor" stroke="none">B</text>
+            <text x="48" y="30.5" text-anchor="middle" font-size="11" font-family="serif" font-weight="600" fill="currentColor" stroke="none">C</text>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Grammar &amp; Vocabulary</h3>
+          <div class="years">Language Arts</div>
+          <div class="tagline">The building blocks of clear writing</div>
+        </div>
+      </a>
+
+      <a href="essay-writing.html" class="card" style="--card-color: var(--lang-3);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M10 50 L10 14 L36 14 L46 24 L46 50 Z"/>
+            <path d="M36 14 L36 24 L46 24"/>
+            <line x1="16" y1="32" x2="38" y2="32"/>
+            <line x1="16" y1="38" x2="38" y2="38"/>
+            <line x1="16" y1="44" x2="32" y2="44"/>
+            <path d="M40 40 L52 52 L48 56 L36 44 Z"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Essay Writing</h3>
+          <div class="years">Language Arts</div>
+          <div class="tagline">Thesis, argument, and structure</div>
+        </div>
+      </a>
+
+      <a href="fiction.html" class="card" style="--card-color: var(--lang-4);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M8 50 Q20 44 32 48 Q44 44 56 50 L56 18 Q44 12 32 16 Q20 12 8 18 Z"/>
+            <line x1="32" y1="16" x2="32" y2="48"/>
+            <line x1="14" y1="24" x2="28" y2="22"/>
+            <line x1="14" y1="30" x2="28" y2="28"/>
+            <line x1="36" y1="22" x2="50" y2="24"/>
+            <line x1="36" y1="28" x2="50" y2="30"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Fiction</h3>
+          <div class="years">Language Arts</div>
+          <div class="tagline">Stories, characters, and imagined worlds</div>
+        </div>
+      </a>
+
+      <a href="poetry-and-drama.html" class="card" style="--card-color: var(--lang-5);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M10 22 Q10 14 18 12 L26 12 Q32 14 30 24 Q28 36 22 40 Q14 36 10 30 Z"/>
+            <circle cx="18" cy="22" r="1.3" fill="currentColor"/>
+            <circle cx="24" cy="22" r="1.3" fill="currentColor"/>
+            <path d="M16 30 Q22 32 24 30"/>
+            <path d="M54 22 Q54 14 46 12 L38 12 Q32 14 34 24 Q36 36 42 40 Q50 36 54 30 Z"/>
+            <circle cx="46" cy="22" r="1.3" fill="currentColor"/>
+            <circle cx="40" cy="22" r="1.3" fill="currentColor"/>
+            <path d="M40 32 Q44 28 48 30"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Poetry &amp; Drama</h3>
+          <div class="years">Language Arts</div>
+          <div class="tagline">Verse, performance, and the spoken word</div>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       LOGIC
+       ============================================================ -->
+  <section id="logic" class="panel" role="tabpanel">
+    <p class="section-intro">Four modules on thinking clearly: weighing evidence, spotting flawed reasoning, and working through hard problems.</p>
+
+    <div class="grid">
+
+      <a href="evidence-and-claims.html" class="card" style="--card-color: var(--log-1);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="12" y="20" width="32" height="32"/>
+            <rect x="16" y="16" width="32" height="32" fill="var(--bg-paper)"/>
+            <rect x="20" y="12" width="32" height="32" fill="var(--bg-paper)"/>
+            <path d="M30 28 L35 33 L46 22"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Evidence &amp; Claims</h3>
+          <div class="years">Logic</div>
+          <div class="tagline">What makes a claim worth believing</div>
+        </div>
+      </a>
+
+      <a href="logical-fallacies.html" class="card" style="--card-color: var(--log-2);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M32 8 L56 52 L8 52 Z"/>
+            <line x1="32" y1="24" x2="32" y2="38"/>
+            <circle cx="32" cy="44" r="1.5" fill="currentColor"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Logical Fallacies</h3>
+          <div class="years">Logic</div>
+          <div class="tagline">The common ways arguments go wrong</div>
+        </div>
+      </a>
+
+      <a href="cause-and-effect.html" class="card" style="--card-color: var(--log-3);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="14" cy="32" r="6"/>
+            <circle cx="32" cy="32" r="6"/>
+            <circle cx="50" cy="32" r="6"/>
+            <line x1="20" y1="32" x2="26" y2="32"/>
+            <path d="M24 28 L28 32 L24 36"/>
+            <line x1="38" y1="32" x2="44" y2="32"/>
+            <path d="M42 28 L46 32 L42 36"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Cause &amp; Effect</h3>
+          <div class="years">Logic</div>
+          <div class="tagline">Tracing what leads to what</div>
+        </div>
+      </a>
+
+      <a href="problem-solving.html" class="card" style="--card-color: var(--log-4);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="10" y="10" width="44" height="44"/>
+            <path d="M10 22 L34 22 L34 32 L22 32 L22 42 L46 42 L46 22 L54 22"/>
+            <path d="M22 10 L22 18"/>
+            <path d="M46 10 L46 18"/>
+            <path d="M34 54 L34 46"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Problem Solving</h3>
+          <div class="years">Logic</div>
+          <div class="tagline">Breaking down the puzzle, step by step</div>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       PHILOSOPHY & ETHICS
+       ============================================================ -->
+  <section id="philosophy" class="panel" role="tabpanel">
+    <p class="section-intro">Four modules on the big questions: what's fair, what's true, what we owe each other, and who we choose to be.</p>
+
+    <div class="grid">
+
+      <a href="fairness-and-justice.html" class="card" style="--card-color: var(--phil-1);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="32" y1="10" x2="32" y2="50"/>
+            <line x1="24" y1="50" x2="40" y2="50"/>
+            <line x1="14" y1="20" x2="50" y2="20"/>
+            <path d="M14 20 L8 32 L20 32 Z"/>
+            <path d="M50 20 L44 32 L56 32 Z"/>
+            <circle cx="32" cy="10" r="2" fill="currentColor"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Fairness &amp; Justice</h3>
+          <div class="years">Philosophy</div>
+          <div class="tagline">What does it mean to give each their due</div>
+        </div>
+      </a>
+
+      <a href="truth-and-knowledge.html" class="card" style="--card-color: var(--phil-2);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M32 6 Q20 6 20 20 Q20 30 26 38 L26 44 L38 44 L38 38 Q44 30 44 20 Q44 6 32 6 Z"/>
+            <line x1="26" y1="48" x2="38" y2="48"/>
+            <line x1="28" y1="52" x2="36" y2="52"/>
+            <path d="M12 18 L18 22 M50 22 L56 18 M32 4 L32 0" opacity="0.5"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Truth &amp; Knowledge</h3>
+          <div class="years">Philosophy</div>
+          <div class="tagline">How do we know what we think we know</div>
+        </div>
+      </a>
+
+      <a href="moral-dilemmas.html" class="card" style="--card-color: var(--phil-3);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M32 54 L32 32"/>
+            <path d="M32 32 L18 12"/>
+            <path d="M32 32 L46 12"/>
+            <circle cx="18" cy="12" r="2.5" fill="currentColor"/>
+            <circle cx="46" cy="12" r="2.5" fill="currentColor"/>
+            <circle cx="32" cy="32" r="3"/>
+            <circle cx="32" cy="54" r="2" fill="currentColor"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Moral Dilemmas</h3>
+          <div class="years">Philosophy</div>
+          <div class="tagline">When good answers and right answers diverge</div>
+        </div>
+      </a>
+
+      <a href="identity-and-responsibility.html" class="card" style="--card-color: var(--phil-4);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="28" cy="20" r="6"/>
+            <path d="M18 50 Q18 32 28 32 Q38 32 38 50"/>
+            <text x="48" y="22" font-size="18" font-family="serif" font-weight="600" fill="currentColor" stroke="none">?</text>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Identity &amp; Responsibility</h3>
+          <div class="years">Philosophy</div>
+          <div class="tagline">Who am I, and what do I owe</div>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       THE HUMAN BODY
+       ============================================================ -->
+  <section id="body" class="panel" role="tabpanel">
+    <p class="section-intro">Eight modules on the major systems of the human body, from the brain that thinks to the bones that hold us up.</p>
+
+    <div class="subsection"><h2>Vital Systems</h2><span class="count">Four modules</span></div>
+    <div class="grid">
+
+      <a href="brain-and-nervous-system.html" class="card" style="--card-color: var(--body-3);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 14 Q14 14 14 22 Q10 24 12 32 Q10 40 16 44 Q18 50 26 50 Q30 54 32 50 Q34 54 38 50 Q46 50 48 44 Q54 40 52 32 Q54 24 50 22 Q50 14 42 14 Q38 10 32 12 Q26 10 22 14 Z"/>
+            <path d="M32 14 L32 50" opacity="0.4"/>
+            <path d="M22 24 Q26 28 22 32 Q26 36 22 40" opacity="0.4"/>
+            <path d="M42 24 Q38 28 42 32 Q38 36 42 40" opacity="0.4"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Brain &amp; Nervous System</h3>
+          <div class="years">Vital Systems</div>
+          <div class="tagline">The command center and its messengers</div>
+        </div>
+      </a>
+
+      <a href="heart-and-circulatory.html" class="card" style="--card-color: var(--body-2);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M32 54 Q14 40 14 24 Q14 14 22 14 Q30 14 32 22 Q34 14 42 14 Q50 14 50 24 Q50 40 32 54 Z"/>
+            <path d="M22 30 L28 30 L30 26 L34 36 L36 30 L42 30" opacity="0.6"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Heart &amp; Circulatory System</h3>
+          <div class="years">Vital Systems</div>
+          <div class="tagline">The pump and the river of blood</div>
+        </div>
+      </a>
+
+      <a href="lungs-and-respiratory.html" class="card" style="--card-color: var(--body-6);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M32 10 L32 30"/>
+            <path d="M28 14 L36 14"/>
+            <path d="M22 30 Q14 32 14 42 Q14 50 22 52 Q28 52 28 46 L28 30 Z"/>
+            <path d="M42 30 Q50 32 50 42 Q50 50 42 52 Q36 52 36 46 L36 30 Z"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Lungs &amp; Respiratory System</h3>
+          <div class="years">Vital Systems</div>
+          <div class="tagline">Every breath and the trade with the air</div>
+        </div>
+      </a>
+
+      <a href="digestive-system.html" class="card" style="--card-color: var(--body-5);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="22" y1="8" x2="22" y2="18"/>
+            <path d="M14 18 Q14 28 22 28 Q34 28 40 22 Q48 22 48 30 Q48 42 36 44 Q24 44 18 38 Q14 32 16 24"/>
+            <path d="M36 44 L34 54" opacity="0.6"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Digestive System</h3>
+          <div class="years">Vital Systems</div>
+          <div class="tagline">How food becomes fuel</div>
+        </div>
+      </a>
+
+    </div>
+
+    <div class="subsection"><h2>Support &amp; Defense</h2><span class="count">Four modules</span></div>
+    <div class="grid">
+
+      <a href="muscular-system.html" class="card" style="--card-color: var(--body-1);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 28 Q14 18 22 18 Q34 18 36 28 Q44 22 50 30 Q50 38 42 38 Q34 42 30 36 Q22 38 14 36 Q12 32 14 28 Z"/>
+            <path d="M18 28 Q22 24 26 28" opacity="0.5"/>
+            <path d="M30 30 Q34 26 38 30" opacity="0.5"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Muscular System</h3>
+          <div class="years">Support &amp; Defense</div>
+          <div class="tagline">How the body moves and pulls</div>
+        </div>
+      </a>
+
+      <a href="skeletal-system.html" class="card" style="--card-color: var(--body-8);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="32" cy="22" r="13"/>
+            <ellipse cx="26" cy="22" rx="3" ry="4" fill="currentColor"/>
+            <ellipse cx="38" cy="22" rx="3" ry="4" fill="currentColor"/>
+            <path d="M28 30 L30 34 L34 34 L36 30"/>
+            <line x1="24" y1="38" x2="40" y2="38"/>
+            <line x1="26" y1="38" x2="26" y2="44"/>
+            <line x1="32" y1="38" x2="32" y2="46"/>
+            <line x1="38" y1="38" x2="38" y2="44"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Skeletal System</h3>
+          <div class="years">Support &amp; Defense</div>
+          <div class="tagline">The frame that holds us together</div>
+        </div>
+      </a>
+
+      <a href="skin-and-senses.html" class="card" style="--card-color: var(--body-7);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M8 32 Q20 18 32 18 Q44 18 56 32 Q44 46 32 46 Q20 46 8 32 Z"/>
+            <circle cx="32" cy="32" r="8"/>
+            <circle cx="32" cy="32" r="3" fill="currentColor"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Skin &amp; Senses</h3>
+          <div class="years">Support &amp; Defense</div>
+          <div class="tagline">Touch, sight, sound, taste, and smell</div>
+        </div>
+      </a>
+
+      <a href="immune-and-endocrine.html" class="card" style="--card-color: var(--body-4);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="32" cy="32" r="18"/>
+            <path d="M32 22 L40 26 L40 36 Q40 42 32 44 Q24 42 24 36 L24 26 Z"/>
+            <circle cx="32" cy="32" r="2" fill="currentColor"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Immune &amp; Endocrine</h3>
+          <div class="years">Support &amp; Defense</div>
+          <div class="tagline">The body's defenders and chemical signals</div>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       TECHNOLOGY
+       ============================================================ -->
+  <section id="tech" class="panel" role="tabpanel">
+    <p class="section-intro">Four modules on using digital tools well, from the basics of hardware to safe and thoughtful use of AI.</p>
+
+    <div class="grid">
+
+      <a href="computer-basics.html" class="card" style="--card-color: var(--tech-1);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="10" y="10" width="44" height="28" rx="2"/>
+            <rect x="14" y="14" width="36" height="20" fill="currentColor" fill-opacity="0.15" stroke="none"/>
+            <line x1="22" y1="44" x2="42" y2="44"/>
+            <rect x="6" y="48" width="52" height="8" rx="1"/>
+            <circle cx="16" cy="52" r="0.7" fill="currentColor"/>
+            <circle cx="24" cy="52" r="0.7" fill="currentColor"/>
+            <circle cx="32" cy="52" r="0.7" fill="currentColor"/>
+            <circle cx="40" cy="52" r="0.7" fill="currentColor"/>
+            <circle cx="48" cy="52" r="0.7" fill="currentColor"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Computer Basics</h3>
+          <div class="years">Technology</div>
+          <div class="tagline">Hardware, software, and how it all connects</div>
+        </div>
+      </a>
+
+      <a href="internet-safety.html" class="card" style="--card-color: var(--tech-2);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M32 8 L52 16 L52 32 Q52 48 32 56 Q12 48 12 32 L12 16 Z"/>
+            <rect x="24" y="30" width="16" height="14"/>
+            <path d="M28 30 L28 26 Q28 22 32 22 Q36 22 36 26 L36 30"/>
+            <circle cx="32" cy="37" r="1.5" fill="currentColor"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Internet Safety</h3>
+          <div class="years">Technology</div>
+          <div class="tagline">Privacy, passwords, and staying secure</div>
+        </div>
+      </a>
+
+      <a href="search-and-research-skills.html" class="card" style="--card-color: var(--tech-3);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="26" cy="26" r="14"/>
+            <line x1="36" y1="36" x2="52" y2="52"/>
+            <line x1="18" y1="26" x2="34" y2="26" opacity="0.5"/>
+            <line x1="26" y1="18" x2="26" y2="34" opacity="0.5"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Search &amp; Research Skills</h3>
+          <div class="years">Technology</div>
+          <div class="tagline">Finding good information and using it well</div>
+        </div>
+      </a>
+
+      <a href="ai-and-digital-responsibility.html" class="card" style="--card-color: var(--tech-4);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="18" y="18" width="28" height="28" rx="2"/>
+            <circle cx="32" cy="32" r="4"/>
+            <line x1="32" y1="18" x2="32" y2="10"/>
+            <line x1="32" y1="46" x2="32" y2="54"/>
+            <line x1="18" y1="32" x2="10" y2="32"/>
+            <line x1="46" y1="32" x2="54" y2="32"/>
+            <line x1="22" y1="22" x2="18" y2="18"/>
+            <line x1="42" y1="22" x2="46" y2="18"/>
+            <line x1="22" y1="42" x2="18" y2="46"/>
+            <line x1="42" y1="42" x2="46" y2="46"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>AI &amp; Digital Responsibility</h3>
+          <div class="years">Technology</div>
+          <div class="tagline">Using new tools thoughtfully and ethically</div>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       COMPUTER SCIENCE
+       ============================================================ -->
+  <section id="cs" class="panel" role="tabpanel">
+    <p class="section-intro">Four modules on how programs work: the structures that shape code and the languages that make it run.</p>
+
+    <div class="grid">
+
+      <a href="algorithms-and-code.html" class="card" style="--card-color: var(--cs-1);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 16 L10 32 L20 48"/>
+            <path d="M44 16 L54 32 L44 48"/>
+            <line x1="38" y1="20" x2="26" y2="44"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Algorithms &amp; Code</h3>
+          <div class="years">Computer Science</div>
+          <div class="tagline">Recipes for telling a computer what to do</div>
+        </div>
+      </a>
+
+      <a href="variables-and-loops.html" class="card" style="--card-color: var(--cs-2);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 32 Q14 14 32 14 Q50 14 50 32 Q50 50 32 50 Q22 50 18 44"/>
+            <path d="M14 38 L18 44 L24 40"/>
+            <text x="32" y="37" text-anchor="middle" font-size="12" font-family="monospace" font-weight="600" fill="currentColor" stroke="none">x</text>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Variables &amp; Loops</h3>
+          <div class="years">Computer Science</div>
+          <div class="tagline">Holding values and repeating actions</div>
+        </div>
+      </a>
+
+      <a href="python-and-scratch.html" class="card" style="--card-color: var(--cs-3);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 14 L34 14 Q42 14 42 22 L42 30 L20 30 Q14 30 14 36 L14 50"/>
+            <path d="M50 50 L30 50 Q22 50 22 42 L22 34"/>
+            <circle cx="20" cy="20" r="1.5" fill="currentColor"/>
+            <circle cx="44" cy="44" r="1.5" fill="currentColor"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Python &amp; Scratch</h3>
+          <div class="years">Computer Science</div>
+          <div class="tagline">Two languages for learning to program</div>
+        </div>
+      </a>
+
+      <a href="data-and-binary.html" class="card" style="--card-color: var(--cs-4);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <text x="32" y="28" text-anchor="middle" font-size="13" font-family="monospace" font-weight="600" fill="currentColor" stroke="none">0 1 0</text>
+            <text x="32" y="46" text-anchor="middle" font-size="13" font-family="monospace" font-weight="600" fill="currentColor" stroke="none">1 0 1</text>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Data &amp; Binary</h3>
+          <div class="years">Computer Science</div>
+          <div class="tagline">How computers store everything as ones and zeros</div>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       ART & ART HISTORY
+       ============================================================ -->
+  <section id="art" class="panel" role="tabpanel">
+    <p class="section-intro">Nine modules across the major movements in art history and the visual principles that underlie them all.</p>
+
+    <div class="subsection"><h2>Major Movements</h2><span class="count">Six modules</span></div>
+    <div class="grid">
+
+      <a href="ancient-and-classical-art.html" class="card" style="--card-color: var(--art-1);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M24 10 L40 10 L40 14 L36 14 L36 18 Q44 22 44 32 Q44 44 32 50 Q20 44 20 32 Q20 22 28 18 L28 14 L24 14 Z"/>
+            <line x1="20" y1="50" x2="44" y2="50"/>
+            <path d="M22 26 Q32 22 42 26" opacity="0.4"/>
+            <path d="M22 38 Q32 42 42 38" opacity="0.4"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Ancient &amp; Classical</h3>
+          <div class="years">Art History</div>
+          <div class="tagline">Greek vases, Roman frescoes, sacred form</div>
+        </div>
+      </a>
+
+      <a href="renaissance-art.html" class="card" style="--card-color: var(--art-3);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="12" y="10" width="40" height="44"/>
+            <rect x="16" y="14" width="32" height="36"/>
+            <circle cx="32" cy="26" r="5"/>
+            <path d="M22 50 Q22 38 32 38 Q42 38 42 50"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Renaissance</h3>
+          <div class="years">14th to 17th century</div>
+          <div class="tagline">Rebirth, realism, and the human form</div>
+        </div>
+      </a>
+
+      <a href="baroque-and-romantic.html" class="card" style="--card-color: var(--art-5);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 32 Q14 14 32 14 Q50 14 50 32 Q50 50 32 50 Q14 50 14 32 Z"/>
+            <path d="M22 22 Q32 28 22 38" opacity="0.7"/>
+            <path d="M42 22 Q32 28 42 38" opacity="0.7"/>
+            <circle cx="32" cy="22" r="2" fill="currentColor"/>
+            <circle cx="32" cy="42" r="2" fill="currentColor"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Baroque &amp; Romantic</h3>
+          <div class="years">17th to 19th century</div>
+          <div class="tagline">Drama, ornament, and sublime feeling</div>
+        </div>
+      </a>
+
+      <a href="impressionism.html" class="card" style="--card-color: var(--art-4);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round">
+            <line x1="12" y1="20" x2="20" y2="22"/>
+            <line x1="24" y1="18" x2="32" y2="22"/>
+            <line x1="36" y1="20" x2="44" y2="22"/>
+            <line x1="48" y1="18" x2="56" y2="20"/>
+            <line x1="12" y1="32" x2="22" y2="34"/>
+            <line x1="26" y1="30" x2="34" y2="34"/>
+            <line x1="38" y1="32" x2="46" y2="34"/>
+            <line x1="50" y1="30" x2="58" y2="32"/>
+            <line x1="14" y1="44" x2="22" y2="46"/>
+            <line x1="26" y1="42" x2="34" y2="46"/>
+            <line x1="38" y1="44" x2="46" y2="46"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Impressionism</h3>
+          <div class="years">Late 19th century</div>
+          <div class="tagline">Light, gesture, and the modern moment</div>
+        </div>
+      </a>
+
+      <a href="modernism.html" class="card" style="--card-color: var(--art-2);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="10" y="10" width="20" height="20" fill="currentColor" fill-opacity="0.25"/>
+            <circle cx="44" cy="20" r="12"/>
+            <path d="M16 38 L40 38 L28 54 Z" fill="currentColor" fill-opacity="0.15"/>
+            <rect x="40" y="38" width="14" height="16"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Modernism</h3>
+          <div class="years">20th century</div>
+          <div class="tagline">Cubism, abstraction, breaking the frame</div>
+        </div>
+      </a>
+
+      <a href="contemporary-art.html" class="card" style="--card-color: var(--art-6);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="10" y="10" width="44" height="44"/>
+            <path d="M14 14 L26 14 L26 26 L14 26 Z" fill="currentColor" fill-opacity="0.6" stroke="none"/>
+            <path d="M30 14 L42 14 L42 26 L30 26 Z" fill="currentColor" fill-opacity="0.3" stroke="none"/>
+            <path d="M14 30 L20 50 L28 30 Z" fill="currentColor" fill-opacity="0.5" stroke="none"/>
+            <circle cx="40" cy="42" r="8" fill="none" stroke-width="3"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Contemporary Art</h3>
+          <div class="years">1960s to today</div>
+          <div class="tagline">Concept, installation, and the present moment</div>
+        </div>
+      </a>
+
+    </div>
+
+    <div class="subsection"><h2>Visual Principles</h2><span class="count">Three modules</span></div>
+    <div class="grid">
+
+      <a href="composition.html" class="card" style="--card-color: var(--art-4);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="10" y="14" width="44" height="36"/>
+            <line x1="24" y1="14" x2="24" y2="50" opacity="0.5"/>
+            <line x1="40" y1="14" x2="40" y2="50" opacity="0.5"/>
+            <line x1="10" y1="26" x2="54" y2="26" opacity="0.5"/>
+            <line x1="10" y1="38" x2="54" y2="38" opacity="0.5"/>
+            <circle cx="40" cy="26" r="3" fill="currentColor"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Composition</h3>
+          <div class="years">Visual Principles</div>
+          <div class="tagline">How the eye is guided across the frame</div>
+        </div>
+      </a>
+
+      <a href="color-theory.html" class="card" style="--card-color: var(--art-3);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="32" cy="32" r="22"/>
+            <line x1="32" y1="10" x2="32" y2="54" opacity="0.6"/>
+            <line x1="10" y1="32" x2="54" y2="32" opacity="0.6"/>
+            <line x1="16" y1="16" x2="48" y2="48" opacity="0.6"/>
+            <line x1="48" y1="16" x2="16" y2="48" opacity="0.6"/>
+            <circle cx="32" cy="32" r="6" fill="currentColor"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Color Theory</h3>
+          <div class="years">Visual Principles</div>
+          <div class="tagline">The wheel, harmonies, and emotional temperature</div>
+        </div>
+      </a>
+
+      <a href="architecture-and-design.html" class="card" style="--card-color: var(--art-1);">
+        <div class="card-icon">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="10" y="14" width="36" height="40"/>
+            <path d="M14 18 L24 30 L34 22 L42 38"/>
+            <line x1="40" y1="10" x2="56" y2="10"/>
+            <line x1="40" y1="14" x2="56" y2="14"/>
+            <line x1="44" y1="10" x2="44" y2="14" opacity="0.5"/>
+            <line x1="48" y1="10" x2="48" y2="14" opacity="0.5"/>
+            <line x1="52" y1="10" x2="52" y2="14" opacity="0.5"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>Architecture &amp; Design</h3>
+          <div class="years">Visual Principles</div>
+          <div class="tagline">Form, function, and the built world</div>
         </div>
       </a>
 
